@@ -18,6 +18,7 @@
 		D203358F2400201A0004CA26 /* EasyMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203358E2400201A0004CA26 /* EasyMode.swift */; };
 		D2033591240020640004CA26 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2033590240020640004CA26 /* Player.swift */; };
 		D2033593240029FD0004CA26 /* NormalModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2033592240029FD0004CA26 /* NormalModeViewController.swift */; };
+		D21D465B24092D6F00F776D1 /* endOfGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		D203358E2400201A0004CA26 /* EasyMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyMode.swift; sourceTree = "<group>"; };
 		D2033590240020640004CA26 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		D2033592240029FD0004CA26 /* NormalModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalModeViewController.swift; sourceTree = "<group>"; };
+		D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endOfGameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		D203357424001E700004CA26 /* AstroLingo */ = {
 			isa = PBXGroup;
 			children = (
+				D2064246240412CE008B10AB /* Dictionary */,
 				D203358924001EC70004CA26 /* Supporting Files */,
 				D203358C24001FDA0004CA26 /* AstroLingo.swift */,
 				D203358E2400201A0004CA26 /* EasyMode.swift */,
@@ -73,6 +76,7 @@
 				D203357724001E700004CA26 /* SceneDelegate.swift */,
 				D203357924001E700004CA26 /* EasyModeViewController.swift */,
 				D2033592240029FD0004CA26 /* NormalModeViewController.swift */,
+				D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */,
 				D203357B24001E700004CA26 /* Main.storyboard */,
 				D203358324001E800004CA26 /* Info.plist */,
 			);
@@ -88,6 +92,13 @@
 				D203358A24001F9F0004CA26 /* Supporting Code.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D2064246240412CE008B10AB /* Dictionary */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Dictionary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +175,7 @@
 				D203357A24001E700004CA26 /* EasyModeViewController.swift in Sources */,
 				D203357624001E700004CA26 /* AppDelegate.swift in Sources */,
 				D203358F2400201A0004CA26 /* EasyMode.swift in Sources */,
+				D21D465B24092D6F00F776D1 /* endOfGameViewController.swift in Sources */,
 				D203358B24001F9F0004CA26 /* Supporting Code.swift in Sources */,
 				D2033591240020640004CA26 /* Player.swift in Sources */,
 				D203357824001E700004CA26 /* SceneDelegate.swift in Sources */,

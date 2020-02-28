@@ -15,41 +15,7 @@ class NormalModeViewController: UIViewController  {
     
     @IBOutlet weak var wrongAnswersCounter: UILabel!
         
-    
-    @IBOutlet weak var endOfGamePopUp: UILabel!
-    
-    
     @IBOutlet weak var inputTextField: UITextField!
-//    {
-//        didSet {
-//
-//            if inputTextField.text!.count > 1
-//            {
-//                game.enterWord(playersWord: inputTextField.text!)
-//
-//                updateScreen()
-//
-//                if game.numberOfWordsLeft < 1 {
-//                    gameOverScreenForSuccess()
-//                }
-//            }
-//
-//        }
-        
-        
-        
-//    }
-    
-    func gameOverScreenForSuccess() {
-        endOfGamePopUp.text = "Victory!!!🙂\nScore: \(game.score) \nCA: \(game.correctAnswersEntered) WA: \(game.wrongAnswersEntered)"//TODO: [Change this output to something more suitable]
-        endOfGamePopUp.isHidden = false
-    }
-    
-    func gameOverScreenforFail()  {
-        
-        
-    }
-    
     
     
     func fillUpAsteroids()  {
@@ -78,48 +44,63 @@ class NormalModeViewController: UIViewController  {
     
 
     @IBAction func wordIsEdited(_ sender: UITextField) {
-        
+        sender.text = sender.text?.lowercased() //convert all input in the textfield to lowercase
         if game.checkIfWordCanBeFound(wordToBeChecked: sender.text!) {
             sender.textColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
         }
         else {
             sender.textColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
         }
+    }
+  
+    
+    @IBAction func wordIsEntered(_ sender: UITextField) {
+//        if(sender.text!.count>0) {
+            game.enterWord(playersWord: sender.text!)
+            
+//        }
+        if game.isOver() {
+            performSegue(withIdentifier: "endOfGame", sender: self)
+        }
+        else {
+           sender.text = ""
+           updateScreen()
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        let destinationViewController = segue.destination as? endOfGameViewController
         
+        destinationViewController?.score = self.game.score
+        destinationViewController?.livesLeft = self.game.player.getLives()
+        destinationViewController?.correctAnswers=self.game.correctAnswersEntered
+        destinationViewController?.incorrectAnswers = self.game.wrongAnswersEntered
         
-//        sender.color
+        if game.player.getLives() > 0 {
+            destinationViewController?.didWin = true
+        }
+        else {
+            destinationViewController?.didWin = false
+        }//for hard mode make option for a draw. ie compare the player scores instead of the lives
+        
         
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
+
         inputTextField.autocorrectionType = .no
         inputTextField.enablesReturnKeyAutomatically = true
         inputTextField.becomeFirstResponder()
         inputTextField.isEnabled = true
         inputTextField.clearButtonMode = .always
         inputTextField.placeholder = "Let's play😎"
-        
-        
-        
-        
+        inputTextField.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
+            
+
         totalNumberOfWordsToBeShown = game.numberOfWordsLeft
         updateScreen()
-        
-        print("Tag 2")
-        
-        
 
-       
     }
-    
-    
-    
-    
-        
-
 }

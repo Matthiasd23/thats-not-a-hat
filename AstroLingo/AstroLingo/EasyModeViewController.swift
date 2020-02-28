@@ -4,9 +4,9 @@ class EasyModeViewController: UIViewController {
     
     @IBOutlet weak var wordsLeft: UIProgressView!
     var totalNumberOfWordsToBeShown = 0
-    
+   
     var game: EasyMode = EasyMode()
-    @IBOutlet var fallingWords: [UILabel]!
+    @IBOutlet var fallingWords: [UIButton]!
         
     @IBOutlet var options: [UIButton]!
         
@@ -17,45 +17,64 @@ class EasyModeViewController: UIViewController {
     @IBOutlet weak var correctAnswersCounter: UILabel!
     
     @IBOutlet weak var wrongAnswersCounter: UILabel!
-        
+  
     
-    @IBOutlet weak var endOfGamePopUp: UILabel!
+//    @IBAction func wordIsTouched(_ sender: UIButton) {
+//        //TODO: [Change this function from a touch to a swipe]
+//
+//        game.enterWord(playersWord: sender.currentTitle! )
+//
+//        updateScreen()
+//
+//        if game.numberOfWordsLeft < 1 {
+//            gameOverScreenForSuccess()
+//        }
+//
+//    }
     
-    @IBAction func wordIsTouched(_ sender: UIButton) {
-        //TODO: [Change this function from a touch to a swipe]
+   
+
+    @IBAction func wordIsSwiped(_ sender: UIButton) {
         
-        game.enterWord(playersWord: sender.currentTitle! )
         
-        updateScreen()
+//        game.enterWord(wordToBeMatched: fallingWords[Int.random(in: 0...2)].currentTitle!, playersWord: sender.currentTitle!)
+
+         
+
+         
+        game.enterWord(playersWord: sender.currentTitle!)
         
-        if game.numberOfWordsLeft < 1 {
-            gameOverScreenForSuccess()
+        if game.isOver() {
+            performSegue(withIdentifier: "endOfGame", sender: self)
         }
-        
-        
-        
-            
-        
-        
+        else {
+           updateScreen()
+        }
+
     }
     
-    func gameOverScreenForSuccess() {
-        endOfGamePopUp.text = "Victory!!!🙂\nScore: \(game.score) \nCA: \(game.correctAnswersEntered) WA: \(game.wrongAnswersEntered)"//TODO: [Change this output to something more suitable]
-        endOfGamePopUp.isHidden = false
-    }
-    
-    func gameOverScreenforFail()  {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        let destinationViewController = segue.destination as? endOfGameViewController
         
+        destinationViewController?.score = self.game.score
+        destinationViewController?.livesLeft = self.game.player.getLives()
+        destinationViewController?.correctAnswers=self.game.correctAnswersEntered
+        destinationViewController?.incorrectAnswers = self.game.wrongAnswersEntered
         
+        if game.player.getLives() > 0 {
+            destinationViewController?.didWin = true
+        }
+        else {
+            destinationViewController?.didWin = false
+        }//for hard mode make option for a draw. ie compare the player scores instead of the lives
     }
-    
-    
+       
     
     func fillUpAsteroids()  {
         let temp = game.getFallingWords()
         
         for x in 0..<fallingWords.count {
-            fallingWords[x].text = temp[x]
+            fallingWords[x].setTitle(temp[x], for: UIControl.State.normal)
         }
         
         if game.numberOfWordsLeft < 1 {

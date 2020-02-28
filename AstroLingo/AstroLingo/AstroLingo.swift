@@ -26,7 +26,7 @@ class AstroLingo {
         correctAnswersEntered = 0
         wrongAnswersEntered = 0
         player = Player()
-        wordDictionary = [ "1":["one","een"],
+        wordDictionary = ["1":["one","een"],
                          "2":["two","twee"],
                          "3":["three","drie"],
                          "4":["four","vier"],
@@ -89,6 +89,7 @@ class AstroLingo {
         print("=========================================\n")
     }
     
+    
     func enterWord(playersWord: String) {
         
         player.enterWord(wordEntered: playersWord)
@@ -130,6 +131,35 @@ class AstroLingo {
                     return true
                 }
             }
+        }
+        return false
+    }
+    
+    func enterWord(wordToBeMatched key: String, playersWord value: String) {
+        var wordIsCorrect = false
+        
+        if fallingWords[key]?.contains(value) ?? false{
+            fallingWords.removeValue(forKey: key)
+            fillFallingWords()
+            wordIsCorrect = true
+        }
+        
+        if wordIsCorrect {
+            player.update(with: "correctWord")
+            numberOfWordsLeft-=1
+            print("Translation correct\n")
+            correctAnswersEntered += 1
+        }
+        else {
+            player.update(with: "incorrectWord")
+            print("Incorrect Translation\n")
+            wrongAnswersEntered += 1
+        }
+    }
+    
+    func isOver() -> Bool {//game is over
+        if numberOfWordsLeft < 1 || player.getLives() < 1{
+            return true
         }
         return false
     }
