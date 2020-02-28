@@ -22,6 +22,23 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		23B46CA32409616A00DBDC36 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		23B46CA42409616A00DBDC36 /* BufferAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferAction.swift; sourceTree = "<group>"; };
+		23B46CA52409616B00DBDC36 /* Declarative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
+		23B46CA62409616B00DBDC36 /* SlotAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotAction.swift; sourceTree = "<group>"; };
+		23B46CA72409616B00DBDC36 /* Tokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		23B46CA82409616B00DBDC36 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		23B46CA92409616B00DBDC36 /* Instantiation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instantiation.swift; sourceTree = "<group>"; };
+		23B46CAA2409616B00DBDC36 /* BufferCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferCondition.swift; sourceTree = "<group>"; };
+		23B46CAB2409616B00DBDC36 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		23B46CAC2409616B00DBDC36 /* Vision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vision.swift; sourceTree = "<group>"; };
+		23B46CAD2409616B00DBDC36 /* FocusRing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusRing.swift; sourceTree = "<group>"; };
+		23B46CAE2409616B00DBDC36 /* Production.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
+		23B46CB02409616B00DBDC36 /* SlotCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
+		23B46CB12409616B00DBDC36 /* Chunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
+		23B46CB22409616B00DBDC36 /* Temporal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temporal.swift; sourceTree = "<group>"; };
+		23B46CB32409616B00DBDC36 /* Procedural.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Procedural.swift; sourceTree = "<group>"; };
+		23B46CB4240961B600DBDC36 /* ACTRWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ACTRWindowView.swift; path = "../../../../Core ACT-R/ACTRWindowView.swift"; sourceTree = "<group>"; };
 		D203357224001E700004CA26 /* AstroLingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstroLingo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D203357524001E700004CA26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D203357724001E700004CA26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +66,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23B46CA22409616A00DBDC36 /* Core Act-R */ = {
+			isa = PBXGroup;
+			children = (
+				23B46CB4240961B600DBDC36 /* ACTRWindowView.swift */,
+				23B46CA42409616A00DBDC36 /* BufferAction.swift */,
+				23B46CAA2409616B00DBDC36 /* BufferCondition.swift */,
+				23B46CB12409616B00DBDC36 /* Chunk.swift */,
+				23B46CA52409616B00DBDC36 /* Declarative.swift */,
+				23B46CAD2409616B00DBDC36 /* FocusRing.swift */,
+				23B46CA92409616B00DBDC36 /* Instantiation.swift */,
+				23B46CA32409616A00DBDC36 /* Model.swift */,
+				23B46CAB2409616B00DBDC36 /* Parser.swift */,
+				23B46CB32409616B00DBDC36 /* Procedural.swift */,
+				23B46CAE2409616B00DBDC36 /* Production.swift */,
+				23B46CA62409616B00DBDC36 /* SlotAction.swift */,
+				23B46CB02409616B00DBDC36 /* SlotCondition.swift */,
+				23B46CA82409616B00DBDC36 /* Support.swift */,
+				23B46CB22409616B00DBDC36 /* Temporal.swift */,
+				23B46CA72409616B00DBDC36 /* Tokenizer.swift */,
+				23B46CAC2409616B00DBDC36 /* Vision.swift */,
+			);
+			path = "Core Act-R";
+			sourceTree = "<group>";
+		};
 		D203356924001E700004CA26 = {
 			isa = PBXGroup;
 			children = (
@@ -79,6 +120,7 @@
 				D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */,
 				D203357B24001E700004CA26 /* Main.storyboard */,
 				D203358324001E800004CA26 /* Info.plist */,
+				23B46CA22409616A00DBDC36 /* Core Act-R */,
 			);
 			path = AstroLingo;
 			sourceTree = "<group>";
