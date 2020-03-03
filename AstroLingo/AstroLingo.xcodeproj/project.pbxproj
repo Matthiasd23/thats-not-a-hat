@@ -19,6 +19,9 @@
 		D2033591240020640004CA26 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2033590240020640004CA26 /* Player.swift */; };
 		D2033593240029FD0004CA26 /* NormalModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2033592240029FD0004CA26 /* NormalModeViewController.swift */; };
 		D21D465B24092D6F00F776D1 /* endOfGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */; };
+		D2209E6A240E799E004A2F5A /* GameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2209E69240E799E004A2F5A /* GameView.xib */; };
+		D27C6C59240E8ED500F3D5C8 /* AstrolingoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27C6C58240E8ED500F3D5C8 /* AstrolingoView.swift */; };
+		D27C6C5B240EBDAD00F3D5C8 /* testModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27C6C5A240EBDAD00F3D5C8 /* testModeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +56,9 @@
 		D2033590240020640004CA26 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		D2033592240029FD0004CA26 /* NormalModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalModeViewController.swift; sourceTree = "<group>"; };
 		D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endOfGameViewController.swift; sourceTree = "<group>"; };
+		D2209E69240E799E004A2F5A /* GameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameView.xib; sourceTree = "<group>"; };
+		D27C6C58240E8ED500F3D5C8 /* AstrolingoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrolingoView.swift; sourceTree = "<group>"; };
+		D27C6C5A240EBDAD00F3D5C8 /* testModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testModeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +124,11 @@
 				D203357924001E700004CA26 /* EasyModeViewController.swift */,
 				D2033592240029FD0004CA26 /* NormalModeViewController.swift */,
 				D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */,
+				D2209E69240E799E004A2F5A /* GameView.xib */,
 				D203357B24001E700004CA26 /* Main.storyboard */,
 				D203358324001E800004CA26 /* Info.plist */,
+				D27C6C58240E8ED500F3D5C8 /* AstrolingoView.swift */,
+				D27C6C5A240EBDAD00F3D5C8 /* testModeViewController.swift */,
 				23B46CA22409616A00DBDC36 /* Core Act-R */,
 			);
 			path = AstroLingo;
@@ -203,6 +212,7 @@
 			files = (
 				D203358224001E800004CA26 /* LaunchScreen.storyboard in Resources */,
 				D203357F24001E800004CA26 /* Assets.xcassets in Resources */,
+				D2209E6A240E799E004A2F5A /* GameView.xib in Resources */,
 				D203357D24001E700004CA26 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -220,8 +230,10 @@
 				D21D465B24092D6F00F776D1 /* endOfGameViewController.swift in Sources */,
 				D203358B24001F9F0004CA26 /* Supporting Code.swift in Sources */,
 				D2033591240020640004CA26 /* Player.swift in Sources */,
+				D27C6C5B240EBDAD00F3D5C8 /* testModeViewController.swift in Sources */,
 				D203357824001E700004CA26 /* SceneDelegate.swift in Sources */,
 				D2033593240029FD0004CA26 /* NormalModeViewController.swift in Sources */,
+				D27C6C59240E8ED500F3D5C8 /* AstrolingoView.swift in Sources */,
 				D203358D24001FDA0004CA26 /* AstroLingo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

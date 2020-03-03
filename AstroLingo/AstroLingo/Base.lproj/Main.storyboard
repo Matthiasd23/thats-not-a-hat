@@ -1,12 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4wH-MC-kGv">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uoh-6Q-ZnG">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Test Mode View Controller-->
+        <scene sceneID="kVr-8M-ZFE">
+            <objects>
+                <viewController id="uoh-6Q-ZnG" customClass="testModeViewController" customModule="AstroLingo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2CA-mm-BDD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Dv-Qw-ojO" customClass="AstrolingoView" customModule="AstroLingo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="618"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="61f-IE-7Ad" userLabel="options">
+                                <rect key="frame" x="175" y="672" width="64" height="117"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qvL-ba-1Y9">
+                                        <rect key="frame" x="0.0" y="0.0" width="64" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bnA-e6-1cx">
+                                        <rect key="frame" x="0.0" y="39" width="64" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3GS-cB-rGQ">
+                                        <rect key="frame" x="0.0" y="78" width="64" height="39"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="117" id="yXm-5f-ySj"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="TFR-LH-C6X" firstAttribute="bottom" secondItem="9Dv-Qw-ojO" secondAttribute="bottom" constant="200" id="2qn-dr-ldD"/>
+                            <constraint firstItem="9Dv-Qw-ojO" firstAttribute="top" secondItem="TFR-LH-C6X" secondAttribute="top" id="8cb-Vc-6tX"/>
+                            <constraint firstItem="61f-IE-7Ad" firstAttribute="top" secondItem="9Dv-Qw-ojO" secondAttribute="bottom" constant="10" id="D1X-zm-kRG"/>
+                            <constraint firstAttribute="trailing" secondItem="9Dv-Qw-ojO" secondAttribute="trailing" id="Qte-jW-QDy"/>
+                            <constraint firstItem="61f-IE-7Ad" firstAttribute="centerX" secondItem="2CA-mm-BDD" secondAttribute="centerX" id="Ssn-0U-bqu"/>
+                            <constraint firstItem="9Dv-Qw-ojO" firstAttribute="leading" secondItem="TFR-LH-C6X" secondAttribute="leading" id="wXp-KL-1Vh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="TFR-LH-C6X"/>
+                    </view>
+                    <connections>
+                        <outlet property="astrolingo" destination="9Dv-Qw-ojO" id="vS6-kr-wgJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="luN-nE-CRs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1730" y="-307"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="DQ7-60-aFV">
             <objects>
@@ -15,26 +70,44 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcg-3S-3q2">
-                                <rect key="frame" x="50" y="208" width="307" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="Easy Mode"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="pes-Ci-2QX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdz-eI-kq8">
-                                <rect key="frame" x="50" y="398" width="307" height="101"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="Medium Mode"/>
-                                <connections>
-                                    <segue destination="FP1-Ha-wRm" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="BSe-xC-9Ep"/>
-                                </connections>
-                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="space1" translatesAutoresizingMaskIntoConstraints="NO" id="U1k-4f-uPI">
+                                <rect key="frame" x="0.0" y="44" width="1024" height="1024"/>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="GmT-Qm-7Cf" userLabel="Game Modes Stack View">
+                                <rect key="frame" x="83.666666666666686" y="385.66666666666669" width="247" height="125"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcg-3S-3q2">
+                                        <rect key="frame" x="0.0" y="0.0" width="247" height="60"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <state key="normal" title="Easy Mode">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="BYZ-38-t0r" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="pes-Ci-2QX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sdz-eI-kq8">
+                                        <rect key="frame" x="0.0" y="65" width="247" height="60"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        <state key="normal" title="Medium Mode">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="FP1-Ha-wRm" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="BSe-xC-9Ep"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="GmT-Qm-7Cf" firstAttribute="centerX" secondItem="X6x-kO-RRy" secondAttribute="centerX" id="3uJ-gE-hOm"/>
+                            <constraint firstItem="U1k-4f-uPI" firstAttribute="top" secondItem="Wm5-aE-oan" secondAttribute="top" id="4LX-BI-y1x"/>
+                            <constraint firstItem="U1k-4f-uPI" firstAttribute="leading" secondItem="Wm5-aE-oan" secondAttribute="leading" id="Ocj-Eu-HIr"/>
+                            <constraint firstItem="GmT-Qm-7Cf" firstAttribute="centerY" secondItem="X6x-kO-RRy" secondAttribute="centerY" id="lkC-Wk-iYW"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Wm5-aE-oan"/>
                     </view>
                     <navigationItem key="navigationItem" id="i2j-2t-z5g"/>
@@ -326,9 +399,10 @@
     </scenes>
     <resources>
         <image name="arrowshape.turn.up.left.fill" catalog="system" width="64" height="52"/>
+        <image name="space1" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="jx9-Fg-7y9"/>
-        <segue reference="5oi-on-eJh"/>
+        <segue reference="0Bu-KN-WoB"/>
     </inferredMetricsTieBreakers>
 </document>
