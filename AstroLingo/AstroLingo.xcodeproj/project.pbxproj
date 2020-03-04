@@ -11,7 +11,6 @@
 		D203357824001E700004CA26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203357724001E700004CA26 /* SceneDelegate.swift */; };
 		D203357A24001E700004CA26 /* EasyModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203357924001E700004CA26 /* EasyModeViewController.swift */; };
 		D203357D24001E700004CA26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D203357B24001E700004CA26 /* Main.storyboard */; };
-		D203357F24001E800004CA26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D203357E24001E800004CA26 /* Assets.xcassets */; };
 		D203358224001E800004CA26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D203358024001E800004CA26 /* LaunchScreen.storyboard */; };
 		D203358B24001F9F0004CA26 /* Supporting Code.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203358A24001F9F0004CA26 /* Supporting Code.swift */; };
 		D203358D24001FDA0004CA26 /* AstroLingo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203358C24001FDA0004CA26 /* AstroLingo.swift */; };
@@ -21,7 +20,8 @@
 		D21D465B24092D6F00F776D1 /* endOfGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */; };
 		D2209E6A240E799E004A2F5A /* GameView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D2209E69240E799E004A2F5A /* GameView.xib */; };
 		D27C6C59240E8ED500F3D5C8 /* AstrolingoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27C6C58240E8ED500F3D5C8 /* AstrolingoView.swift */; };
-		D27C6C5B240EBDAD00F3D5C8 /* testModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27C6C5A240EBDAD00F3D5C8 /* testModeViewController.swift */; };
+		D27C6C5B240EBDAD00F3D5C8 /* NewEasyModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27C6C5A240EBDAD00F3D5C8 /* NewEasyModeViewController.swift */; };
+		D2AF0DB9240FD8FC0015CEBE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2AF0DB8240FD8FC0015CEBE /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +47,6 @@
 		D203357724001E700004CA26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D203357924001E700004CA26 /* EasyModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyModeViewController.swift; sourceTree = "<group>"; };
 		D203357C24001E700004CA26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D203357E24001E800004CA26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D203358124001E800004CA26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D203358324001E800004CA26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D203358A24001F9F0004CA26 /* Supporting Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Supporting Code.swift"; sourceTree = "<group>"; };
@@ -58,7 +57,8 @@
 		D21D465A24092D6F00F776D1 /* endOfGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = endOfGameViewController.swift; sourceTree = "<group>"; };
 		D2209E69240E799E004A2F5A /* GameView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GameView.xib; sourceTree = "<group>"; };
 		D27C6C58240E8ED500F3D5C8 /* AstrolingoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AstrolingoView.swift; sourceTree = "<group>"; };
-		D27C6C5A240EBDAD00F3D5C8 /* testModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = testModeViewController.swift; sourceTree = "<group>"; };
+		D27C6C5A240EBDAD00F3D5C8 /* NewEasyModeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEasyModeViewController.swift; sourceTree = "<group>"; };
+		D2AF0DB8240FD8FC0015CEBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,7 +128,7 @@
 				D203357B24001E700004CA26 /* Main.storyboard */,
 				D203358324001E800004CA26 /* Info.plist */,
 				D27C6C58240E8ED500F3D5C8 /* AstrolingoView.swift */,
-				D27C6C5A240EBDAD00F3D5C8 /* testModeViewController.swift */,
+				D27C6C5A240EBDAD00F3D5C8 /* NewEasyModeViewController.swift */,
 				23B46CA22409616A00DBDC36 /* Core Act-R */,
 			);
 			path = AstroLingo;
@@ -138,9 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				D203357524001E700004CA26 /* AppDelegate.swift */,
-				D203357E24001E800004CA26 /* Assets.xcassets */,
 				D203358024001E800004CA26 /* LaunchScreen.storyboard */,
 				D203358A24001F9F0004CA26 /* Supporting Code.swift */,
+				D2AF0DB8240FD8FC0015CEBE /* Assets.xcassets */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -211,8 +211,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D203358224001E800004CA26 /* LaunchScreen.storyboard in Resources */,
-				D203357F24001E800004CA26 /* Assets.xcassets in Resources */,
 				D2209E6A240E799E004A2F5A /* GameView.xib in Resources */,
+				D2AF0DB9240FD8FC0015CEBE /* Assets.xcassets in Resources */,
 				D203357D24001E700004CA26 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,7 +230,7 @@
 				D21D465B24092D6F00F776D1 /* endOfGameViewController.swift in Sources */,
 				D203358B24001F9F0004CA26 /* Supporting Code.swift in Sources */,
 				D2033591240020640004CA26 /* Player.swift in Sources */,
-				D27C6C5B240EBDAD00F3D5C8 /* testModeViewController.swift in Sources */,
+				D27C6C5B240EBDAD00F3D5C8 /* NewEasyModeViewController.swift in Sources */,
 				D203357824001E700004CA26 /* SceneDelegate.swift in Sources */,
 				D2033593240029FD0004CA26 /* NormalModeViewController.swift in Sources */,
 				D27C6C59240E8ED500F3D5C8 /* AstrolingoView.swift in Sources */,
@@ -377,7 +377,6 @@
 		D203358724001E800004CA26 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AstroLingo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -394,7 +393,6 @@
 		D203358824001E800004CA26 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AstroLingo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
