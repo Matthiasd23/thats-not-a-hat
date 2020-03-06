@@ -64,36 +64,36 @@ class AstroLingo {
         //adding words to declarative memory
         for (number, items) in wordDictionary {
             let x = Chunk(s: "we" + number, m: m)
-            x.setSlot(slot: "isa", value: "translation")
-            x.setSlot(slot: "numerical", value: number)
-            x.setSlot(slot: "english", value: items[0])
-            x.setSlot(slot: "dutch", value: items[1])
-            x.setSlot(slot: "learned", value: "new")
+            x.setSlot(slot: "isa", value: "translation") // creating chunk type
+            x.setSlot(slot: "numerical", value: number) // creating first slot with numerical values
+            x.setSlot(slot: "english", value: items[0]) // creating second slot with english word
+            x.setSlot(slot: "dutch", value: items[1]) // creating third slot with dutch translation
+            x.setSlot(slot: "learned", value: "new")  // defining whether chunk was used before
             m.dm.addToDM(x)
         }
-        m.dm.activationNoise = 0.0
+        m.dm.activationNoise = 0.0 // setting activation noise to 0
         fallingWords = [:]
     }
     //creating function for retrieving next word
-    func nextWord(lower: Double, higher: Double) -> Chunk {
-        var lowestInRange: Chunk? = nil
-        var lowestInRangeValue: Double = 10000
-        var lowerThanLower: [Chunk] = []
-        for (_,chunk) in m.dm.chunks {
-            let act = chunk.activation()
-            if act >= lower  && act < lowestInRangeValue {
+    func nextWord(lower: Double, higher: Double) -> Chunk { // finding optimal chunk for retrieval
+        var lowestInRange: Chunk? = nil //defining variable to save chunk with best activation levels
+        var lowestInRangeValue: Double = 10000 //defining variable to save the lowest value in the range
+        var lowerThanLower: [Chunk] = [] //defining variable for saving chunk lower than opimal retrieval values
+        for (_,chunk) in m.dm.chunks { //retrieving chunk from declarative memory
+            let act = chunk.activation() //retrieving activation of chunk
+            if act >= lower  && act < lowestInRangeValue { //checking if value in range exists, if so save it
                 lowestInRangeValue = act
                 lowestInRange = chunk
-            } else if act < lower {
+            } else if act < lower { //otherwise if value lower than this activation exists safe it
                 lowerThanLower.append(chunk)
             }
         }
-        if (lowestInRange != nil && lowestInRangeValue <= higher) {
+        if (lowestInRange != nil && lowestInRangeValue <= higher) { //return lowest in range
             return lowestInRange!
         } else
-            if !lowerThanLower.isEmpty {
+            if !lowerThanLower.isEmpty { //return random chunk if value lowerThanLower
                 return lowerThanLower[Int(arc4random_uniform(UInt32(lowerThanLower.count)))]
-        } else {
+        } else { //if non of the above is true return lowest value
             return lowestInRange!
         }
         
