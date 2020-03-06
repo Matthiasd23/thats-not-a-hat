@@ -75,6 +75,7 @@ class Model {
     func addToTrace(string s: String) {
         let timeString = String(format:"%.2f", time)
         trace += "\(timeString)  " + s + "\n"
+        print("\(timeString)" + s)
     }
     
     func clearTrace() {
