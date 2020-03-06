@@ -7,6 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2371A1AC2412772600F69090 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CA32409616A00DBDC36 /* Model.swift */; };
+		2371A1AD2412773500F69090 /* ACTRWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CB4240961B600DBDC36 /* ACTRWindowView.swift */; };
+		2371A1AE2412776800F69090 /* BufferAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CA42409616A00DBDC36 /* BufferAction.swift */; };
+		2371A1AF2412776C00F69090 /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CAA2409616B00DBDC36 /* BufferCondition.swift */; };
+		2371A1B02412777200F69090 /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CB12409616B00DBDC36 /* Chunk.swift */; };
+		2371A1B12412780E00F69090 /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CA52409616B00DBDC36 /* Declarative.swift */; };
+		2371A1B2241278B700F69090 /* FocusRing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CAD2409616B00DBDC36 /* FocusRing.swift */; };
+		2371A1B3241278BA00F69090 /* Instantiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CA92409616B00DBDC36 /* Instantiation.swift */; };
+		2371A1B4241278BF00F69090 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CAB2409616B00DBDC36 /* Parser.swift */; };
+		2371A1B5241278C300F69090 /* Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CB32409616B00DBDC36 /* Procedural.swift */; };
+		2371A1B6241278C600F69090 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CAE2409616B00DBDC36 /* Production.swift */; };
+		2371A1B7241278C900F69090 /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CA62409616B00DBDC36 /* SlotAction.swift */; };
+		2371A1B8241278CC00F69090 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CB02409616B00DBDC36 /* SlotCondition.swift */; };
+		2371A1B9241278D000F69090 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CA82409616B00DBDC36 /* Support.swift */; };
+		2371A1BA241278D300F69090 /* Temporal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CB22409616B00DBDC36 /* Temporal.swift */; };
+		2371A1BB241278D500F69090 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CA72409616B00DBDC36 /* Tokenizer.swift */; };
+		2371A1BC241278D800F69090 /* Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B46CAC2409616B00DBDC36 /* Vision.swift */; };
+		2371A1BE24127D3D00F69090 /* DeACT.actr in Resources */ = {isa = PBXBuildFile; fileRef = 2371A1BD24127D3D00F69090 /* DeACT.actr */; };
 		D203357624001E700004CA26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203357524001E700004CA26 /* AppDelegate.swift */; };
 		D203357824001E700004CA26 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203357724001E700004CA26 /* SceneDelegate.swift */; };
 		D203357A24001E700004CA26 /* EasyModeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D203357924001E700004CA26 /* EasyModeViewController.swift */; };
@@ -25,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2371A1BD24127D3D00F69090 /* DeACT.actr */ = {isa = PBXFileReference; lastKnownFileType = text; path = DeACT.actr; sourceTree = "<group>"; };
 		23B46CA32409616A00DBDC36 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		23B46CA42409616A00DBDC36 /* BufferAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferAction.swift; sourceTree = "<group>"; };
 		23B46CA52409616B00DBDC36 /* Declarative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
@@ -41,7 +60,7 @@
 		23B46CB12409616B00DBDC36 /* Chunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
 		23B46CB22409616B00DBDC36 /* Temporal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temporal.swift; sourceTree = "<group>"; };
 		23B46CB32409616B00DBDC36 /* Procedural.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Procedural.swift; sourceTree = "<group>"; };
-		23B46CB4240961B600DBDC36 /* ACTRWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ACTRWindowView.swift; path = "../../../../Core ACT-R/ACTRWindowView.swift"; sourceTree = "<group>"; };
+		23B46CB4240961B600DBDC36 /* ACTRWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ACTRWindowView.swift; sourceTree = "<group>"; };
 		D203357224001E700004CA26 /* AstroLingo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AstroLingo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D203357524001E700004CA26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D203357724001E700004CA26 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +149,7 @@
 				D27C6C58240E8ED500F3D5C8 /* AstrolingoView.swift */,
 				D27C6C5A240EBDAD00F3D5C8 /* NewEasyModeViewController.swift */,
 				23B46CA22409616A00DBDC36 /* Core Act-R */,
+				2371A1BD24127D3D00F69090 /* DeACT.actr */,
 			);
 			path = AstroLingo;
 			sourceTree = "<group>";
@@ -214,6 +234,7 @@
 				D2209E6A240E799E004A2F5A /* GameView.xib in Resources */,
 				D2AF0DB9240FD8FC0015CEBE /* Assets.xcassets in Resources */,
 				D203357D24001E700004CA26 /* Main.storyboard in Resources */,
+				2371A1BE24127D3D00F69090 /* DeACT.actr in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,14 +248,31 @@
 				D203357A24001E700004CA26 /* EasyModeViewController.swift in Sources */,
 				D203357624001E700004CA26 /* AppDelegate.swift in Sources */,
 				D203358F2400201A0004CA26 /* EasyMode.swift in Sources */,
+				2371A1AC2412772600F69090 /* Model.swift in Sources */,
+				2371A1B6241278C600F69090 /* Production.swift in Sources */,
 				D21D465B24092D6F00F776D1 /* endOfGameViewController.swift in Sources */,
+				2371A1AF2412776C00F69090 /* BufferCondition.swift in Sources */,
+				2371A1B8241278CC00F69090 /* SlotCondition.swift in Sources */,
 				D203358B24001F9F0004CA26 /* Supporting Code.swift in Sources */,
+				2371A1AD2412773500F69090 /* ACTRWindowView.swift in Sources */,
 				D2033591240020640004CA26 /* Player.swift in Sources */,
+				2371A1B5241278C300F69090 /* Procedural.swift in Sources */,
 				D27C6C5B240EBDAD00F3D5C8 /* NewEasyModeViewController.swift in Sources */,
+				2371A1B7241278C900F69090 /* SlotAction.swift in Sources */,
+				2371A1B2241278B700F69090 /* FocusRing.swift in Sources */,
+				2371A1BC241278D800F69090 /* Vision.swift in Sources */,
 				D203357824001E700004CA26 /* SceneDelegate.swift in Sources */,
+				2371A1B4241278BF00F69090 /* Parser.swift in Sources */,
 				D2033593240029FD0004CA26 /* NormalModeViewController.swift in Sources */,
+				2371A1B3241278BA00F69090 /* Instantiation.swift in Sources */,
 				D27C6C59240E8ED500F3D5C8 /* AstrolingoView.swift in Sources */,
 				D203358D24001FDA0004CA26 /* AstroLingo.swift in Sources */,
+				2371A1B9241278D000F69090 /* Support.swift in Sources */,
+				2371A1AE2412776800F69090 /* BufferAction.swift in Sources */,
+				2371A1B12412780E00F69090 /* Declarative.swift in Sources */,
+				2371A1B02412777200F69090 /* Chunk.swift in Sources */,
+				2371A1BB241278D500F69090 /* Tokenizer.swift in Sources */,
+				2371A1BA241278D300F69090 /* Temporal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,7 +2,12 @@
 import UIKit
 
 class testModeViewController: UIViewController {
-
+//    let model = Model()
+//    override func viewDidLoad(){
+//        super.viewDidLoad()
+//        model.loadModel(fileName: "DeACT.actr")
+//        model.run()
+//    }
     var totalNumberOfWordsToBeShown = 0
     var game = AstroLingo()
     

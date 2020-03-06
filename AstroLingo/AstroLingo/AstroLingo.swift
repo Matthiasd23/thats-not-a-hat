@@ -19,6 +19,8 @@ class AstroLingo {
     var fallingWords: [String:[String]]
     var wordDictionary: [String:[String]] //wordDictionary[](): Dictionary of all the words available for the game
     
+    let m = Model()
+    
     init() {
         score = 0
         numberOfWordsLeft = 10 //TODO: [What is the Starting number of Words Left?]
@@ -47,20 +49,54 @@ class AstroLingo {
                          "19":["nineteen","negentien"],
                          "20":["twenty","twintig"],
                          "21":["twenty one","eenentwintig"],
-                         "22":["twenty two"],
-                         "23":["twenty three"],
-                         "24":["twenty four"],
-                         "25":["twenty five"],
-                         "26":["twenty six"],
-                         "27":["twenty seven"] ]
+                         "22":["twenty two","tweeentwintig"],
+                         "23":["twenty three","drieentwintig"],
+                         "24":["twenty four","vierentwintig"],
+                         "25":["twenty five","vijfentwintig"],
+                         "26":["twenty six","zesentwintig"],
+                         "27":["twenty seven","zevenentwintig"] ]
             
 //
 //
 //
 //
 //            ["dog":["dog"], "cat":["cat"], "horse":["horse"], "lion":["lion"], "elephant":["elephant"], "ostrich":["ostrich"], "jaguar":["jaguar"], "panda":["panda"], "snail":["snail"], "monkey":["monkey"], "goose":["goose"]]
-            
+        //adding words to declarative memory
+        for (number, items) in wordDictionary {
+            let x = Chunk(s: "we" + number, m: m)
+            x.setSlot(slot: "isa", value: "translation")
+            x.setSlot(slot: "numerical", value: number)
+            x.setSlot(slot: "english", value: items[0])
+            x.setSlot(slot: "dutch", value: items[1])
+            x.setSlot(slot: "learned", value: "new")
+            m.dm.addToDM(x)
+        }
+        m.dm.activationNoise = 0.0
         fallingWords = [:]
+    }
+    //creating function for retrieving next word
+    func nextWord(lower: Double, higher: Double) -> Chunk {
+        var lowestInRange: Chunk? = nil
+        var lowestInRangeValue: Double = 10000
+        var lowerThanLower: [Chunk] = []
+        for (_,chunk) in m.dm.chunks {
+            let act = chunk.activation()
+            if act >= lower  && act < lowestInRangeValue {
+                lowestInRangeValue = act
+                lowestInRange = chunk
+            } else if act < lower {
+                lowerThanLower.append(chunk)
+            }
+        }
+        if (lowestInRange != nil && lowestInRangeValue <= higher) {
+            return lowestInRange!
+        } else
+            if !lowerThanLower.isEmpty {
+                return lowerThanLower[Int(arc4random_uniform(UInt32(lowerThanLower.count)))]
+        } else {
+            return lowestInRange!
+        }
+        
     }
     
     func fillFallingWords()  {
