@@ -32,6 +32,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232B8BF02B860F8E005957CB /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		232B8BF12B860FCB005957CB /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = viewmodel;
+			sourceTree = "<group>";
+		};
+		232B8BF22B860FD5005957CB /* view */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		23884D472B86078D00178E40 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +72,9 @@
 		23884D522B86078E00178E40 /* ThatsNotAHat */ = {
 			isa = PBXGroup;
 			children = (
+				232B8BF22B860FD5005957CB /* view */,
+				232B8BF12B860FCB005957CB /* viewmodel */,
+				232B8BF02B860F8E005957CB /* model */,
 				23884D532B86078E00178E40 /* ThatsNotAHatApp.swift */,
 				23884D552B86078E00178E40 /* ContentView.swift */,
 				23884D572B86079900178E40 /* Assets.xcassets */,
