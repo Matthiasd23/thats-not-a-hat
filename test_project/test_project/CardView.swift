@@ -12,9 +12,14 @@ struct CardView: View{
     @State var isFaceUp: Bool = false   // Wether it is facing up or down, needed when checking the card
     @State var arrow: String            // The arrow as an emoji pointing in a direction (maybe bool is better)
     @State var cardState: Bool = true // This i thought for having an acutal card there, or just a placeholder.
+    @State var isSelected: Bool = false
     
     var body: some View {
         ZStack{
+            if isSelected {
+                RoundedRectangle(cornerRadius:20)
+                    .stroke(Color.green, lineWidth: 7)
+            }
             let shape = RoundedRectangle(cornerRadius: 20)
             if cardState == true {
                 if isFaceUp == true {      // Some card state 1 is face up, 2 is face down and 3 is the placeholder

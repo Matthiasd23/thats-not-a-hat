@@ -20,7 +20,7 @@ struct PassCardView: View {
                 PlayerView(player: "Bot 2") // bot 2
             }
             CardStackView()
-            PlayerView(player: "Player") // This should be the player
+            PlayerView(player: "Player", isTurn: true) // This should be the player
            
             // Idk if this is the correct place to make the call for which HStack to call, but yeah should then be made here
             // I think we might need 3 different views
@@ -37,6 +37,13 @@ struct PassCardView: View {
             }
         }
 
+    }
+}
+
+
+struct PassCardView_Previews: PreviewProvider {
+    static var previews: some View {
+        PassCardView()
     }
 }
 
