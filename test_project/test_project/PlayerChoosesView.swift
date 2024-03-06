@@ -15,7 +15,7 @@ struct PlayerChoosesView: View {
     var body: some View {
         VStack{
             HStack{
-                PlayerView(player: "Bot 1") // bot 1
+                PlayerView(player: "Bot 1", isTurn: true) // bot 1
                 Spacer()
                 PlayerView(player: "Bot 2") // bot 2
             }

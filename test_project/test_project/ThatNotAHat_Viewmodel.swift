@@ -24,7 +24,11 @@ class ThatNotAHatGame {
         return emojis.remove(at: index)
     }
     
-    private var model = ThatsNotAHat<String>(cardContentFactory: selectAndRemove)
+    private static func randomDirection() -> Bool {
+        return arc4random_uniform(2) == 0
+    }
+    
+    private var model = ThatsNotAHat<String>(cardContentFactory: ThatNotAHatGame.selectAndRemove, directionFactory: ThatNotAHatGame.randomDirection)
     
     func acceptCard() {
         model.acceptCard()
