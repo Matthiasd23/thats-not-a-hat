@@ -30,7 +30,7 @@ struct PlayerChoosesView: View {
                 Button(action: {} , label: {Text("Decline")}).padding(.horizontal)
             }
         }
-
+        .background(Color("lightPink"))
     }
 }
 

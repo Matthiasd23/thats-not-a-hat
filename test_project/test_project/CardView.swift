@@ -23,16 +23,16 @@ struct CardView: View{
             let shape = RoundedRectangle(cornerRadius: 20)
             if cardState == true {
                 if isFaceUp == true {      // Some card state 1 is face up, 2 is face down and 3 is the placeholder
-                    shape.fill().foregroundColor(.blue)
+                    shape.fill().foregroundColor(.white)
                     shape.stroke(lineWidth:4)
                     
                     Text(content)
                 } else { // 2 is face down
-                    shape.fill()
+                    shape.fill().foregroundColor(Color("ThatsNotAHatPink"))
                     Text(arrow)
                 }
             } else { // This case should be displayed when the player only has 1 card
-                shape.fill().foregroundColor(.white)
+                shape.fill().foregroundColor(Color("lightPink"))
                 shape.stroke(style: StrokeStyle(lineWidth: 5, dash: [5]))
             }
             

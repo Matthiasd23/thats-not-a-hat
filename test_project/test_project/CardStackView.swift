@@ -12,7 +12,7 @@ struct CardStackView: View { //My idea would be like to do multiple cards overla
     
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
-            .foregroundColor(.red)
+            .foregroundColor(Color("ThatsNotAHatPink"))
             .padding(.all)
             .aspectRatio(2/3,contentMode: .fit)
     }
