@@ -18,7 +18,7 @@
 		239217F42B8F39A5002027E7 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239217F32B8F39A5002027E7 /* CardView.swift */; };
 		239217F62B8F39E4002027E7 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239217F52B8F39E4002027E7 /* CardStackView.swift */; };
 		239217F82B8F3A1B002027E7 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239217F72B8F3A1B002027E7 /* PlayerView.swift */; };
-		23B6957E2B8E3A9700432666 /* test_project_gamelogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B6957D2B8E3A9700432666 /* test_project_gamelogic.swift */; };
+		23B6957E2B8E3A9700432666 /* ThatsNotAHat_Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B6957D2B8E3A9700432666 /* ThatsNotAHat_Model.swift */; };
 		23B695802B8E3CF100432666 /* ThatNotAHat_Viewmodel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B6957F2B8E3CF100432666 /* ThatNotAHat_Viewmodel.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +54,7 @@
 		239217F32B8F39A5002027E7 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		239217F52B8F39E4002027E7 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		239217F72B8F3A1B002027E7 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
-		23B6957D2B8E3A9700432666 /* test_project_gamelogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test_project_gamelogic.swift; sourceTree = "<group>"; };
+		23B6957D2B8E3A9700432666 /* ThatsNotAHat_Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThatsNotAHat_Model.swift; sourceTree = "<group>"; };
 		23B6957F2B8E3CF100432666 /* ThatNotAHat_Viewmodel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThatNotAHat_Viewmodel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,7 +108,7 @@
 			children = (
 				235404DD2B860632007710D8 /* test_projectApp.swift */,
 				235404DF2B860632007710D8 /* PlayerChoosesView.swift */,
-				23B6957D2B8E3A9700432666 /* test_project_gamelogic.swift */,
+				23B6957D2B8E3A9700432666 /* ThatsNotAHat_Model.swift */,
 				23B6957F2B8E3CF100432666 /* ThatNotAHat_Viewmodel.swift */,
 				235404E12B860634007710D8 /* Assets.xcassets */,
 				235404E32B860634007710D8 /* Preview Content */,
@@ -277,7 +277,7 @@
 			files = (
 				239217F22B8F389D002027E7 /* PassCardView.swift in Sources */,
 				239217F62B8F39E4002027E7 /* CardStackView.swift in Sources */,
-				23B6957E2B8E3A9700432666 /* test_project_gamelogic.swift in Sources */,
+				23B6957E2B8E3A9700432666 /* ThatsNotAHat_Model.swift in Sources */,
 				239217F82B8F3A1B002027E7 /* PlayerView.swift in Sources */,
 				23B695802B8E3CF100432666 /* ThatNotAHat_Viewmodel.swift in Sources */,
 				235404E02B860632007710D8 /* PlayerChoosesView.swift in Sources */,

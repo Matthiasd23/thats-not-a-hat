@@ -28,6 +28,13 @@ class ThatNotAHatGame {
         return arc4random_uniform(2) == 0
     }
     
+    private static func getArrow(rightArrow: Bool, isBot: Bool) -> String {
+        if isBot {
+            return rightArrow ? "⬅️" : "➡️"
+        }
+        return rightArrow ? "➡️" : "⬅️"
+    }
+    
     private var model = ThatsNotAHat<String>(cardContentFactory: ThatNotAHatGame.selectAndRemove, directionFactory: ThatNotAHatGame.randomDirection)
     
     func acceptCard() {
@@ -37,4 +44,5 @@ class ThatNotAHatGame {
     func declineCard() {
         model.declineCard()
     }
+
 }

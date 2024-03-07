@@ -26,6 +26,8 @@ struct PlayerView: View{
             else{ // no card or empty card: this could be removed as well
                 CardView(content: "", arrow: "", cardState: false)
             }
+            // Add a text view
+            //MessageView()
         }
     }
 }

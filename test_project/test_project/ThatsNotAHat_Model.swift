@@ -79,6 +79,6 @@ struct ThatsNotAHat<CardContent>{
         var name: String
         var score: Int
         var cardOne: Card
-        var cardTwo: Card?
+        var cardTwo: Card? // Use a 'special card in the model' that represents the card that is passed around
     }
 }

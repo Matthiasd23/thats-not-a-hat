@@ -34,6 +34,7 @@ struct PassCardView: View {
                 Button(action: {} , label: {Text("Emoji_five")}).padding(.horizontal)
             }
         }
+        .background(Color("lightPink"))
 
     }
 }
