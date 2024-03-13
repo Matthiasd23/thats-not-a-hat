@@ -22,12 +22,12 @@ struct PlayerView: View{
             if isTurn {
                 // Add the second card
                 CardView(content: "🍔", arrow: "⬅️", cardState: true )
+                // Add a text view
+                MessageView()
             }
             else{ // no card or empty card: this could be removed as well
                 CardView(content: "", arrow: "", cardState: false)
             }
-            // Add a text view
-            MessageView()
         }
     }
 }
