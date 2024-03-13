@@ -12,6 +12,7 @@ struct Player {
     var id: Int
     var name: String
     var score: Int
+    // cardOne should always be the oldest card.
     var cardOne: Card<String>   // Type could be different (we use CardContent, which is a 'dont care, could be anything', but for now we use string
     var cardTwo: Card<String>? // Use a 'special card in the model' that represents the card that is passed around
     
@@ -30,9 +31,15 @@ struct Player {
         }
     }
     
-    func passCard(card: Card<String>){            // Choosing what to say, could be called passCard or smth
+    mutating func passCard() -> (Int, Card<String>){
+        // Choosing what to say, could be called passCard or smth
         // just using a placeholder right now
-        var receiver = determineReceiver(direction: card.rightArrow)
+        var receiver = determineReceiver(direction: cardOne.rightArrow)
+        var passed_card = cardOne
+        // cardTwo should never be nil in this case, otherwise a default (wrong) card will be shown
+        cardOne = cardTwo ?? Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
+        cardTwo = nil
+        return (receiver, passed_card)
     }
     func decisionCard(){        // Deciding weither to accept or decline the card (for the bots? )
         

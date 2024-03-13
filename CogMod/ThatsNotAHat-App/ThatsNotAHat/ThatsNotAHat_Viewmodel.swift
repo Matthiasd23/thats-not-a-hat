@@ -39,7 +39,7 @@ class ThatNotAHatGame {
     private var model = ThatsNotAHat<String>(cardContentFactory: ThatNotAHatGame.selectAndRemove, directionFactory: ThatNotAHatGame.randomDirection)
     
     func playerAccepts() {
-        
+        model.playerAccepts()
     }
     
     func playerDeclines() {
