@@ -13,7 +13,7 @@ struct ThatsNotAHat<CardContent>{
     private var cards: Array<Card<CardContent>>
     private var players: Array<Player>
     private var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
-    private var passed_card: Card<String>
+    // private var passed_card: Card<String>?
     
     init(cardContentFactory: () -> CardContent, directionFactory: () -> Bool) {
         cards = []
@@ -34,11 +34,16 @@ struct ThatsNotAHat<CardContent>{
         // Do we need this?
     }
     
-    func playerAccepts() {
+    mutating func playerAccepts() {
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
-        sender.passCard()
-        
+        let (receiver, passed_card) = sender.passCard()
+        // addCard to receiver
+        players[receiver].addCard(new_card: passed_card)
+        // reinforce things
     }
     
+    mutating func modelDeclines() {
+        
+    }
 }

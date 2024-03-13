@@ -20,6 +20,7 @@
 		238954AB2BA1A443000DB771 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954AA2BA1A443000DB771 /* CardStackView.swift */; };
 		238954AD2BA1A45B000DB771 /* PlayerChoosesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954AC2BA1A45B000DB771 /* PlayerChoosesView.swift */; };
 		238954AF2BA1A4F7000DB771 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954AE2BA1A4F7000DB771 /* Card.swift */; };
+		238954B12BA1B3FD000DB771 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954B02BA1B3FD000DB771 /* MessageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		238954AA2BA1A443000DB771 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
 		238954AC2BA1A45B000DB771 /* PlayerChoosesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerChoosesView.swift; sourceTree = "<group>"; };
 		238954AE2BA1A4F7000DB771 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		238954B02BA1B3FD000DB771 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				238954A42BA1A3D7000DB771 /* ThatsNotAHat_Model.swift */,
 				238954AE2BA1A4F7000DB771 /* Card.swift */,
 				238954A62BA1A404000DB771 /* PlayerView.swift */,
+				238954B02BA1B3FD000DB771 /* MessageView.swift */,
 				238954A82BA1A41D000DB771 /* ThatsNotAHat_Viewmodel.swift */,
 				2389549E2BA1A298000DB771 /* Player.swift */,
 				238954AA2BA1A443000DB771 /* CardStackView.swift */,
@@ -164,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				238954B12BA1B3FD000DB771 /* MessageView.swift in Sources */,
 				238954AD2BA1A45B000DB771 /* PlayerChoosesView.swift in Sources */,
 				238954A72BA1A404000DB771 /* PlayerView.swift in Sources */,
 				238954AB2BA1A443000DB771 /* CardStackView.swift in Sources */,

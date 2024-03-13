@@ -27,7 +27,7 @@ struct PlayerView: View{
                 CardView(content: "", arrow: "", cardState: false)
             }
             // Add a text view
-            //MessageView()
+            MessageView()
         }
     }
 }

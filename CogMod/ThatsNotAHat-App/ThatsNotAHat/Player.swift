@@ -41,6 +41,11 @@ struct Player {
         cardTwo = nil
         return (receiver, passed_card)
     }
+    
+    mutating func addCard(new_card: Card<String>) {
+        cardTwo = new_card
+    }
+    
     func decisionCard(){        // Deciding weither to accept or decline the card (for the bots? )
         
     }
