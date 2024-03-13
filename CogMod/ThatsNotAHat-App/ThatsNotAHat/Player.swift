@@ -34,8 +34,8 @@ struct Player {
     mutating func passCard() -> (Int, Card<String>){
         // Choosing what to say, could be called passCard or smth
         // just using a placeholder right now
-        var receiver = determineReceiver(direction: cardOne.rightArrow)
-        var passed_card = cardOne
+        let receiver = determineReceiver(direction: cardOne.rightArrow)
+        let passed_card = cardOne
         // cardTwo should never be nil in this case, otherwise a default (wrong) card will be shown
         cardOne = cardTwo ?? Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardTwo = nil
@@ -44,6 +44,10 @@ struct Player {
     
     mutating func addCard(new_card: Card<String>) {
         cardTwo = new_card
+    }
+    
+    mutating func addToScore() {
+        score += 1
     }
     
     func decisionCard(){        // Deciding weither to accept or decline the card (for the bots? )

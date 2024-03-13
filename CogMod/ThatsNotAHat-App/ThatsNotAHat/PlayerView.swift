@@ -29,5 +29,6 @@ struct PlayerView: View{
                 CardView(content: "", arrow: "", cardState: false)
             }
         }
+        // We need some ScoreView as well
     }
 }
