@@ -20,7 +20,7 @@ struct PassCardView: View {
                 Spacer()
                 PlayerView(player: "Bot 2") // bot 2
             }
-            CardStackView()
+            CardStackView(idle: false)
             PlayerView(player: "Player", isTurn: true) // This should be the player            // Idk if this is the correct place to make the call for which HStack to call, but yeah should then be made here
             
             HStack{

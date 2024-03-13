@@ -10,7 +10,6 @@ import SwiftUI
 // PlayerChoosesView (player chooses either accept/decline)
 struct PlayerChoosesView: View {
     
-    
     var viewModel: ThatNotAHatGame = ThatNotAHatGame()
     
     var body: some View {
@@ -20,7 +19,7 @@ struct PlayerChoosesView: View {
                 Spacer()
                 PlayerView(player: "Bot 2") // bot 2
             }
-            CardStackView()
+            CardStackView(idle: false)
             PlayerView(player: "Player") // This should be the player
            
             // Idk if this is the correct place to make the call for which HStack to call, but yeah should then be made here
