@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 @main
 struct ThatsNotAHatApp: App {
     var body: some Scene {
