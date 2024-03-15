@@ -9,16 +9,54 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @State private var showInfo = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView{
+            VStack() {
+                HStack {
+                    Image(systemName: "lamp.table.fill")
+                        .imageScale(.large)
+                        .foregroundColor(.red)
+                    Image(systemName: "globe.desk.fill")
+                        .imageScale(.large)
+                        .foregroundColor(.orange)
+                    Image(systemName: "star.fill")
+                        .imageScale(.large)
+                        .foregroundColor(.green)
+                }
+                .padding()
+                HStack {
+                    Image(systemName: "heart.fill")
+                        .imageScale(.large)
+                        .foregroundColor(.blue)
+                    Image(systemName: "airplane")
+                        .imageScale(.large)
+                        .foregroundColor(.purple)
+                    Image(systemName: "sailboat.fill")
+                        .imageScale(.large)
+                        .foregroundColor(.yellow)
+                }
+                .padding()
+                //Play Now Button: currently brings you to PassCardView, but needs to go to cardView?
+                NavigationLink(destination:PassCardView()) {
+                    Text("Play Now")
+                }
+                .padding()
+                Button("Info"){
+                    showInfo.toggle()
+                }
+                if showInfo {
+                    Text("Project Created by Matthias, Tim and Rover for the course Cognitive Modelling: Complex Behaviour")
+                        .multilineTextAlignment(.center)
+                        .font(.caption)
+                }
+            }
         }
         .padding()
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

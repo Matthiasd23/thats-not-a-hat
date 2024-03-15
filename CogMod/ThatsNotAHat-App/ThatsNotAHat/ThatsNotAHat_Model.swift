@@ -76,7 +76,7 @@ struct ThatsNotAHat<CardContent>{
             receiver.addToScore()
             checkForLoser()
             // Introduce new card with cardContentFactory (this should be moved to model (maybe create a separate struct/file)
-            var new_card = cardContentFactory()
+            // TEMP commented out so xCode can create a build: var new_card = cardContentFactory()
             // Do model things - reinforcing
         }
         else {

@@ -12,7 +12,6 @@ struct MessageView: View {
         Text("That's a __!")
     }
 }
-
 struct MessageView_Previews: PreviewProvider {
     static var previews: some View {
         MessageView()

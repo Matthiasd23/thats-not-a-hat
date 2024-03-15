@@ -50,7 +50,7 @@ struct Player {
         score += 1
     }
     
-    func decisionCard(){        // Deciding weither to accept or decline the card (for the bots? )
+    func decisionCard(){        // Deciding wether to accept or decline the card (for the bots? )
         
     }
     func acceptCard(){          // Accepting the card

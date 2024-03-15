@@ -11,7 +11,7 @@ import SwiftUI
 struct PlayerView: View{
     @State var player : String
     @State var isTurn: Bool = false
-    @State var cardNum: Int = 1  // This i think will be needed to decide weather the card is there or it should just be the indicated space. This needs to be a bit more
+    @State var cardNum: Int = 1  // This i think will be needed to decide wether the card is there or it should just be the indicated space. This needs to be a bit more
     
     // only if isTurn the player will have 2 cards. We can use this
     

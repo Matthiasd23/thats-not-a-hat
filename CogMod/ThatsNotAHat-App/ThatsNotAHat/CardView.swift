@@ -8,7 +8,8 @@
 import SwiftUI
 
 
-struct CardView: View{
+struct CardView: View {
+    
     @State var content: String          // Emoji that is presented on the card
     @State var isFaceUp: Bool = false   // Wether it is facing up or down, needed when checking the card
     @State var arrow: String            // The arrow as an emoji pointing in a direction (maybe bool is better)
@@ -42,4 +43,3 @@ struct CardView: View{
         .aspectRatio(2/1, contentMode: .fit)
     }
 }
-

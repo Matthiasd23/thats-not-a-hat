@@ -24,7 +24,7 @@ struct PassCardView: View {
             PlayerView(player: "Player", isTurn: true) // This should be the player            // Idk if this is the correct place to make the call for which HStack to call, but yeah should then be made here
             
             HStack{
-                Button(action: {} , label: {Text("Emoji_one")}).padding(.horizontal) // Make the actions
+                Button(action: {} , label: {Text("😎")}).padding(.horizontal) // Make the actions
                 Spacer()
                 Button(action: {} , label: {Text("Emoji_two")}).padding(.horizontal)
                 Spacer()
