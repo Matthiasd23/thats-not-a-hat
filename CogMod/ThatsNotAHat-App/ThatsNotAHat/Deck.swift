@@ -9,9 +9,9 @@ import Foundation
 
 struct Deck {
     
-    static var cards_outofplay: Array<String> = []
+    var cards_outofplay: Array<String> = []
     // we probably need to move this to the model
-    private static var emojis = ["🐶", "🐱", "🐷", "🐔", "🐥", "🦄", "🐝", "🦧", "🐊", "🐳",
+    private var emojis = ["🐶", "🐱", "🐷", "🐔", "🐥", "🦄", "🐝", "🦧", "🐊", "🐳",
                                  "🌳", "🌿", "🍄", "🌝", "🌚", "⭐️", "🌈", "🔥", "💧", "☃️",
                                  "☂️", "🍎", "🍇", "🫐", "🥥", "🍆", "🥝", "🌶", "🥦", "🥕",
                                  "🍔", "🍟", "🍕", "🌮", "🍙", "🎂", "🍫", "🍩", "🍪", "🥛",
@@ -19,7 +19,7 @@ struct Deck {
                                  "🪁", "🛹", "⛷", "🛼", "🪂", "🏋️‍♀️", "🏆", "🥇", "🎷", "🪕",
                                  "🎻", "🎸", "🎯", "🎳", "🎮", "🚗", "🚒", "🚜", "🚃", "✈️"]
     
-    private static func selectAndRemove() -> String {
+    mutating func cardContentFactory() -> String {
         guard !emojis.isEmpty else { return "empty" }
         
         let index = Int.random(in: 0..<emojis.count)
@@ -28,11 +28,11 @@ struct Deck {
         return emoji
     }
     
-    private static func randomDirection() -> Bool {
+    func directionFactory() -> Bool {
         return arc4random_uniform(2) == 0
     }
     
-    private static func store(emoji: String) {
+    private mutating func store(emoji: String) {
         cards_outofplay.append(emoji)
     }
 }

@@ -36,7 +36,7 @@ class ThatNotAHatGame {
         return rightArrow ? "➡️" : "⬅️"
     }
     
-    private var model = ThatsNotAHat<String>(cardContentFactory: ThatNotAHatGame.selectAndRemove, directionFactory: ThatNotAHatGame.randomDirection)
+    private var model = ThatsNotAHat<String>()
     
     func playerAccepts() {
         model.playerAccepts()

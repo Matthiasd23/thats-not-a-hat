@@ -17,18 +17,18 @@ struct ThatsNotAHat<CardContent>{
     private var message: String?
     internal var model_bot1 = Model()  // we need the ACT-R Folder in the project for this to work
     internal var model_bot2 = Model() // Initializing a different model for each bot
+    internal var deck = Deck()
     
-    
-    init(cardContentFactory: () -> CardContent, directionFactory: () -> Bool) {
+    init() {
         // so this is basically the start of the game right? So we should also add those shown cards to the model memory, there should be some interaction possible for the player
         // to chose how long he wants to see the cards with a certain maximum i guess (or not if that is harder to implement)
         cards = []  // Isnt this empty afterwards aswell? as we never add anything
         // provide everyone with 3 cards, open - cardContentFactory
-        var bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: Card(rightArrow: directionFactory(), content: cardContentFactory() as! String))
-        var bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: Card(rightArrow: directionFactory(), content: cardContentFactory() as! String))
-        var player = Player(id: 0, name: "Player", score: 0, cardOne: Card(rightArrow: directionFactory(), content: cardContentFactory() as! String))
+        var bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: Card(rightArrow: deck.directionFactory(), content: deck.cardContentFactory()))
+        var bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: Card(rightArrow: deck.directionFactory(), content: deck.cardContentFactory()))
+        var player = Player(id: 0, name: "Player", score: 0, cardOne: Card(rightArrow: deck.directionFactory(), content: deck.cardContentFactory()))
         
-        var new_card = Card(rightArrow: false, content: cardContentFactory() as! String)
+        var new_card = Card(rightArrow: false, content: deck.cardContentFactory())
         // add the fourth to the player (player always starts)
         player.cardTwo = new_card
         
