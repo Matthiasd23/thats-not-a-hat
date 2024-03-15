@@ -10,6 +10,7 @@ import Foundation
 struct Deck {
     
     var cards_outofplay: Array<String> = []
+    
     // we probably need to move this to the model
     private var emojis = ["🐶", "🐱", "🐷", "🐔", "🐥", "🦄", "🐝", "🦧", "🐊", "🐳",
                                  "🌳", "🌿", "🍄", "🌝", "🌚", "⭐️", "🌈", "🔥", "💧", "☃️",

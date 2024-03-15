@@ -13,7 +13,7 @@ struct ThatsNotAHat<CardContent>{
     private var cards: Array<Card<CardContent>>
     private var players: Array<Player>
     private var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
-    private var passed_card: Card<String>?
+    // private var passed_card: Card<String>?
     private var message: String?
     internal var model_bot1 = Model()  // we need the ACT-R Folder in the project for this to work
     internal var model_bot2 = Model() // Initializing a different model for each bot
@@ -68,7 +68,6 @@ struct ThatsNotAHat<CardContent>{
         
     }
     
-    
     // Checks if one player has reached 3 cards (loses)
     func checkForLoser() {
         let loser = players.max(by: { $0.score < $1.score })
@@ -80,12 +79,12 @@ struct ThatsNotAHat<CardContent>{
     }
     
     // Checks whether the player passed the right card
-    func checkMessageWithCard() -> Bool {
-        return message == passed_card?.content
+    func checkMessageWithCard(card: Card<String>) -> Bool {
+        return message == card.content
     }
 
     func loadModel(filename: String){
-        // Do we need this? depends on if we want to use actual ACT-R or more a pseudo implimentation, i would suggest using smth similar to PD3 so no
+        // Do we need this? depends on if we want to use actual ACT-R or more a pseudo implementation, i would suggest using smth similar to PD3 so no
     }
     
     mutating func playerAccepts() {
@@ -99,14 +98,17 @@ struct ThatsNotAHat<CardContent>{
         receiver.addCard(new_card: passed_card)
         // reinforce things
         let newExperience = model_bot1.generateNewChunk(string: passed_card.content)
-        newExperience.setSlot(slot: "playerID", value: Double(receiver_id))
+        newExperience.setSlot(slot: "playerID", value: receiver.ID())
         newExperience.setSlot(slot: "content", value: passed_card.content)
         newExperience.setSlot(slot: "arrow", value: passed_card.directionValue())
         model_bot1.dm.addToDM(newExperience)
         model_bot2.dm.addToDM(newExperience)
+        
+        // After accepting the player becomes the sender
+        sender = players[0]
     }
     
-    mutating func playerDeclines() {
+    mutating func playerDeclines() { // ADD timer for the models (with a max so it cant be exploited)
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
@@ -114,10 +116,10 @@ struct ThatsNotAHat<CardContent>{
         var receiver = players[receiver_id]
         // Introduce new card with cardContentFactory (this should be moved to model (maybe create a separate struct/file)
         // either way a new card is introduced, the only difference is who gets the card
-        var new_card = deck.getNewCard()
+        let new_card = deck.getNewCard()
         // ------------------------------------------ \\
         // Card must be shown
-        if checkMessageWithCard() {
+        if checkMessageWithCard(card: passed_card) {
             // sender correct
             receiver.addToScore()
             checkForLoser()
@@ -134,8 +136,12 @@ struct ThatsNotAHat<CardContent>{
             // A slot that holds info if the card is in the game or not could be an idea, maybe makes it too easy for the bots
             model_bot1.dm.addToDM(newExperience)
             model_bot2.dm.addToDM(newExperience)
+            
+            // RECEIVER BECOMES SENDER
+            sender = receiver
         }
-        else {
+        else
+        {
             // receiver is correct
             sender.addToScore()
             checkForLoser()
@@ -148,6 +154,8 @@ struct ThatsNotAHat<CardContent>{
             // A slot that holds info if the card is in the game or not could be an idea, maybe makes it too easy for the bots
             model_bot1.dm.addToDM(newExperience)
             model_bot2.dm.addToDM(newExperience)
+            
+            // SENDER STAYS SENDER
         }
     }
     

@@ -20,7 +20,7 @@ struct Player {
     // from players[0] to the left: players[1]      to the right: players[2]
     // from players[1] to the left: players[2]      to the right: players[0]
     // from players[2] to the left: players[0]      to the right: players[1]
-    // the sender is the player
+    
     private func determineReceiver(direction: Bool) -> Int {
         // direction (Bool): true = right, false = left
         // this function returns the index corresponding to the receiver in players[index]
@@ -55,13 +55,27 @@ struct Player {
     }
     
     func decisionCard(){        // Deciding wether to accept or decline the card (for the bots? )
+        // Retrieve activation of Chunk: id: sender.id, arrow: known
+        // highest activation
         
     }
-    func acceptCard(){          // Accepting the card
+    
+    
+    func addToDM(card: Card<String>) {
+        
+    }
+    
+    func acceptCard(passed_card: Card<String>){          // Accepting the card
+        // retrieve new card before reinforcing new chunk
+        
+        // Retrieve own card to pass
+        
         // Receiver reinforces chunk
+        addToDM(card: passed_card)
         // Sender reinforces chunk
         // Bystander decides whether to reinforce or not/do something else
     }
+            
     func declineCard() {        // Declining the card
         // Receiver says no
         // Appoint a 'loser'
