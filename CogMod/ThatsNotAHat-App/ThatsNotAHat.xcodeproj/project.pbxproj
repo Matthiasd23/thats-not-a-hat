@@ -23,6 +23,21 @@
 		238954B12BA1B3FD000DB771 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954B02BA1B3FD000DB771 /* MessageView.swift */; };
 		238954B32BA1B5FD000DB771 /* IdleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954B22BA1B5FD000DB771 /* IdleView.swift */; };
 		23FA8C902BA4397200A1D0E8 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C8F2BA4397200A1D0E8 /* Deck.swift */; };
+		23FA8C952BA43E4600A1D0E8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C942BA43E4600A1D0E8 /* Model.swift */; };
+		23FA8C972BA43E6F00A1D0E8 /* Chunk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C962BA43E6F00A1D0E8 /* Chunk.swift */; };
+		23FA8C992BA43E8D00A1D0E8 /* BufferCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C982BA43E8D00A1D0E8 /* BufferCondition.swift */; };
+		23FA8C9B2BA43EAA00A1D0E8 /* BufferAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C9A2BA43EAA00A1D0E8 /* BufferAction.swift */; };
+		23FA8C9D2BA43EC300A1D0E8 /* Declarative.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C9C2BA43EC300A1D0E8 /* Declarative.swift */; };
+		23FA8C9F2BA43ED900A1D0E8 /* Instantiation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C9E2BA43ED900A1D0E8 /* Instantiation.swift */; };
+		23FA8CA12BA43EE700A1D0E8 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CA02BA43EE700A1D0E8 /* Parser.swift */; };
+		23FA8CA32BA43EFE00A1D0E8 /* Procedural.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CA22BA43EFE00A1D0E8 /* Procedural.swift */; };
+		23FA8CA52BA43F1200A1D0E8 /* Production.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CA42BA43F1100A1D0E8 /* Production.swift */; };
+		23FA8CA72BA43F2300A1D0E8 /* SlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CA62BA43F2300A1D0E8 /* SlotAction.swift */; };
+		23FA8CA92BA43F3200A1D0E8 /* SlotCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CA82BA43F3200A1D0E8 /* SlotCondition.swift */; };
+		23FA8CAB2BA43F4D00A1D0E8 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CAA2BA43F4D00A1D0E8 /* Support.swift */; };
+		23FA8CAD2BA43F6100A1D0E8 /* Temporal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CAC2BA43F6100A1D0E8 /* Temporal.swift */; };
+		23FA8CAF2BA43F7000A1D0E8 /* Tokenizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CAE2BA43F7000A1D0E8 /* Tokenizer.swift */; };
+		23FA8CB12BA43F8200A1D0E8 /* Vision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8CB02BA43F8200A1D0E8 /* Vision.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +58,21 @@
 		238954B02BA1B3FD000DB771 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
 		238954B22BA1B5FD000DB771 /* IdleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleView.swift; sourceTree = "<group>"; };
 		23FA8C8F2BA4397200A1D0E8 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		23FA8C942BA43E4600A1D0E8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		23FA8C962BA43E6F00A1D0E8 /* Chunk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chunk.swift; sourceTree = "<group>"; };
+		23FA8C982BA43E8D00A1D0E8 /* BufferCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferCondition.swift; sourceTree = "<group>"; };
+		23FA8C9A2BA43EAA00A1D0E8 /* BufferAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferAction.swift; sourceTree = "<group>"; };
+		23FA8C9C2BA43EC300A1D0E8 /* Declarative.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Declarative.swift; sourceTree = "<group>"; };
+		23FA8C9E2BA43ED900A1D0E8 /* Instantiation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instantiation.swift; sourceTree = "<group>"; };
+		23FA8CA02BA43EE700A1D0E8 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		23FA8CA22BA43EFE00A1D0E8 /* Procedural.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Procedural.swift; sourceTree = "<group>"; };
+		23FA8CA42BA43F1100A1D0E8 /* Production.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Production.swift; sourceTree = "<group>"; };
+		23FA8CA62BA43F2300A1D0E8 /* SlotAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotAction.swift; sourceTree = "<group>"; };
+		23FA8CA82BA43F3200A1D0E8 /* SlotCondition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotCondition.swift; sourceTree = "<group>"; };
+		23FA8CAA2BA43F4D00A1D0E8 /* Support.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Support.swift; sourceTree = "<group>"; };
+		23FA8CAC2BA43F6100A1D0E8 /* Temporal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temporal.swift; sourceTree = "<group>"; };
+		23FA8CAE2BA43F7000A1D0E8 /* Tokenizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokenizer.swift; sourceTree = "<group>"; };
+		23FA8CB02BA43F8200A1D0E8 /* Vision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vision.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +105,7 @@
 		23884D522B86078E00178E40 /* ThatsNotAHat */ = {
 			isa = PBXGroup;
 			children = (
+				23FA8C932BA43E3300A1D0E8 /* ACT-R */,
 				23884D532B86078E00178E40 /* ThatsNotAHatApp.swift */,
 				238954A02BA1A34B000DB771 /* CardView.swift */,
 				23884D552B86078E00178E40 /* ContentView.swift */,
@@ -101,6 +132,28 @@
 				23884D5A2B86079900178E40 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		23FA8C932BA43E3300A1D0E8 /* ACT-R */ = {
+			isa = PBXGroup;
+			children = (
+				23FA8C942BA43E4600A1D0E8 /* Model.swift */,
+				23FA8C962BA43E6F00A1D0E8 /* Chunk.swift */,
+				23FA8C982BA43E8D00A1D0E8 /* BufferCondition.swift */,
+				23FA8C9A2BA43EAA00A1D0E8 /* BufferAction.swift */,
+				23FA8C9C2BA43EC300A1D0E8 /* Declarative.swift */,
+				23FA8C9E2BA43ED900A1D0E8 /* Instantiation.swift */,
+				23FA8CA02BA43EE700A1D0E8 /* Parser.swift */,
+				23FA8CA22BA43EFE00A1D0E8 /* Procedural.swift */,
+				23FA8CA42BA43F1100A1D0E8 /* Production.swift */,
+				23FA8CA62BA43F2300A1D0E8 /* SlotAction.swift */,
+				23FA8CA82BA43F3200A1D0E8 /* SlotCondition.swift */,
+				23FA8CAA2BA43F4D00A1D0E8 /* Support.swift */,
+				23FA8CAC2BA43F6100A1D0E8 /* Temporal.swift */,
+				23FA8CAE2BA43F7000A1D0E8 /* Tokenizer.swift */,
+				23FA8CB02BA43F8200A1D0E8 /* Vision.swift */,
+			);
+			path = "ACT-R";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,20 +226,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23FA8CA92BA43F3200A1D0E8 /* SlotCondition.swift in Sources */,
+				23FA8C952BA43E4600A1D0E8 /* Model.swift in Sources */,
 				23FA8C902BA4397200A1D0E8 /* Deck.swift in Sources */,
 				238954B12BA1B3FD000DB771 /* MessageView.swift in Sources */,
+				23FA8CA72BA43F2300A1D0E8 /* SlotAction.swift in Sources */,
 				238954AD2BA1A45B000DB771 /* PlayerChoosesView.swift in Sources */,
 				238954A72BA1A404000DB771 /* PlayerView.swift in Sources */,
 				238954AB2BA1A443000DB771 /* CardStackView.swift in Sources */,
 				23884D562B86078E00178E40 /* ContentView.swift in Sources */,
+				23FA8CAB2BA43F4D00A1D0E8 /* Support.swift in Sources */,
+				23FA8C9F2BA43ED900A1D0E8 /* Instantiation.swift in Sources */,
+				23FA8CA32BA43EFE00A1D0E8 /* Procedural.swift in Sources */,
 				2389549F2BA1A298000DB771 /* Player.swift in Sources */,
+				23FA8CAD2BA43F6100A1D0E8 /* Temporal.swift in Sources */,
 				238954A92BA1A41D000DB771 /* ThatsNotAHat_Viewmodel.swift in Sources */,
 				238954A52BA1A3D7000DB771 /* ThatsNotAHat_Model.swift in Sources */,
 				238954A32BA1A3A5000DB771 /* PassCardView.swift in Sources */,
+				23FA8CAF2BA43F7000A1D0E8 /* Tokenizer.swift in Sources */,
 				238954B32BA1B5FD000DB771 /* IdleView.swift in Sources */,
 				238954A12BA1A34B000DB771 /* CardView.swift in Sources */,
+				23FA8C9D2BA43EC300A1D0E8 /* Declarative.swift in Sources */,
 				23884D542B86078E00178E40 /* ThatsNotAHatApp.swift in Sources */,
+				23FA8CA52BA43F1200A1D0E8 /* Production.swift in Sources */,
+				23FA8C992BA43E8D00A1D0E8 /* BufferCondition.swift in Sources */,
 				238954AF2BA1A4F7000DB771 /* Card.swift in Sources */,
+				23FA8CB12BA43F8200A1D0E8 /* Vision.swift in Sources */,
+				23FA8C972BA43E6F00A1D0E8 /* Chunk.swift in Sources */,
+				23FA8C9B2BA43EAA00A1D0E8 /* BufferAction.swift in Sources */,
+				23FA8CA12BA43EE700A1D0E8 /* Parser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
