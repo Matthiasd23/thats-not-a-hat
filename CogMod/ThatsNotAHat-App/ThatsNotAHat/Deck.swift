@@ -19,7 +19,7 @@ struct Deck {
                                  "🪁", "🛹", "⛷", "🛼", "🪂", "🏋️‍♀️", "🏆", "🥇", "🎷", "🪕",
                                  "🎻", "🎸", "🎯", "🎳", "🎮", "🚗", "🚒", "🚜", "🚃", "✈️"]
     
-    mutating func cardContentFactory() -> String {
+    private mutating func cardContentFactory() -> String {
         guard !emojis.isEmpty else { return "empty" }
         
         let index = Int.random(in: 0..<emojis.count)
@@ -28,11 +28,15 @@ struct Deck {
         return emoji
     }
     
-    func directionFactory() -> Bool {
+    private func directionFactory() -> Bool {
         return arc4random_uniform(2) == 0
     }
     
     private mutating func store(emoji: String) {
         cards_outofplay.append(emoji)
+    }
+    
+    mutating func getNewCard() -> Card<String> {
+        return Card(rightArrow: directionFactory(), content: cardContentFactory())
     }
 }

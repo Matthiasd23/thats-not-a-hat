@@ -12,4 +12,12 @@ struct Card<CardContent> {               // Not sure if we need more variables w
     var isCorrect: Bool = true // used to later check if the said card and the actual card emoji match
     var rightArrow: Bool           // right pointed card or left this should be decided when generating the card.
     var content: CardContent
+    
+    // returns direction string to save in chunk
+    func directionValue() -> String {
+        if rightArrow {
+            return "right"
+        }
+        return "left"
+    }
 }

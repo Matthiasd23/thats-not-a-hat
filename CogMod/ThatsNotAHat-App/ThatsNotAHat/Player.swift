@@ -46,6 +46,10 @@ struct Player {
         cardTwo = new_card
     }
     
+    func ID() -> Double {
+        return Double(id)
+    }
+    
     mutating func addToScore() {
         score += 1
     }

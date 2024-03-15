@@ -24,45 +24,45 @@ struct ThatsNotAHat<CardContent>{
         // to chose how long he wants to see the cards with a certain maximum i guess (or not if that is harder to implement)
         cards = []  // Isnt this empty afterwards aswell? as we never add anything
         // provide everyone with 3 cards, open - cardContentFactory
-        var bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: Card(rightArrow: deck.directionFactory(), content: deck.cardContentFactory()))
-        var bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: Card(rightArrow: deck.directionFactory(), content: deck.cardContentFactory()))
-        var player = Player(id: 0, name: "Player", score: 0, cardOne: Card(rightArrow: deck.directionFactory(), content: deck.cardContentFactory()))
+        var bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard())
+        var bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: deck.getNewCard())
+        var player = Player(id: 0, name: "Player", score: 0, cardOne: deck.getNewCard())
         
-        var new_card = Card(rightArrow: false, content: deck.cardContentFactory())
+        var new_card = deck.getNewCard()
         // add the fourth to the player (player always starts)
         player.cardTwo = new_card
         
         players = [player, bot1, bot2]
         
         // Adding the cards to the bots declerative memory, bot1 his own card
-        let newExperience = model_bot1.generateNewChunk(string: bot1.cardOne.content)
-        newExperience.setSlot(slot: "playerID", value: bot1.id)   // We need a slot that saves player ID or name, Card Content, and Arrow
+        var newExperience = model_bot1.generateNewChunk(string: bot1.cardOne.content)
+        newExperience.setSlot(slot: "playerID", value: bot1.ID())   // We need a slot that saves player ID or name, Card Content, and Arrow
         newExperience.setSlot(slot: "content", value: bot1.cardOne.content)
-        newExperience.setSlot(slot: "arrow", value: bot1.cardOne.rightArrow) // is this correct? and also might be too much information for the models
+        newExperience.setSlot(slot: "arrow", value: bot1.cardOne.directionValue()) // is this correct? and also might be too much information for the models
         model_bot1.dm.addToDM(newExperience)
         model_bot2.dm.addToDM(newExperience)
         
         //other bots card
-        let newExperience = model_bot1.generateNewChunk(string: bot2.cardOne.content) // names must be based on card content or smth unique to a card
-        newExperience.setSlot(slot: "playerID", value: bot2.id)
+        newExperience = model_bot1.generateNewChunk(string: bot2.cardOne.content) // names must be based on card content or smth unique to a card
+        newExperience.setSlot(slot: "playerID", value: bot2.ID())
         newExperience.setSlot(slot: "content", value: bot2.cardOne.content)
-        newExperience.setSlot(slot: "arrow", value: bot2.cardOne.rightArrow)
+        newExperience.setSlot(slot: "arrow", value: bot2.cardOne.directionValue())
         model_bot1.dm.addToDM(newExperience)
         model_bot2.dm.addToDM(newExperience)
         
         //players card
-        let newExperience = model_bot1.generateNewChunk(string: player.cardOne.content)
-        newExperience.setSlot(slot: "playerID", value: player.id)
+        newExperience = model_bot1.generateNewChunk(string: player.cardOne.content)
+        newExperience.setSlot(slot: "playerID", value: player.ID())
         newExperience.setSlot(slot: "content", value: player.cardOne.content)
-        newExperience.setSlot(slot: "arrow", value: player.cardOne.rightArrow)
+        newExperience.setSlot(slot: "arrow", value: player.cardOne.directionValue())
         model_bot1.dm.addToDM(newExperience)
         model_bot2.dm.addToDM(newExperience)
         
         //new introduced card
-        let newExperience = model_bot1.generateNewChunk(string: player.cardTwo.content)
-        newExperience.setSlot(slot: "playerID", value: player.id)
-        newExperience.setSlot(slot: "content", value: player.cardTwo.content)
-        newExperience.setSlot(slot: "arrow", value: player.cardTwo.rightArrow)
+        newExperience = model_bot1.generateNewChunk(string: new_card.content)
+        newExperience.setSlot(slot: "playerID", value: player.ID())
+        newExperience.setSlot(slot: "content", value: new_card.content)
+        newExperience.setSlot(slot: "arrow", value: new_card.directionValue())
         model_bot1.dm.addToDM(newExperience)
         model_bot2.dm.addToDM(newExperience)
         
@@ -99,9 +99,9 @@ struct ThatsNotAHat<CardContent>{
         receiver.addCard(new_card: passed_card)
         // reinforce things
         let newExperience = model_bot1.generateNewChunk(string: passed_card.content)
-        newExperience.setSlot(slot: "playerID", value: receiver.id)
+        newExperience.setSlot(slot: "playerID", value: Double(receiver_id))
         newExperience.setSlot(slot: "content", value: passed_card.content)
-        newExperience.setSlot(slot: "arrow", value: passed_card.rightArrow)
+        newExperience.setSlot(slot: "arrow", value: passed_card.directionValue())
         model_bot1.dm.addToDM(newExperience)
         model_bot2.dm.addToDM(newExperience)
     }
@@ -114,7 +114,7 @@ struct ThatsNotAHat<CardContent>{
         var receiver = players[receiver_id]
         // Introduce new card with cardContentFactory (this should be moved to model (maybe create a separate struct/file)
         // either way a new card is introduced, the only difference is who gets the card
-        var new_card = cardContentFactory()
+        var new_card = deck.getNewCard()
         // ------------------------------------------ \\
         // Card must be shown
         if checkMessageWithCard() {
@@ -128,9 +128,9 @@ struct ThatsNotAHat<CardContent>{
             receiver.addCard(new_card: new_card)
             // Do model things - reinforcing
             let newExperience = model_bot1.generateNewChunk(string: new_card.content)
-            newExperience.setSlot(slot: "playerID", value: receiver.id)
+            newExperience.setSlot(slot: "playerID", value: receiver.ID())
             newExperience.setSlot(slot: "content", value: new_card.content)
-            newExperience.setSlot(slot: "arrow", value: new_card.rightArrow)
+            newExperience.setSlot(slot: "arrow", value: new_card.directionValue())
             // A slot that holds info if the card is in the game or not could be an idea, maybe makes it too easy for the bots
             model_bot1.dm.addToDM(newExperience)
             model_bot2.dm.addToDM(newExperience)
@@ -142,9 +142,9 @@ struct ThatsNotAHat<CardContent>{
             sender.addCard(new_card: new_card)
             // Update Bots
             let newExperience = model_bot1.generateNewChunk(string: new_card.content)
-            newExperience.setSlot(slot: "playerID", value: sender.id)
+            newExperience.setSlot(slot: "playerID", value: sender.ID())
             newExperience.setSlot(slot: "content", value: new_card.content)
-            newExperience.setSlot(slot: "arrow", value: new_card.rightArrow)
+            newExperience.setSlot(slot: "arrow", value: new_card.directionValue())
             // A slot that holds info if the card is in the game or not could be an idea, maybe makes it too easy for the bots
             model_bot1.dm.addToDM(newExperience)
             model_bot2.dm.addToDM(newExperience)
