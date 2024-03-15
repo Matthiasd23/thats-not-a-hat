@@ -10,6 +10,8 @@ import SwiftUI
 
 @main
 struct ThatsNotAHatApp: App {
+    let game = ThatsNotAHatGame()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

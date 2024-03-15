@@ -10,11 +10,10 @@ import Foundation
 
 struct ThatsNotAHat<CardContent>{
     
-    private var cards: Array<Card<CardContent>>
-    private var players: Array<Player>
-    private var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
+    private(set) var players: Array<Player>
+    private(set) var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
     // private var passed_card: Card<String>?
-    private var message: String?
+    private(set) var message: String = "No message"
     internal var model_bot1 = Model()  // we need the ACT-R Folder in the project for this to work
     internal var model_bot2 = Model() // Initializing a different model for each bot
     internal var deck = Deck()
@@ -22,7 +21,6 @@ struct ThatsNotAHat<CardContent>{
     init() {
         // so this is basically the start of the game right? So we should also add those shown cards to the model memory, there should be some interaction possible for the player
         // to chose how long he wants to see the cards with a certain maximum i guess (or not if that is harder to implement)
-        cards = []  // Isnt this empty afterwards aswell? as we never add anything
         // provide everyone with 3 cards, open - cardContentFactory
         var bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard())
         var bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: deck.getNewCard())

@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-class ThatNotAHatGame {
+class ThatsNotAHatGame {
     
     // This function displays the right arrows for the player
     private static func getArrow(rightArrow: Bool, isBot: Bool) -> String {
@@ -19,6 +19,10 @@ class ThatNotAHatGame {
     }
     
     private var model = ThatsNotAHat<String>()
+    
+    var players: Array<Player> {return model.players}
+    var message: String {return model.message}
+    
     
     func playerAccepts() {
         model.playerAccepts()
