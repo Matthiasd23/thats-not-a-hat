@@ -38,8 +38,8 @@ struct ContentView: View {
                         .foregroundColor(.yellow)
                 }
                 .padding()
-                //Play Now Button: currently brings you to PassCardView, but needs to go to cardView?
-                NavigationLink(destination:PassCardView()) {
+                //Play Now Button: currently brings you to GameStartView.
+                NavigationLink(destination:GameStartView()) {
                     Text("Play Now")
                 }
                 .padding()

@@ -11,7 +11,7 @@ import SwiftUI
 // PassCardView (player chooses either accept/decline)
 struct PassCardView: View {
     
-    var viewModel: ThatNotAHatGame = ThatNotAHatGame()
+    var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
     
     var body: some View {
         VStack{

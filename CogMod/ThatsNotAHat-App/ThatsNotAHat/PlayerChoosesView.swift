@@ -10,7 +10,7 @@ import SwiftUI
 // PlayerChoosesView (player chooses either accept/decline)
 struct PlayerChoosesView: View {
     
-    var viewModel: ThatNotAHatGame = ThatNotAHatGame()
+    var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
     
     var body: some View {
         VStack{

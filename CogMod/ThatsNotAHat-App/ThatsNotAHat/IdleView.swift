@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IdleView: View {
-    var viewModel: ThatNotAHatGame = ThatNotAHatGame()
+    var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
     
     var body: some View {
         VStack{
