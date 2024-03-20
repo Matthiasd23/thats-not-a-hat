@@ -11,7 +11,7 @@ struct IdleView: View {
     private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
     
     var body: some View {
-        VStack{
+        VStack {
             HStack{
                 PlayerView(player: viewModel.players[1]) // bot 1
                 Spacer()

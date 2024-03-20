@@ -23,6 +23,11 @@ class ThatsNotAHatGame {
     var players: Array<Player> {return model.players}
     var message: String {return model.message}
     
+    // MARK: Intent
+    
+    func startGame() {
+        
+    }
     
     func playerAccepts() {
         model.playerAccepts()
@@ -31,4 +36,6 @@ class ThatsNotAHatGame {
     func playerDeclines() {
         model.playerDeclines()
     }
+    
+    
 }

@@ -109,12 +109,12 @@
 			children = (
 				23FA8C932BA43E3300A1D0E8 /* ACT-R */,
 				23884D532B86078E00178E40 /* ThatsNotAHatApp.swift */,
-				23E2820C2BA9AF9C008F30C8 /* GameStartView.swift */,
 				238954A02BA1A34B000DB771 /* CardView.swift */,
 				23884D552B86078E00178E40 /* ContentView.swift */,
 				238954A62BA1A404000DB771 /* PlayerView.swift */,
 				238954AA2BA1A443000DB771 /* CardStackView.swift */,
 				238954B02BA1B3FD000DB771 /* MessageView.swift */,
+				23E2820C2BA9AF9C008F30C8 /* GameStartView.swift */,
 				238954AC2BA1A45B000DB771 /* PlayerChoosesView.swift */,
 				238954A22BA1A3A5000DB771 /* PassCardView.swift */,
 				238954B22BA1B5FD000DB771 /* IdleView.swift */,
