@@ -28,10 +28,10 @@ struct CardView: View {
                     shape.fill().foregroundColor(.white)
                     shape.stroke(lineWidth:4)
                     
-                    Text(content)
+                    Text(content).font(.largeTitle)
                 } else { // 2 is face down
                     shape.fill().foregroundColor(Color("ThatsNotAHatPink"))
-                    Text(arrow)
+                    Text(arrow).font(.largeTitle)
                 }
             } else { // This case should be displayed when the player only has 1 card
                 shape.fill().foregroundColor(Color("lightPink"))

@@ -12,6 +12,7 @@ import SwiftUI
 struct PassCardView: View {
     
     private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
+//    private let viewModel: ThatsNotAHatGame
     
     var body: some View {
         VStack{
@@ -21,8 +22,9 @@ struct PassCardView: View {
                 PlayerView(player: viewModel.players[2]) // bot 2
             }
             CardStackView(idle: false)
-            PlayerView(player: viewModel.players[0]) // This should be the player            // Idk if this is the correct place to make the call for which HStack to call, but yeah should then be made here
+            PlayerView(player: viewModel.players[0])
             
+            // Access the cards out of play through viewModel.deck
             HStack{
                 Button(action: {} , label: {Text("😎")}).padding(.horizontal) // Make the actions
                 Spacer()

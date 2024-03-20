@@ -38,8 +38,8 @@ struct ContentView: View {
                         .foregroundColor(.yellow)
                 }
                 .padding()
-                //Play Now Button: currently brings you to GameStartView.
-                NavigationLink(destination:GameStartView()) {
+                //Play Now Button: currently brings you to GameStartView. It should
+                NavigationLink(destination:PlayerChoosesView()) {
                     Text("Play Now")
                 }
                 .padding()
@@ -47,7 +47,7 @@ struct ContentView: View {
                     showInfo.toggle()
                 }
                 if showInfo {
-                    Text("Project Created by Matthias, Tim and Rover for the course Cognitive Modelling: Complex Behaviour")
+                    Text("Project Created by Matthias, Tim and Rover for the course Cognitive Modelling: Complex Behaviour. Game explanation: ")
                         .multilineTextAlignment(.center)
                         .font(.caption)
                 }

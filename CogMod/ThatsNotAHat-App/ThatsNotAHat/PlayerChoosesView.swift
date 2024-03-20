@@ -10,7 +10,8 @@ import SwiftUI
 // PlayerChoosesView (player chooses either accept/decline)
 struct PlayerChoosesView: View {
     
-    private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
+    private let viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
+//   private let viewModel: ThatsNotAHatGame
     
     var body: some View {
         VStack{
@@ -22,20 +23,24 @@ struct PlayerChoosesView: View {
             CardStackView(idle: false)
             PlayerView(player: viewModel.players[0]) // This should be the player
            
-            // Idk if this is the correct place to make the call for which HStack to call, but yeah should then be made here
-            // I think we might need 3 different views
             HStack{
-                Button(action: {} , label: {Text("Accept")}).padding(.horizontal).onTapGesture{viewModel.playerAccepts()} // Make the actions
+                Button(action: {} , label: {Text("Accept")}).padding(.horizontal)
+                    .onTapGesture{
+                        print("View accepts...")
+                        viewModel.playerAccepts()
+                    }
                 Spacer()
                 Button(action: {} , label: {Text("Decline")}).padding(.horizontal)
-                    .onTapGesture{viewModel.playerDeclines()}
+                    .onTapGesture{
+                        print("View declines...")
+                        viewModel.playerDeclines()
+                        
+                    }
             }
         }
         .background(Color("lightPink"))
     }
 }
-
-
 
 struct PlayerChoosesView_Previews: PreviewProvider {
     static var previews: some View {

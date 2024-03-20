@@ -14,56 +14,30 @@ struct ThatsNotAHat<CardContent>{
     private(set) var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
     // private var passed_card: Card<String>?
     private(set) var message: String = "No message"
-    internal var model_bot1 = Model()  // we need the ACT-R Folder in the project for this to work
-    internal var model_bot2 = Model() // Initializing a different model for each bot
     internal var deck = Deck()
     
     init() {
-        // so this is basically the start of the game right? So we should also add those shown cards to the model memory, there should be some interaction possible for the player
-        // to chose how long he wants to see the cards with a certain maximum i guess (or not if that is harder to implement)
-        // provide everyone with 3 cards, open - cardContentFactory
-        var bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard())
-        var bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: deck.getNewCard())
+        // Creating bot one, the model is on the Player
+        let bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard())
+        // Creating bot two, the model is on the Player
+        let bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: deck.getNewCard())
         var player = Player(id: 0, name: "Player", score: 0, cardOne: deck.getNewCard())
         
-        var new_card = deck.getNewCard()
+        let new_card = deck.getNewCard()
         // add the fourth to the player (player always starts)
-        player.cardTwo = new_card
+        player.addCard(new_card: new_card)
         
         players = [player, bot1, bot2]
         
-        // Adding the cards to the bots declerative memory, bot1 his own card
-        var newExperience = model_bot1.generateNewChunk(string: bot1.cardOne.content)
-        newExperience.setSlot(slot: "playerID", value: bot1.ID())   // We need a slot that saves player ID or name, Card Content, and Arrow
-        newExperience.setSlot(slot: "content", value: bot1.cardOne.content)
-        newExperience.setSlot(slot: "arrow", value: bot1.cardOne.directionValue()) // is this correct? and also might be too much information for the models
-        model_bot1.dm.addToDM(newExperience)
-        model_bot2.dm.addToDM(newExperience)
-        
-        //other bots card
-        newExperience = model_bot1.generateNewChunk(string: bot2.cardOne.content) // names must be based on card content or smth unique to a card
-        newExperience.setSlot(slot: "playerID", value: bot2.ID())
-        newExperience.setSlot(slot: "content", value: bot2.cardOne.content)
-        newExperience.setSlot(slot: "arrow", value: bot2.cardOne.directionValue())
-        model_bot1.dm.addToDM(newExperience)
-        model_bot2.dm.addToDM(newExperience)
-        
-        //players card
-        newExperience = model_bot1.generateNewChunk(string: player.cardOne.content)
-        newExperience.setSlot(slot: "playerID", value: player.ID())
-        newExperience.setSlot(slot: "content", value: player.cardOne.content)
-        newExperience.setSlot(slot: "arrow", value: player.cardOne.directionValue())
-        model_bot1.dm.addToDM(newExperience)
-        model_bot2.dm.addToDM(newExperience)
-        
-        //new introduced card
-        newExperience = model_bot1.generateNewChunk(string: new_card.content)
-        newExperience.setSlot(slot: "playerID", value: player.ID())
-        newExperience.setSlot(slot: "content", value: new_card.content)
-        newExperience.setSlot(slot: "arrow", value: new_card.directionValue())
-        model_bot1.dm.addToDM(newExperience)
-        model_bot2.dm.addToDM(newExperience)
-        
+        // dropFirst returns an array without the first element
+        for bot in players.dropFirst() {
+            for player in players {
+                bot.addToDM(card_content: player.cardOne.content, player_id: player.ID(), arrow: player.cardOne.directionValue())
+                if player.cardTwo != nil {
+                    bot.addToDM(card_content: player.cardTwo!.content, player_id: player.ID(), arrow: player.cardTwo!.directionValue())
+                }
+            }
+        }
     }
     
     // Checks if one player has reached 3 cards (loses)
@@ -84,7 +58,7 @@ struct ThatsNotAHat<CardContent>{
     func loadModel(filename: String){
         // Do we need this? depends on if we want to use actual ACT-R or more a pseudo implementation, i would suggest using smth similar to PD3 so no
     }
-    
+    // THIS FUNCTION IS (FOR NOW) ONLY CALLED BY THE PLAYER THROUGH VIEWMODEL, IF WE WANT TO GENERALIZE IT, IT SHOULD BE CHANGED
     mutating func playerAccepts() {
         print("Accepting...")
         // ------------------------------------------ \\ double code
@@ -93,15 +67,12 @@ struct ThatsNotAHat<CardContent>{
         let (receiver_id, passed_card) = sender.passCard()
         var receiver = players[receiver_id]
         // ------------------------------------------ \\
-        // addCard to receiver
+        
+        // addCard to receiver (player in this case)
         receiver.addCard(new_card: passed_card)
-        // reinforce things
-        let newExperience = model_bot1.generateNewChunk(string: passed_card.content)
-        newExperience.setSlot(slot: "playerID", value: receiver.ID())
-        newExperience.setSlot(slot: "content", value: passed_card.content)
-        newExperience.setSlot(slot: "arrow", value: passed_card.directionValue())
-        model_bot1.dm.addToDM(newExperience)
-        model_bot2.dm.addToDM(newExperience)
+        // reinforce things, the sender (bot) reinforces (the receiver as well IF IT IS A BOT, but this function is for the player)
+        sender.addToDM(card_content: passed_card.content, player_id: receiver.ID(), arrow: passed_card.directionValue())
+        
         
         // After accepting the player becomes the sender
         sender = players[0]
@@ -119,23 +90,18 @@ struct ThatsNotAHat<CardContent>{
         let new_card = deck.getNewCard()
         // ------------------------------------------ \\
         // Card must be shown
-        if checkMessageWithCard(card: passed_card) {
+        if checkMessageWithCard(card: passed_card)
+        {
             // sender correct
             receiver.addToScore()
             checkForLoser()
 
-            // Introduce new card with cardContentFactory (this should be moved to model (maybe create a separate struct/file)
-            // TEMP commented out so xCode can create a build: var new_card = cardContentFactory()
-
+            // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
             receiver.addCard(new_card: new_card)
             // Do model things - reinforcing
-            let newExperience = model_bot1.generateNewChunk(string: new_card.content)
-            newExperience.setSlot(slot: "playerID", value: receiver.ID())
-            newExperience.setSlot(slot: "content", value: new_card.content)
-            newExperience.setSlot(slot: "arrow", value: new_card.directionValue())
-            // A slot that holds info if the card is in the game or not could be an idea, maybe makes it too easy for the bots
-            model_bot1.dm.addToDM(newExperience)
-            model_bot2.dm.addToDM(newExperience)
+            for bot in players.dropFirst() {
+                bot.addToDM(card_content: new_card.content, player_id: receiver.ID(), arrow: new_card.directionValue())
+            }
             
             // RECEIVER BECOMES SENDER
             sender = receiver
@@ -147,13 +113,9 @@ struct ThatsNotAHat<CardContent>{
             checkForLoser()
             sender.addCard(new_card: new_card)
             // Update Bots
-            let newExperience = model_bot1.generateNewChunk(string: new_card.content)
-            newExperience.setSlot(slot: "playerID", value: sender.ID())
-            newExperience.setSlot(slot: "content", value: new_card.content)
-            newExperience.setSlot(slot: "arrow", value: new_card.directionValue())
-            // A slot that holds info if the card is in the game or not could be an idea, maybe makes it too easy for the bots
-            model_bot1.dm.addToDM(newExperience)
-            model_bot2.dm.addToDM(newExperience)
+            for bot in players.dropFirst() {
+                bot.addToDM(card_content: new_card.content, player_id: sender.ID(), arrow: new_card.directionValue())
+            }
             
             // SENDER STAYS SENDER
         }

@@ -10,18 +10,11 @@ import SwiftUI
 
 class ThatsNotAHatGame {
     
-    // This function displays the right arrows for the player
-    private static func getArrow(rightArrow: Bool, isBot: Bool) -> String {
-        if isBot {
-            return rightArrow ? "⬅️" : "➡️"
-        }
-        return rightArrow ? "➡️" : "⬅️"
-    }
-    
     private var model = ThatsNotAHat<String>()
     
     var players: Array<Player> {return model.players}
     var message: String {return model.message}
+    var card_options: Array<String> { return model.deck.cards_outofplay }
     
     // MARK: Intent
     
@@ -30,10 +23,12 @@ class ThatsNotAHatGame {
     }
     
     func playerAccepts() {
+        print("playerAccepts in viewModel")
         model.playerAccepts()
     }
     
     func playerDeclines() {
+        print("playerDeclines in viewModel")
         model.playerDeclines()
     }
     

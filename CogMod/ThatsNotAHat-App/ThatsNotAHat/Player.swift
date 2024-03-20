@@ -15,7 +15,20 @@ struct Player {
     // cardOne should always be the oldest card.
     var cardOne: Card<String>   // Type could be different (we use CardContent, which is a 'dont care, could be anything', but for now we use string
     var cardTwo: Card<String>? // Use a 'special card in the model' that represents the card that is passed around
-    var isTurn: Bool = false
+    var isTurn: Bool
+    var model: Model?
+    
+    init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false) {
+        self.id = id
+        self.name = name
+        self.score = score
+        self.cardOne = cardOne
+        self.cardTwo = cardTwo
+        self.isTurn = isTurn
+        if id != 0 {
+            self.model = Model()
+        }
+    }
     
     // directions:
     // from players[0] to the left: players[1]      to the right: players[2]
@@ -61,18 +74,21 @@ struct Player {
         
     }
     
-    
-    func addToDM(card: Card<String>) {
-        
+    func addToDM(card_content: String, player_id: Double, arrow: String) {
+        let chunk = model?.generateNewChunk(string: card_content)
+        chunk?.setSlot(slot: "content", value: card_content)
+        chunk?.setSlot(slot: "playerID", value: player_id)
+        chunk?.setSlot(slot: "direction", value: arrow)
+        model?.dm.addToDM(chunk!)
     }
     
-    func acceptCard(passed_card: Card<String>){          // Accepting the card
+    func acceptCard(passed_card: Card<String>, player_id: Double){          // Accepting the card
         // retrieve new card before reinforcing new chunk
         
         // Retrieve own card to pass
         
         // Receiver reinforces chunk
-        addToDM(card: passed_card)
+        addToDM(card_content: passed_card.content, player_id: player_id, arrow: passed_card.directionValue())
         // Sender reinforces chunk
         // Bystander decides whether to reinforce or not/do something else
     }

@@ -13,6 +13,7 @@ import SwiftUI
 struct GameStartView: View {
     
     private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
+//    private let viewModel: ThatsNotAHatGame : This might be a fix for the data being carried over - the code above creates a new class, instead we would have to pass one viewModel class around
     
     var body: some View {
         VStack {
@@ -23,6 +24,7 @@ struct GameStartView: View {
             }
             CardStackView(idle: true)
             PlayerView(player: viewModel.players[0], isTurn: true, includeMsg: false, gameStart: true)
+    
             Button(action: {}, label: {Text("Ready!")}).onTapGesture {
                 viewModel.startGame()
             }
