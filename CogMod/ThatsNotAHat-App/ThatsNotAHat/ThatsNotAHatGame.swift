@@ -29,6 +29,6 @@ class ThatsNotAHatGame {
     }
     
     func playerDeclines() {
-        
+        model.playerDeclines()
     }
 }

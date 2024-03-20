@@ -15,6 +15,7 @@ struct Player {
     // cardOne should always be the oldest card.
     var cardOne: Card<String>   // Type could be different (we use CardContent, which is a 'dont care, could be anything', but for now we use string
     var cardTwo: Card<String>? // Use a 'special card in the model' that represents the card that is passed around
+    var isTurn: Bool = false
     
     // directions:
     // from players[0] to the left: players[1]      to the right: players[2]

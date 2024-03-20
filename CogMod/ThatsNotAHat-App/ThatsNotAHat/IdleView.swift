@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct IdleView: View {
-    var viewModel: ThatNotAHatGame = ThatNotAHatGame()
+    private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
     
     var body: some View {
         VStack{
             HStack{
-                PlayerView(player: "Bot 1") // bot 1
+                PlayerView(player: viewModel.players[1]) // bot 1
                 Spacer()
-                PlayerView(player: "Bot 2") // bot 2
+                PlayerView(player: viewModel.players[2]) // bot 2
             }
             CardStackView(idle: true)
-            PlayerView(player: "Player") // This should be the player
+            PlayerView(player: viewModel.players[0]) // This should be the player
             
         }
         .background(Color("lightPink"))

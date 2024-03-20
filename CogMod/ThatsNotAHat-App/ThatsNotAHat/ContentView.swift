@@ -39,7 +39,7 @@ struct ContentView: View {
                 }
                 .padding()
                 //Play Now Button: currently brings you to PassCardView, but needs to go to cardView?
-                NavigationLink(destination:PassCardView()) {
+                NavigationLink(destination:PlayerChoosesView()) {
                     Text("Play Now")
                 }
                 .padding()

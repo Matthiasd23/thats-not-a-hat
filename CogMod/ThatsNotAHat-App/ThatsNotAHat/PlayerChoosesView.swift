@@ -10,17 +10,17 @@ import SwiftUI
 // PlayerChoosesView (player chooses either accept/decline)
 struct PlayerChoosesView: View {
     
-    var viewModel: ThatNotAHatGame = ThatNotAHatGame()
+    private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
     
     var body: some View {
         VStack{
             HStack{
-                PlayerView(player: "Bot 1", isTurn: true) // bot 1
+                PlayerView(player: viewModel.players[1]) // bot 1
                 Spacer()
-                PlayerView(player: "Bot 2") // bot 2
+                PlayerView(player: viewModel.players[2]) // bot 2
             }
             CardStackView(idle: false)
-            PlayerView(player: "Player") // This should be the player
+            PlayerView(player: viewModel.players[0]) // This should be the player
            
             // Idk if this is the correct place to make the call for which HStack to call, but yeah should then be made here
             // I think we might need 3 different views

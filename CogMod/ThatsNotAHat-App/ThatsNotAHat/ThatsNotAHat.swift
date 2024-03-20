@@ -86,6 +86,7 @@ struct ThatsNotAHat<CardContent>{
     }
     
     mutating func playerAccepts() {
+        print("Accepting...")
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
@@ -107,6 +108,7 @@ struct ThatsNotAHat<CardContent>{
     }
     
     mutating func playerDeclines() { // ADD timer for the models (with a max so it cant be exploited)
+        print("Declining...")
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
