@@ -17,6 +17,7 @@ struct Player {
     var cardTwo: Card<String>? // Use a 'special card in the model' that represents the card that is passed around
     var isTurn: Bool
     var model: Model?
+    var message: String = ""
     
     init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false) {
         self.id = id
@@ -68,8 +69,9 @@ struct Player {
         score += 1
     }
     
-    func decisionCard(){        // Deciding wether to accept or decline the card (for the bots? )
+    func decisionCard(){
         // Retrieve activation of Chunk: id: sender.id, arrow: known
+        
         // highest activation
         
     }
@@ -79,15 +81,18 @@ struct Player {
         model?.dm.addToDM(createChunk(card: card, player_id: player_id))
     }
     
-    func acceptCard(passed_card: Card<String>, player_id: Double){          // Accepting the card
+    mutating func acceptCard(passed_card: Card<String>, player_id: Double){          // Accepting the card
         // retrieve new card before reinforcing new chunk
-        
-        // Retrieve own card to pass
-        
+        let card_to_pass = retrieveChunk(card: cardOne, player_id: ID())
         // Receiver reinforces chunk
         addToDM(card: passed_card, player_id: player_id)
-        // Sender reinforces chunk
-        // Bystander decides whether to reinforce or not/do something else
+        
+        // return a message that w
+            
+    }
+    
+    func dealWithUncertainty() -> String {
+        return "I don't know..."
     }
             
     func declineCard() {        // Declining the card
@@ -97,19 +102,23 @@ struct Player {
         // Everyone reinforces
     }
     
-    private func createChunk(card: Card<String>, player_id: Double) -> Chunk {
+    private func createChunk(card: Card<String>, player_id: Double, recall: Bool = false) -> Chunk {
+        // if recall is true, the goal is to recall whether the player actually has the card that is said - leave the content empty
         let chunk = model!.generateNewChunk(string: card.content)
-        chunk.setSlot(slot: "content", value: card.content)
+        if recall == false {
+            chunk.setSlot(slot: "content", value: card.content)
+        }
         chunk.setSlot(slot: "playerID", value: player_id)
         chunk.setSlot(slot: "direction", value: card.directionValue())
         return chunk
     }
     
-    func retrieveChunk(card: Card<String>, player_id: Double) {
-        // I have no idea about this error
-        let (activation, optionalChunk) = model!.dm.retrieve(chunk: createChunk(card: card, player_id: player_id))
-        
-        return
+    func retrieveChunk(card: Card<String>, player_id: Double) -> Chunk? {
+        // recall card
+        let (latency, optionalChunk) = model!.dm.retrieve(chunk: createChunk(card: card, player_id: player_id, recall: true))
+        // add latency to the model
+        model!.time += latency
+        return optionalChunk
     }
     
 }
