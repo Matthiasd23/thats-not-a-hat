@@ -23,7 +23,7 @@ struct GameStartView: View {
                 PlayerView(player: viewModel.players[2], gameStart: true) // bot 2
             }
             CardStackView(idle: true)
-            PlayerView(player: viewModel.players[0], isTurn: true, includeMsg: false, gameStart: true)
+            PlayerView(player: viewModel.players[0], includeMsg: false, gameStart: true)
     
             Button(action: {}, label: {Text("Ready!")}).onTapGesture {
                 viewModel.startGame()

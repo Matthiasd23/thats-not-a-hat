@@ -74,12 +74,9 @@ struct Player {
         
     }
     
-    func addToDM(card_content: String, player_id: Double, arrow: String) {
-        let chunk = model?.generateNewChunk(string: card_content)
-        chunk?.setSlot(slot: "content", value: card_content)
-        chunk?.setSlot(slot: "playerID", value: player_id)
-        chunk?.setSlot(slot: "direction", value: arrow)
-        model?.dm.addToDM(chunk!)
+    // Never called by player
+    func addToDM(card: Card<String>, player_id: Double) {
+        model?.dm.addToDM(createChunk(card: card, player_id: player_id))
     }
     
     func acceptCard(passed_card: Card<String>, player_id: Double){          // Accepting the card
@@ -88,7 +85,7 @@ struct Player {
         // Retrieve own card to pass
         
         // Receiver reinforces chunk
-        addToDM(card_content: passed_card.content, player_id: player_id, arrow: passed_card.directionValue())
+        addToDM(card: passed_card, player_id: player_id)
         // Sender reinforces chunk
         // Bystander decides whether to reinforce or not/do something else
     }
@@ -98,6 +95,21 @@ struct Player {
         // Appoint a 'loser'
         // Introduce new card, assign it to the loser
         // Everyone reinforces
+    }
+    
+    private func createChunk(card: Card<String>, player_id: Double) -> Chunk {
+        let chunk = model?.generateNewChunk(string: card.content)
+        chunk?.setSlot(slot: "content", value: card.content)
+        chunk?.setSlot(slot: "playerID", value: player_id)
+        chunk?.setSlot(slot: "direction", value: card.directionValue())
+        return chunk!
+    }
+    
+    func retrieveChunk(card: Card<String>, player_id: Double) {
+        // I have no idea about this error
+        let (activation, optionalChunk) = model?.dm.retrieve(chunk: createChunk(card: card, player_id: player_id))
+        
+        return
     }
     
 }

@@ -29,10 +29,10 @@ struct PlayerView: View{
                 Text(player.name) // Maybe make it so a player can enter its name?
                 Text("-score: " + String(player.score))
             }
-            CardView(content: player.cardOne.content, isFaceUp: gameStart, arrow: getArrow(rightArrow: player.cardOne.rightArrow, isBot: player.id != 0), isSelected: player.isTurn)
+            CardView(content: player.cardOne.content, isFaceUp: gameStart, arrow: getArrow(rightArrow: player.cardOne.rightArrow, isBot: (player.id != 0)), isSelected: player.isTurn)
             if player.isTurn {
                 // Add the second card
-                CardView(content: player.cardTwo!.content, isFaceUp:gameStart, arrow: getArrow(rightArrow: player.cardTwo!.rightArrow, isBot: player.id != 0), cardState: true)
+                CardView(content: player.cardTwo!.content, isFaceUp:gameStart, arrow: getArrow(rightArrow: player.cardTwo!.rightArrow, isBot: (player.id != 0)), cardState: true)
                 if includeMsg {
                     MessageView()
                 }

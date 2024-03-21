@@ -32,9 +32,9 @@ struct ThatsNotAHat<CardContent>{
         // dropFirst returns an array without the first element
         for bot in players.dropFirst() {
             for player in players {
-                bot.addToDM(card_content: player.cardOne.content, player_id: player.ID(), arrow: player.cardOne.directionValue())
+                bot.addToDM(card: player.cardOne, player_id: player.ID())
                 if player.cardTwo != nil {
-                    bot.addToDM(card_content: player.cardTwo!.content, player_id: player.ID(), arrow: player.cardTwo!.directionValue())
+                    bot.addToDM(card: player.cardTwo!, player_id: player.ID())
                 }
             }
         }
@@ -71,7 +71,7 @@ struct ThatsNotAHat<CardContent>{
         // addCard to receiver (player in this case)
         receiver.addCard(new_card: passed_card)
         // reinforce things, the sender (bot) reinforces (the receiver as well IF IT IS A BOT, but this function is for the player)
-        sender.addToDM(card_content: passed_card.content, player_id: receiver.ID(), arrow: passed_card.directionValue())
+        sender.addToDM(card: passed_card, player_id: receiver.ID())
         
         
         // After accepting the player becomes the sender
@@ -100,7 +100,7 @@ struct ThatsNotAHat<CardContent>{
             receiver.addCard(new_card: new_card)
             // Do model things - reinforcing
             for bot in players.dropFirst() {
-                bot.addToDM(card_content: new_card.content, player_id: receiver.ID(), arrow: new_card.directionValue())
+                bot.addToDM(card: new_card, player_id: receiver.ID())
             }
             
             // RECEIVER BECOMES SENDER
@@ -114,7 +114,7 @@ struct ThatsNotAHat<CardContent>{
             sender.addCard(new_card: new_card)
             // Update Bots
             for bot in players.dropFirst() {
-                bot.addToDM(card_content: new_card.content, player_id: sender.ID(), arrow: new_card.directionValue())
+                bot.addToDM(card: new_card, player_id: sender.ID())
             }
             
             // SENDER STAYS SENDER
