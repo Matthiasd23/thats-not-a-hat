@@ -10,7 +10,7 @@ import SwiftUI
 // PlayerChoosesView (player chooses either accept/decline)
 struct PlayerChoosesView: View {
     
-    private let viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
+    @ObservedObject var viewModel: ThatsNotAHatGame
 //   private let viewModel: ThatsNotAHatGame
     
     var body: some View {
@@ -44,6 +44,6 @@ struct PlayerChoosesView: View {
 
 struct PlayerChoosesView_Previews: PreviewProvider {
     static var previews: some View {
-        PlayerChoosesView()
+        PlayerChoosesView(viewModel: ThatsNotAHatGame())
     }
 }

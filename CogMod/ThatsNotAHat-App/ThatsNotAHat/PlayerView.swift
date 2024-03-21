@@ -20,24 +20,25 @@ struct PlayerView: View{
     
     var player : Player
     
-    @State var isTurn: Bool = false
-    @State var cardNum: Int = 1  // This i think will be needed to decide wether the card is there or it should just be the indicated space. This needs to be a bit more
-    @State var includeMsg: Bool = true
-    @State var gameStart: Bool = false // can be used for the first turn, where cards need to be shown to the player.
+    var isTurn: Bool = false
+    var includeMsg: Bool = true
+    var gameStart: Bool = false // can be used for the first turn, where cards need to be shown to the player.
     
     var body: some View{
         VStack{
-            Text(player.name) // Maybe make it so a player can enter its name?
+            HStack {
+                Text(player.name) // Maybe make it so a player can enter its name?
+                Text("-score: " + String(player.score))
+            }
             CardView(content: player.cardOne.content, isFaceUp: gameStart, arrow: getArrow(rightArrow: player.cardOne.rightArrow, isBot: player.id != 0), isSelected: player.isTurn)
             if isTurn {
                 // Add the second card
                 CardView(content: player.cardTwo!.content, isFaceUp:gameStart, arrow: getArrow(rightArrow: player.cardTwo!.rightArrow, isBot: player.id != 0), cardState: true)
                 if includeMsg {
-                    // Add a text view
                     MessageView()
                 }
             }
-            else{ // no card or empty card: this could be removed as well
+            else{
                 CardView(content: "", arrow: "", cardState: false)
             }
         }

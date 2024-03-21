@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IdleView: View {
-    private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
+    @ObservedObject var viewModel: ThatsNotAHatGame
     
     var body: some View {
         VStack {
@@ -27,6 +27,6 @@ struct IdleView: View {
 
 struct IdleView_Previews: PreviewProvider {
     static var previews: some View {
-        IdleView()
+        IdleView(viewModel: ThatsNotAHatGame())
     }
 }

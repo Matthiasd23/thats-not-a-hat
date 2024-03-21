@@ -11,7 +11,7 @@ import SwiftUI
 // PassCardView (player chooses either accept/decline)
 struct PassCardView: View {
     
-    private var viewModel: ThatsNotAHatGame = ThatsNotAHatGame()
+    @ObservedObject var viewModel: ThatsNotAHatGame
 //    private let viewModel: ThatsNotAHatGame
     
     var body: some View {
@@ -45,7 +45,7 @@ struct PassCardView: View {
 
 struct PassCardView_Previews: PreviewProvider {
     static var previews: some View {
-        PassCardView()
+        PassCardView(viewModel: ThatsNotAHatGame())
     }
 }
 

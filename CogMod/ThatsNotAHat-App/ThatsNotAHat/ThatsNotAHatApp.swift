@@ -10,11 +10,11 @@ import SwiftUI
 
 @main
 struct ThatsNotAHatApp: App {
-    let game = ThatsNotAHatGame()
+    @StateObject var game = ThatsNotAHatGame()
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: game)
         }
     }
 }

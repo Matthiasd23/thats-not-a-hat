@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showInfo = false
+    @ObservedObject var viewModel: ThatsNotAHatGame
     
     var body: some View {
         NavigationView{
@@ -39,7 +40,7 @@ struct ContentView: View {
                 }
                 .padding()
                 //Play Now Button: currently brings you to GameStartView. It should
-                NavigationLink(destination:PlayerChoosesView()) {
+                NavigationLink(destination:GameStartView(viewModel: ThatsNotAHatGame())) {
                     Text("Play Now")
                 }
                 .padding()
@@ -60,6 +61,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: ThatsNotAHatGame())
     }
 }

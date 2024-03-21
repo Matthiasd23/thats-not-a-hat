@@ -8,9 +8,9 @@
 import SwiftUI
 
 
-class ThatsNotAHatGame {
+class ThatsNotAHatGame: ObservableObject {
     
-    private var model = ThatsNotAHat<String>()
+    @Published private var model = ThatsNotAHat<String>()
     
     var players: Array<Player> {return model.players}
     var message: String {return model.message}
