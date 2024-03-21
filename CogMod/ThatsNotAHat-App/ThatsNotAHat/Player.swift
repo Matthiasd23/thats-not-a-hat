@@ -98,16 +98,16 @@ struct Player {
     }
     
     private func createChunk(card: Card<String>, player_id: Double) -> Chunk {
-        let chunk = model?.generateNewChunk(string: card.content)
-        chunk?.setSlot(slot: "content", value: card.content)
-        chunk?.setSlot(slot: "playerID", value: player_id)
-        chunk?.setSlot(slot: "direction", value: card.directionValue())
-        return chunk!
+        let chunk = model!.generateNewChunk(string: card.content)
+        chunk.setSlot(slot: "content", value: card.content)
+        chunk.setSlot(slot: "playerID", value: player_id)
+        chunk.setSlot(slot: "direction", value: card.directionValue())
+        return chunk
     }
     
     func retrieveChunk(card: Card<String>, player_id: Double) {
         // I have no idea about this error
-        let (activation, optionalChunk) = model?.dm.retrieve(chunk: createChunk(card: card, player_id: player_id))
+        let (activation, optionalChunk) = model!.dm.retrieve(chunk: createChunk(card: card, player_id: player_id))
         
         return
     }
