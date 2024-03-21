@@ -88,7 +88,11 @@ struct Player {
         addToDM(card: passed_card, player_id: player_id)
         
         // return a message that w
-            
+        if card_to_pass == nil {
+            self.message = dealWithUncertainty()
+        } else {
+            self.message = "I have a " + card_to_pass?.slotValue(slot: "content")
+        }
     }
     
     func dealWithUncertainty() -> String {
