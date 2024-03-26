@@ -91,7 +91,7 @@ struct Player {
         if card_to_pass == nil {
             self.message = dealWithUncertainty()
         } else {
-            self.message = "I have a " + card_to_pass?.slotValue(slot: "content")
+            //self.message = "I have a " + card_to_pass?.slotValue(slot: "content")
         }
     }
     

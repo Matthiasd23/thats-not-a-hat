@@ -14,6 +14,8 @@ struct GameStartView: View {
     
     @ObservedObject var viewModel: ThatsNotAHatGame
 //    private let viewModel: ThatsNotAHatGame : This might be a fix for the data being carried over - the code above creates a new class, instead we would have to pass one viewModel class around
+    @State private var showReadyButton = true //ready button to start the game after you got shown your first set of cards or the new card.
+    @State private var showGuessOptions = false
     
     var body: some View {
         VStack {
@@ -25,8 +27,26 @@ struct GameStartView: View {
             CardStackView(idle: true)
             PlayerView(player: viewModel.players[0], includeMsg: false, gameStart: true)
     
-            Button(action: {}, label: {Text("Ready!")}).onTapGesture {
-                viewModel.startGame()
+            if(showReadyButton == true) {
+                Button("Ready!") {
+                    viewModel.startGame()
+                    self.showReadyButton = false
+                    self.showGuessOptions = true
+                }
+            }
+            
+            if(showGuessOptions == true) {
+                HStack{
+                    Button(action: {} , label: {Text("😎")}).padding(.horizontal) // Make the actions
+                    Spacer()
+                    Button(action: {} , label: {Text("Emoji_two")}).padding(.horizontal)
+                    Spacer()
+                    Button(action: {} , label: {Text("Emoji_three")}).padding(.horizontal)
+                    Spacer()
+                    Button(action: {} , label: {Text("Emoji_four")}).padding(.horizontal)
+                    Spacer()
+                    Button(action: {} , label: {Text("Emoji_five")}).padding(.horizontal)
+                }
             }
         }
         .background(Color("lightPink"))
