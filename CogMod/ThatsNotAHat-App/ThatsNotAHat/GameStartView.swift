@@ -17,6 +17,15 @@ struct GameStartView: View {
     @State private var showReadyButton = true //ready button to start the game after you got shown your first set of cards or the new card.
     @State private var showGuessOptions = false
     
+    // here the possible guesses should be added, right now it's hardcoded with random emojis. A function should be made for these to be determined. One that's the actual card and the rest previous cards or random cards.
+    @State private var emoji_one = "😎"
+    @State private var emoji_two = "🍕"
+    @State private var emoji_three = "🔥"
+    @State private var emoji_four = "🪁"
+    @State private var emoji_five = "✈️"
+    @State private var previewGuessItem = ""
+    @State private var guessItem = ""
+    
     var body: some View {
         VStack {
             HStack{
@@ -24,9 +33,10 @@ struct GameStartView: View {
                 Spacer()
                 PlayerView(player: viewModel.players[2], gameStart: true) // bot 2
             }
-            CardStackView(idle: true)
+            CardStackView(idle: true) // middle card stack
             PlayerView(player: viewModel.players[0], includeMsg: false, gameStart: true)
     
+            // ready button to start the game after examining your cards
             if(showReadyButton == true) {
                 Button("Ready!") {
                     viewModel.startGame()
@@ -36,16 +46,29 @@ struct GameStartView: View {
             }
             
             if(showGuessOptions == true) {
-                HStack{
-                    Button(action: {} , label: {Text("😎")}).padding(.horizontal) // Make the actions
+                VStack{
                     Spacer()
-                    Button(action: {} , label: {Text("Emoji_two")}).padding(.horizontal)
+                    HStack{
+                        Button(action: {guessItem = emoji_one} , label: {Text(emoji_one)}).padding(.horizontal) // Make the actions
+                        Spacer()
+                        Button(action: {guessItem = emoji_two} , label: {Text(emoji_two)}).padding(.horizontal)
+                        Spacer()
+                        Button(action: {guessItem = emoji_three} , label: {Text(emoji_three)}).padding(.horizontal)
+                        Spacer()
+                        Button(action: {guessItem = emoji_four} , label: {Text(emoji_four)}).padding(.horizontal)
+                        Spacer()
+                        Button(action: {guessItem = emoji_five} , label: {Text(emoji_five)}).padding(.horizontal)
+                    }
                     Spacer()
-                    Button(action: {} , label: {Text("Emoji_three")}).padding(.horizontal)
+                    if(guessItem != "") {
+                        Button(guessItem) {
+                            self.showGuessOptions = false
+                            self.showReadyButton = true // temp, just so that it goes back to starting state
+                            previewGuessItem = guessItem
+                        }
+                        Text("Confirm")
+                    }
                     Spacer()
-                    Button(action: {} , label: {Text("Emoji_four")}).padding(.horizontal)
-                    Spacer()
-                    Button(action: {} , label: {Text("Emoji_five")}).padding(.horizontal)
                 }
             }
         }
