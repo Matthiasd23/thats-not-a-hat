@@ -26,6 +26,7 @@ struct GameStartView: View {
             PlayerView(player: viewModel.players[0], includeMsg: false, gameStart: true)
     
             Button(action: {}, label: {Text("Ready!")}).onTapGesture {
+                print("Starting the Game")
                 viewModel.startGame()
             }
         }

@@ -69,9 +69,23 @@ struct Player {
         score += 1
     }
     
-    func decisionCard(){
+    func decisionCard(passed_card: Card<String>, player_id: Double, claim: String) -> Bool {
+        // Claim is what the sender claims the card to be, because we need to check the claim vs what the bot thinks, not what actually on the card
+        // It gets a card and has to decide wether the person said the right thing or not
         // Retrieve activation of Chunk: id: sender.id, arrow: known
+        // We have 2 Options here, we can make a retrival based on content, and check if the player_id matches
+        // or make a retrival based on player_id and check if content matches
         
+        //let retrieved_content = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
+        //retrieved_content?.slotValue(slot: "content") == claim  does not work because type value? is not a string
+        if Bool.random(){
+            print("I accept") // For debugging purposes
+            return true
+            // cannot call the acceptCard or declineCard because sef is immutable
+        }else{
+            print("I decline")
+            return false
+        }
         // highest activation
         
     }
@@ -79,6 +93,7 @@ struct Player {
     // Never called by player
     func addToDM(card: Card<String>, player_id: Double) {
         model?.dm.addToDM(createChunk(card: card, player_id: player_id))
+        model!.time += 1.0 // Adding things into DM takes a little bit of time. We can also adjust this to make to model worse.
     }
     
     mutating func acceptCard(passed_card: Card<String>, player_id: Double){          // Accepting the card
@@ -91,19 +106,23 @@ struct Player {
         if card_to_pass == nil {
             self.message = dealWithUncertainty()
         } else {
-            self.message = "I have a " + card_to_pass?.slotValue(slot: "content")
+            //self.message = "I have a " + card_to_pass?.slotValue(slot: "content")
         }
     }
     
     func dealWithUncertainty() -> String {
+        // I guess here we can implement multiple strategies, but i would suggest that if we dont retrieve any card, we just randomly say one for now.
+        
         return "I don't know..."
     }
             
-    func declineCard() {        // Declining the card
+    func declineCard(passed_card: Card<String>, player_id: Double) {        // Declining the card
         // Receiver says no
         // Appoint a 'loser'
         // Introduce new card, assign it to the loser
         // Everyone reinforces
+        
+        
     }
     
     private func createChunk(card: Card<String>, player_id: Double, recall: Bool = false) -> Chunk {
@@ -124,5 +143,6 @@ struct Player {
         model!.time += latency
         return optionalChunk
     }
+    
     
 }
