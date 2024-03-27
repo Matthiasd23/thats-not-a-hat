@@ -78,12 +78,14 @@ struct Player {
         
         //let retrieved_content = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
         //retrieved_content?.slotValue(slot: "content") == claim  does not work because type value? is not a string
-        if Bool.random(){
-            print("I accept") // For debugging purposes
+        var myBool = true
+        //Bool.random()
+        if myBool{
+            print("\(name) accepts") // For debugging purposes
             return true
             // cannot call the acceptCard or declineCard because sef is immutable
         }else{
-            print("I decline")
+            print("\(name) declines")
             return false
         }
         // highest activation

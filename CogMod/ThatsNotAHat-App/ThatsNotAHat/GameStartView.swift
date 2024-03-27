@@ -79,7 +79,7 @@ struct GameStartView: View {
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         
                         Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
-                            viewModel.playerPassCard()
+                            viewModel.passingCard(card: guessItem)
                             self.showGuessOptions = false
                             self.botTurn = true
                         }

@@ -16,6 +16,7 @@ class ThatsNotAHatGame: ObservableObject {
     var message: String {return model.message}
     var card_options: Array<String> { return model.deck.cards_outofplay }
     
+    
     // MARK: Intent
     
     func startGame() {
@@ -32,10 +33,11 @@ class ThatsNotAHatGame: ObservableObject {
         model.playerDeclines()
     }
     
-    func playerPassCard() {
-        print("Passing a Card")
-        
-        
+    func passingCard(card: String) {
+        print("Passing a card")
+        // This passes the card and afterwards it is not in the players "inventory anymore"\(card)
+        model.botDecision()
+        print("\(players)")
     }
     
     

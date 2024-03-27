@@ -35,6 +35,8 @@ struct ThatsNotAHat<CardContent>{
                 bot.addToDM(card: player.cardOne, player_id: player.ID())
                 if player.cardTwo != nil {
                     bot.addToDM(card: player.cardTwo!, player_id: player.ID())
+                
+        sender = player         // Player always starts as the sender
                 }
             }
         }
@@ -174,10 +176,13 @@ struct ThatsNotAHat<CardContent>{
                     
                     // TODO: Maybe here we get to a problem if we do not change sender that the game stops playing, but I am not sure.
                 }
-                
-                
             }
             
         }
     }
+    
+    // Passing on the Card, we are not using the 
+    mutating func passCard(){
+        sender.passCard()
+        }
 }
