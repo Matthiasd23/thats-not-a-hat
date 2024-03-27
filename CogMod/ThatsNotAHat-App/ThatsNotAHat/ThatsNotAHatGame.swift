@@ -41,5 +41,4 @@ class ThatsNotAHatGame: ObservableObject {
         print("\(players[0])")
     }
     
-    
 }
