@@ -27,9 +27,17 @@ struct GameStartView: View {
     var body: some View {
         VStack {
             HStack{
-                PlayerView(player: viewModel.players[1], gameStart: true) // bot 1
-                Spacer()
-                PlayerView(player: viewModel.players[2], gameStart: true) // bot 2
+                if decisionTurn == true {
+                    PlayerView(player: viewModel.players[1], includeMsg: true, gameStart: true) // bot 1
+                    Spacer()
+                    PlayerView(player: viewModel.players[2], includeMsg: false, gameStart: true) // bot 2
+                }
+                else {
+                    PlayerView(player: viewModel.players[1], includeMsg: false, gameStart: true) // bot 1
+                    Spacer()
+                    PlayerView(player: viewModel.players[2], includeMsg: false, gameStart: true) // bot 2
+                }
+
             }
             CardStackView(idle: true) // middle card stack
             
@@ -111,7 +119,7 @@ struct GameStartView: View {
                         self.decisionTurn = false
                         self.showGuessOptions = true
                         print("Player Accepts")
-                        },
+                    },
                         label: {Text("Accept")})
                         .padding(.horizontal)
                     Spacer()
