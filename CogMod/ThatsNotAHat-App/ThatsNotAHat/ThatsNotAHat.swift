@@ -11,7 +11,9 @@ import Foundation
 struct ThatsNotAHat<CardContent>{
     
     private(set) var players: Array<Player>
-    private(set) var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
+    // DONE: I think sender should be the id, so we can use the actual player variables and those then change instead of an extra one
+    // private(set) var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
+    private(set) var senderID: Int = 0
     // private var passed_card: Card<String>?
     private(set) var message: String = "No message"
     internal var deck = Deck()
@@ -38,9 +40,10 @@ struct ThatsNotAHat<CardContent>{
                 }
             }
         }
-        sender = player         // Player always starts as the sender
-        sender.isTurn = true
+        // Player always starts as the sender
+        players[senderID].isTurn = true
     }
+    
     
     // Checks if one player has reached 3 cards (loses)
     func checkForLoser() {
@@ -57,8 +60,15 @@ struct ThatsNotAHat<CardContent>{
         return message == card.content
     }
     
-    func loadModel(filename: String){
-        // Do we need this? depends on if we want to use actual ACT-R or more a pseudo implementation, i would suggest using smth similar to PD3 so no
+    mutating func flipCards(){
+        // at the start of the game flip the cards face down
+        players[0].cardOne.isFaceUp = true
+        for i in 0..<3 {
+            players[i].cardOne.isFaceUp = true
+            if players[i].cardTwo != nil {
+                players[i].cardTwo?.isFaceUp = true
+            }
+        }
     }
     // THIS FUNCTION IS (FOR NOW) ONLY CALLED BY THE PLAYER THROUGH VIEWMODEL, IF WE WANT TO GENERALIZE IT, IT SHOULD BE CHANGED
     mutating func playerAccepts() {
@@ -66,19 +76,19 @@ struct ThatsNotAHat<CardContent>{
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
-        let (receiver_id, passed_card) = sender.passCard()
-        var receiver = players[receiver_id]
+        let (receiver_id, passed_card) = players[senderID].passCard() //sender.passCard()
+        
         // ------------------------------------------ \\
         
         // addCard to receiver (player in this case)
-        receiver.addCard(new_card: passed_card)
+        players[receiver_id].addCard(new_card: passed_card)
         // reinforce things, the sender (bot) reinforces and bystander
         for bot in players.dropFirst() {
-            bot.addToDM(card: passed_card, player_id: receiver.ID())
+            bot.addToDM(card: passed_card, player_id: players[receiver_id].ID())
         }
         
         // After accepting the player becomes the sender
-        sender = players[0]
+        senderID = players[0].id
     }
     
     mutating func playerDeclines() { // ADD timer for the models (with a max so it cant be exploited)
@@ -86,8 +96,8 @@ struct ThatsNotAHat<CardContent>{
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
-        let (receiver_id, passed_card) = sender.passCard()
-        var receiver = players[receiver_id]
+        let (receiver_id, passed_card) = players[senderID].passCard()
+        
         // Introduce new card with cardContentFactory (this should be moved to model (maybe create a separate struct/file)
         // either way a new card is introduced, the only difference is who gets the card
         let new_card = deck.getNewCard()
@@ -96,57 +106,60 @@ struct ThatsNotAHat<CardContent>{
         if checkMessageWithCard(card: passed_card)
         {
             // sender correct
-            receiver.addToScore()
+            players[receiver_id].addToScore()
             checkForLoser()
             
             // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
-            receiver.addCard(new_card: new_card)
+            players[receiver_id].addCard(new_card: new_card)
             // Do model things - reinforcing
             for bot in players.dropFirst() {
-                bot.addToDM(card: new_card, player_id: receiver.ID())
+                bot.addToDM(card: new_card, player_id: players[receiver_id].ID())
             }
             
             // RECEIVER BECOMES SENDER
-            sender = receiver
+            senderID = receiver_id
         }
         else
         {
             // receiver is correct
-            sender.addToScore()
+            players[senderID].addToScore()
             checkForLoser()
-            sender.addCard(new_card: new_card)
+            players[senderID].addCard(new_card: new_card)
             // Update Bots
             for bot in players.dropFirst() {
-                bot.addToDM(card: new_card, player_id: sender.ID())
+                bot.addToDM(card: new_card, player_id: players[senderID].ID())
         }
             
             // SENDER STAYS SENDER
         }
-        sender.isTurn = true
+        
+        players[senderID].isTurn = true
     }
     
     // we need now the control options for the model.
     mutating func botDecision() {
         // either player or the other model passed the card, and one model is the reciever.
-        let (reciever_id, passed_card) = sender.passCard()
-        var receiver = players[reciever_id]
+        players[senderID].isTurn = false // players turn ends as soon as he passes the card
+        let (reciever_id, passed_card) = players[senderID].passCard()
+        
         
         // model makes a retrival and then checks wether its the same
-        let model_decision = receiver.decisionCard(passed_card: passed_card, player_id: sender.ID(), claim: message)
+        let model_decision = players[reciever_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: message)
         
         // currently it randomly Accepts(True) or Declines(False)
         if model_decision{
             // update its other card, switch cards in possesion and update second bot
-            receiver.addCard(new_card: passed_card)
+            players[reciever_id].addCard(new_card: passed_card)
             // reinforce things, both bots update
             for bot in players.dropFirst() {
-                bot.addToDM(card: passed_card, player_id: receiver.ID())
+                bot.addToDM(card: passed_card, player_id: players[reciever_id].ID())
             }
             
             // After accepting the player becomes the sender
-            sender = players[0]
-            sender.isTurn = true
+            senderID = players[reciever_id].id
+            players[senderID].isTurn = true
             // The other ones have to be set to false at those points aswell.
+            
             
             
         }else{
@@ -155,43 +168,35 @@ struct ThatsNotAHat<CardContent>{
             
             if checkMessageWithCard(card: passed_card){
                 // sender correct
-                receiver.addToScore()
+                players[reciever_id].addToScore()
                 checkForLoser()
                 
                 // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
-                receiver.addCard(new_card: new_card)
+                players[reciever_id].addCard(new_card: new_card)
                 // Do model things - reinforcing
                 for bot in players.dropFirst() {
-                    bot.addToDM(card: new_card, player_id: receiver.ID())
+                    bot.addToDM(card: new_card, player_id: players[reciever_id].ID())
                 }
                 
                 // RECEIVER BECOMES SENDER
-                sender = receiver
+                senderID = reciever_id
             }
             else
             {
                 // receiver is correct, sender stays the same player
-                sender.addToScore()
+                players[senderID].addToScore()
                 checkForLoser()
-                sender.addCard(new_card: new_card)
+                players[senderID].addCard(new_card: new_card)
                 // Update Bots
                 for bot in players.dropFirst() {
-                    bot.addToDM(card: new_card, player_id: sender.ID())
+                    bot.addToDM(card: new_card, player_id: players[senderID].ID())
                     
                     // TODO: Maybe here we get to a problem if we do not change sender that the game stops playing, but I am not sure.
                 }
                 
             }
-            sender.isTurn = true
+            players[senderID].isTurn = true
         }
         
-    }
-    
-    // Passing on the Card, we are not using the 
-    mutating func passCard(){
-        sender.passCard()
-        }
-    mutating func proxyStart(){
-        players[0].isTurn = true
     }
 }

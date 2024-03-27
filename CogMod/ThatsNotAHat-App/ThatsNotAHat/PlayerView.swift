@@ -19,23 +19,23 @@ struct PlayerView: View{
     }
     
     var player : Player
-    
     var includeMsg: Bool = true
-    var gameStart: Bool = false // can be used for the first turn, where cards need to be shown to the player.
-    
     var body: some View{
         VStack{
             HStack {
                 Text(player.name) // Maybe make it so a player can enter its name?
                 Text("-score: " + String(player.score))
             }
-            CardView(content: player.cardOne.content, isFaceUp: gameStart, arrow: getArrow(rightArrow: player.cardOne.rightArrow, isBot: (player.id != 0)), isSelected: player.isTurn)
+            CardView(content: player.cardOne.content, arrow: getArrow(rightArrow: player.cardOne.rightArrow, isBot: (player.id != 0)), isSelected: player.isTurn)
             if player.isTurn {
                 // Add the second card
-                CardView(content: player.cardTwo!.content, isFaceUp:gameStart, arrow: getArrow(rightArrow: player.cardTwo!.rightArrow, isBot: (player.id != 0)), cardState: true)
+                CardView(content: player.cardTwo!.content, arrow: getArrow(rightArrow: player.cardTwo!.rightArrow, isBot: (player.id != 0)), cardState: true)
                 if includeMsg {
                     MessageView()
                 }
+            }
+            if includeMsg {
+                MessageView()
             }
             else{
                 CardView(content: "", arrow: "", cardState: false)
