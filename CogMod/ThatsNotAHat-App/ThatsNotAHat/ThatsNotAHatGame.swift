@@ -40,5 +40,4 @@ class ThatsNotAHatGame: ObservableObject {
         print("\(players)")
     }
     
-    
 }

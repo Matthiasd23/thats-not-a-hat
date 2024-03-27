@@ -18,6 +18,7 @@ struct GameStartView: View {
     @State private var showGuessOptions = false
     @State private var showCards = true
     @State private var botTurn = false
+    @State private var decisionTurn = false
     
     // here the possible guesses should be added, right now it's hardcoded with random emojis. A function should be made for these to be determined. One that's the actual card and the rest previous cards or random cards.
     @State private var guessItem = ""
@@ -94,11 +95,43 @@ struct GameStartView: View {
                 // check memory to see if card given is correct
                 // update saved card with the new card gathered from previous person's turn. Also, announce the card that is passed on.
                 Button("Bot's Turn") {
-                    self.showGuessOptions = true // temporary solution, need to implement all the bots things
+                    //self.showGuessOptions = true // temporary solution, need to implement all the bots things
+                    
                     self.botTurn = false
+                    self.decisionTurn = true
                     //self.showReadyButton = true // temp, just so that it goes back to starting state
                 }
                 
+            }
+            
+            if(decisionTurn == true) {
+                HStack{
+                    Button(action: {
+                        viewModel.playerAccepts()
+                        self.decisionTurn = false
+                        self.showGuessOptions = true
+                        print("Player Accepts")
+                        },
+                        label: {Text("Accept")})
+                        .padding(.horizontal)
+                        .onTapGesture{
+                            print("View accepts...")
+                            viewModel.playerAccepts()
+                            self.decisionTurn = false
+                            self.showGuessOptions = true
+                        }
+                    Spacer()
+                    Button(action: {
+                        viewModel.playerDeclines()
+                        self.decisionTurn = false
+                        self.showGuessOptions = true
+                        print("Player Declines")
+                    },
+                        label: {Text("Decline")})
+                        .padding(.horizontal)
+                        .onTapGesture{
+                    }
+                }
             }
         }
         .background(Color("lightPink"))
