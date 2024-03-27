@@ -9,7 +9,7 @@ import Foundation
 
 struct Deck {
     
-    var cards_outofplay: Array<String> = []
+    var cards_outofplay: Array<String> = ["💊", "⚔️"] // just added those 2 so we start with an array of 5 out of play cards for presentation.
     
     // we probably need to move this to the model
     private var emojis = ["🐶", "🐱", "🐷", "🐔", "🐥", "🦄", "🐝", "🦧", "🐊", "🐳",

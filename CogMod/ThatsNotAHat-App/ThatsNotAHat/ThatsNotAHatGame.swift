@@ -32,5 +32,11 @@ class ThatsNotAHatGame: ObservableObject {
         model.playerDeclines()
     }
     
+    func playerPassCard() {
+        print("Passing a Card")
+        
+        
+    }
+    
     
 }

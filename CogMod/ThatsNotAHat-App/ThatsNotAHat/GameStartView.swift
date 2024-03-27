@@ -20,12 +20,8 @@ struct GameStartView: View {
     @State private var botTurn = false
     
     // here the possible guesses should be added, right now it's hardcoded with random emojis. A function should be made for these to be determined. One that's the actual card and the rest previous cards or random cards.
-    @State private var emoji_one = "😎"
-    @State private var emoji_two = "🍕"
-    @State private var emoji_three = "🔥"
-    @State private var emoji_four = "🪁"
-    @State private var emoji_five = "✈️"
     @State private var guessItem = ""
+    
     
     var body: some View {
         VStack {
@@ -58,15 +54,15 @@ struct GameStartView: View {
                 VStack{
                     Spacer()
                     HStack{
-                        Button(action: {guessItem = emoji_one} , label: {Text(emoji_one)}).padding(.horizontal) // Make the actions
+                        Button(action: {guessItem = viewModel.card_options[1]} , label:   {Text(viewModel.card_options[1])}).padding(.horizontal) // Make the actions
                         Spacer()
-                        Button(action: {guessItem = emoji_two} , label: {Text(emoji_two)}).padding(.horizontal)
+                        Button(action: {guessItem = viewModel.card_options[2]} , label: {Text(viewModel.card_options[2])}).padding(.horizontal)
                         Spacer()
-                        Button(action: {guessItem = emoji_three} , label: {Text(emoji_three)}).padding(.horizontal)
+                        Button(action: {guessItem = viewModel.card_options[3]} , label: {Text(viewModel.card_options[3])}).padding(.horizontal)
                         Spacer()
-                        Button(action: {guessItem = emoji_four} , label: {Text(emoji_four)}).padding(.horizontal)
+                        Button(action: {guessItem = viewModel.card_options[4]} , label: {Text(viewModel.card_options[4])}).padding(.horizontal)
                         Spacer()
-                        Button(action: {guessItem = emoji_five} , label: {Text(emoji_five)}).padding(.horizontal)
+                        Button(action: {guessItem = viewModel.card_options[5]} , label: {Text(viewModel.card_options[5])}).padding(.horizontal)
                     }
                     Spacer()
                     
@@ -82,7 +78,8 @@ struct GameStartView: View {
                         .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         
-                        Button("Confirm") {
+                        Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
+                            viewModel.playerPassCard()
                             self.showGuessOptions = false
                             self.botTurn = true
                         }
