@@ -122,6 +122,7 @@ struct ThatsNotAHat<CardContent>{
             
             // SENDER STAYS SENDER
         }
+        sender.isTurn = true
     }
     
     // we need now the control options for the model.
@@ -144,6 +145,9 @@ struct ThatsNotAHat<CardContent>{
             
             // After accepting the player becomes the sender
             sender = players[0]
+            sender.isTurn = true
+            // The other ones have to be set to false at those points aswell.
+            
             
         }else{
             // check who is correct, remove card, introduce new card, update both bots.
@@ -175,11 +179,12 @@ struct ThatsNotAHat<CardContent>{
                     bot.addToDM(card: new_card, player_id: sender.ID())
                     
                     // TODO: Maybe here we get to a problem if we do not change sender that the game stops playing, but I am not sure.
-            }
+                }
                 
             }
-            
+            sender.isTurn = true
         }
+        
     }
     
     // Passing on the Card, we are not using the 

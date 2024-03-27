@@ -35,10 +35,10 @@ class ThatsNotAHatGame: ObservableObject {
     
     func passingCard() {
         print("Passing a card")
-        print("\(players[0])")
-        // This passes the card from the player or a bot to a bot, and afterwards it is not in the players "inventory anymore" \
+        print("\(players)")
+        // This should be passing the card on to the next player, but it only works if we print the players from inside the botDecision function and not here \
         model.botDecision()
-        print("\(players[0])")
+        print("\(players)")
     }
     
 }
