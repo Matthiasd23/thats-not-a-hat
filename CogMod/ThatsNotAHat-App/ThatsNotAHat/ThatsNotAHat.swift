@@ -35,11 +35,11 @@ struct ThatsNotAHat<CardContent>{
                 bot.addToDM(card: player.cardOne, player_id: player.ID())
                 if player.cardTwo != nil {
                     bot.addToDM(card: player.cardTwo!, player_id: player.ID())
-                
-        sender = player         // Player always starts as the sender
                 }
             }
         }
+        sender = player         // Player always starts as the sender
+        sender.isTurn = true
     }
     
     // Checks if one player has reached 3 cards (loses)
@@ -118,7 +118,7 @@ struct ThatsNotAHat<CardContent>{
             // Update Bots
             for bot in players.dropFirst() {
                 bot.addToDM(card: new_card, player_id: sender.ID())
-            }
+        }
             
             // SENDER STAYS SENDER
         }
@@ -175,7 +175,8 @@ struct ThatsNotAHat<CardContent>{
                     bot.addToDM(card: new_card, player_id: sender.ID())
                     
                     // TODO: Maybe here we get to a problem if we do not change sender that the game stops playing, but I am not sure.
-                }
+            }
+                
             }
             
         }
@@ -185,4 +186,7 @@ struct ThatsNotAHat<CardContent>{
     mutating func passCard(){
         sender.passCard()
         }
+    mutating func proxyStart(){
+        players[0].isTurn = true
+    }
 }

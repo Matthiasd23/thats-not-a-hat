@@ -20,7 +20,7 @@ class ThatsNotAHatGame: ObservableObject {
     // MARK: Intent
     
     func startGame() {
-        
+        //model.proxyStart()
     }
     
     func playerAccepts() {
@@ -33,11 +33,12 @@ class ThatsNotAHatGame: ObservableObject {
         model.playerDeclines()
     }
     
-    func passingCard(card: String) {
+    func passingCard() {
         print("Passing a card")
-        // This passes the card and afterwards it is not in the players "inventory anymore"\(card)
+        print("\(players[0])")
+        // This passes the card from the player or a bot to a bot, and afterwards it is not in the players "inventory anymore" \
         model.botDecision()
-        print("\(players)")
+        print("\(players[0])")
     }
     
     

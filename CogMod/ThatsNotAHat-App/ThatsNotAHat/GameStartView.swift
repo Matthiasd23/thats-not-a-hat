@@ -26,9 +26,9 @@ struct GameStartView: View {
     var body: some View {
         VStack {
             HStack{
-                PlayerView(player: viewModel.players[1], gameStart: false) // bot 1
+                PlayerView(player: viewModel.players[1], gameStart: true) // bot 1
                 Spacer()
-                PlayerView(player: viewModel.players[2], gameStart: false) // bot 2
+                PlayerView(player: viewModel.players[2], gameStart: true) // bot 2
             }
             CardStackView(idle: true) // middle card stack
             
@@ -79,7 +79,7 @@ struct GameStartView: View {
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         
                         Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
-                            viewModel.passingCard(card: guessItem)
+                            viewModel.passingCard()
                             self.showGuessOptions = false
                             self.botTurn = true
                         }

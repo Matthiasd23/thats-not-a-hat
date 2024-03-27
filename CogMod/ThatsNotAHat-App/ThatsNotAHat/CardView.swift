@@ -39,7 +39,7 @@ struct CardView: View {
             }
             
         }.padding(.horizontal)
-        //.onTapGesture(perform: {isFaceUp = !isFaceUp}) //This should move the card to the next player according to logic, not flip over the card
+        .onTapGesture(perform: {isFaceUp = !isFaceUp}) //This should move the card to the next player according to logic, not flip over the card
         .aspectRatio(2/1, contentMode: .fit)
     }
 }
