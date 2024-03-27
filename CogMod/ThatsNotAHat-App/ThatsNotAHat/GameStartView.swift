@@ -70,22 +70,22 @@ struct GameStartView: View {
                     MessageView()
                     
                     // Shows the current selected guess, confirm can be pressed to validate the guess.
-                    if(guessItem == "") || (guessItem != "") {
-                        Button(guessItem) {
-
-                        }
-                        .frame(width: 40.0, height: 50.0)
-                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/3/*@END_MENU_TOKEN@*/)
-                        .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-                        .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
+                    Button(guessItem) {
                         
-                        Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
-                            viewModel.passingCard()
-                            self.showGuessOptions = false
-                            self.botTurn = true
-                        }
-                        .padding()
                     }
+                    .frame(width: 40.0, height: 50.0)
+                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/3/*@END_MENU_TOKEN@*/)
+                    .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                    .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
+                        
+                    Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
+                        viewModel.passingCard()
+                        self.showGuessOptions = false
+                        self.botTurn = true
+                        self.guessItem = ""
+                    }
+                    .padding()
+                    
                 }
             }
             if(botTurn == true) {
@@ -105,7 +105,7 @@ struct GameStartView: View {
             }
             
             if(decisionTurn == true) {
-                HStack{
+                HStack{ // Accept button
                     Button(action: {
                         viewModel.playerAccepts()
                         self.decisionTurn = false
@@ -114,14 +114,8 @@ struct GameStartView: View {
                         },
                         label: {Text("Accept")})
                         .padding(.horizontal)
-                        .onTapGesture{
-                            print("View accepts...")
-                            viewModel.playerAccepts()
-                            self.decisionTurn = false
-                            self.showGuessOptions = true
-                        }
                     Spacer()
-                    Button(action: {
+                    Button(action: { // Decline Button
                         viewModel.playerDeclines()
                         self.decisionTurn = false
                         self.showGuessOptions = true
@@ -129,8 +123,6 @@ struct GameStartView: View {
                     },
                         label: {Text("Decline")})
                         .padding(.horizontal)
-                        .onTapGesture{
-                    }
                 }
             }
         }
