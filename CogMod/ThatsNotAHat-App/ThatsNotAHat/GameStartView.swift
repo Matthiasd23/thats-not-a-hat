@@ -16,8 +16,6 @@ struct GameStartView: View {
 //    private let viewModel: ThatsNotAHatGame : This might be a fix for the data being carried over - the code above creates a new class, instead we would have to pass one viewModel class around
     @State private var showReadyButton = true //ready button to start the game after you got shown your first set of cards or the new card.
     @State private var showGuessOptions = false
-    @State private var botTurn = false
-    @State private var decisionTurn = false
     
     // here the possible guesses should be added, right now it's hardcoded with random emojis. A function should be made for these to be determined. One that's the actual card and the rest previous cards or random cards.
     @State private var guessItem = ""
@@ -26,16 +24,9 @@ struct GameStartView: View {
     var body: some View {
         VStack {
             HStack{
-                if decisionTurn == true {
-                    PlayerView(player: viewModel.players[1], includeMsg: true) // bot 1
-                    Spacer()
-                    PlayerView(player: viewModel.players[2], includeMsg: false) // bot 2
-                }
-                else {
-                    PlayerView(player: viewModel.players[1], includeMsg: false) // bot 1
-                    Spacer()
-                    PlayerView(player: viewModel.players[2], includeMsg: false) // bot 2
-                }
+            PlayerView(player: viewModel.players[1], includeMsg: false) // bot 1
+            Spacer()
+            PlayerView(player: viewModel.players[2], includeMsg: false) // bot 2
 
             }
             CardStackView(idle: true) // middle card stack
@@ -44,7 +35,7 @@ struct GameStartView: View {
             PlayerView(player: viewModel.players[0], includeMsg: false)
     
             // ready button to start the game after examining your cards
-            if(showReadyButton == true) {
+            if(viewModel.determineTurn()==0) {
                 Button("Ready!") {
                     viewModel.startGame()
                     self.showReadyButton = false
@@ -80,16 +71,18 @@ struct GameStartView: View {
                     .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         
                     Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
+                        viewModel.updateMessage(claim: guessItem, id: 0)
+                        print(viewModel.players[0])
                         viewModel.passingCard()
                         self.showGuessOptions = false
-                        self.botTurn = true
+
                         self.guessItem = ""
                     }
                     .padding()
                     
                 }
             }
-            if(botTurn == true) {
+            if(viewModel.players[1].isTurn == true || viewModel.players[2].isTurn == true) {
                 // Would be nice as a UI experience to make it so that you have to swipe the card in the direction of the arrow.
                 
                 // retrieve their card first, save it as variable
@@ -97,19 +90,15 @@ struct GameStartView: View {
                 // update saved card with the new card gathered from previous person's turn. Also, announce the card that is passed on.
                 Button("Bot's Turn") {
                     //self.showGuessOptions = true // temporary solution, need to implement all the bots things
-                    
-                    self.botTurn = false
-                    self.decisionTurn = true
-                    //self.showReadyButton = true // temp, just so that it goes back to starting state
+                    viewModel.botPlay()
                 }
                 
             }
             
-            if(decisionTurn == true) {
+            if(viewModel.players[0].decision) {
                 HStack{ // Accept button
                     Button(action: {
                         viewModel.playerAccepts()
-                        self.decisionTurn = false
                         self.showGuessOptions = true
                         print("Player Accepts")
                     },
@@ -118,7 +107,6 @@ struct GameStartView: View {
                     Spacer()
                     Button(action: { // Decline Button
                         viewModel.playerDeclines()
-                        self.decisionTurn = false
                         self.showGuessOptions = true
                         print("Player Declines")
                     },

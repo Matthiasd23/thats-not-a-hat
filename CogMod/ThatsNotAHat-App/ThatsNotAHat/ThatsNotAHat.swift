@@ -56,8 +56,12 @@ struct ThatsNotAHat<CardContent>{
     }
     
     // Checks whether the player passed the right card
-    func checkMessageWithCard(card: Card<String>) -> Bool {
-        return message == card.content
+    func checkMessageWithCard(card: Card<String>, id: Int) -> Bool {
+        return players[id].message == card.content
+    }
+    
+    mutating func updatePlayerMessage(claim: String, id: Int){
+        players[id].message = claim
     }
     
     mutating func flipCards(){
@@ -69,6 +73,10 @@ struct ThatsNotAHat<CardContent>{
                 players[i].cardTwo?.isFaceUp = true
             }
         }
+    }
+    // Used to change the bool of player decision so we can use it for changing the view
+    mutating func togglePlayerDecision(id:Int){
+        players[id].decision.toggle()
     }
     // THIS FUNCTION IS (FOR NOW) ONLY CALLED BY THE PLAYER THROUGH VIEWMODEL, IF WE WANT TO GENERALIZE IT, IT SHOULD BE CHANGED
     mutating func playerAccepts() {
@@ -103,7 +111,7 @@ struct ThatsNotAHat<CardContent>{
         let new_card = deck.getNewCard()
         // ------------------------------------------ \\
         // Card must be shown
-        if checkMessageWithCard(card: passed_card)
+        if checkMessageWithCard(card: passed_card, id: senderID)
         {
             // sender correct
             players[receiver_id].addToScore()
@@ -144,7 +152,7 @@ struct ThatsNotAHat<CardContent>{
         
         
         // model makes a retrival and then checks wether its the same
-        let model_decision = players[reciever_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: message)
+        let model_decision = players[reciever_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: players[reciever_id].message)
         
         // currently it randomly Accepts(True) or Declines(False)
         if model_decision{
@@ -165,14 +173,15 @@ struct ThatsNotAHat<CardContent>{
         }else{
             // check who is correct, remove card, introduce new card, update both bots.
             let new_card = deck.getNewCard()
-            
-            if checkMessageWithCard(card: passed_card){
+            print(passed_card.content, players[senderID].message)
+            if checkMessageWithCard(card: passed_card,id: senderID){
+                
                 // sender correct
                 players[reciever_id].addToScore()
                 checkForLoser()
                 
                 // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
-                players[reciever_id].addCard(new_card: new_card)
+                players[reciever_id].cardTwo = new_card
                 // Do model things - reinforcing
                 for bot in players.dropFirst() {
                     bot.addToDM(card: new_card, player_id: players[reciever_id].ID())
@@ -196,7 +205,15 @@ struct ThatsNotAHat<CardContent>{
                 
             }
             players[senderID].isTurn = true
+        }                            
+        func botGuess(id:Int){
+            // Retrieves the chunk with the highest activations, used to change the message of the bots
+            let chunk = players[id].retrieveChunk(card: players[id].cardOne, player_id: Double(id))
+            if chunk != nil {
+                players[id].message = chunk!.slotValue(slot: "content")
+            }
+            
+            
         }
-        
     }
 }

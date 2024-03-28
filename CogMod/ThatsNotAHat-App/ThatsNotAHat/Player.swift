@@ -18,6 +18,8 @@ struct Player {
     var isTurn: Bool
     var model: Model?
     var message: String = ""
+    // TODO: My idea is to use this variable to update the view to show the accept/decline button it is always supposed to be false for the bots and only true if the player has to make a decision.
+    var decision = false
     
     init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false) {
         self.id = id
@@ -36,7 +38,7 @@ struct Player {
     // from players[1] to the left: players[2]      to the right: players[0]
     // from players[2] to the left: players[0]      to the right: players[1]
     
-    private func determineReceiver(direction: Bool) -> Int {
+    func determineReceiver(direction: Bool) -> Int { // made this public because the viewmodel needs a way to see who the card gets passed to
         // direction (Bool): true = right, false = left
         // this function returns the index corresponding to the receiver in players[index]
         if direction {
@@ -78,7 +80,7 @@ struct Player {
         
         //let retrieved_content = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
         //retrieved_content?.slotValue(slot: "content") == claim  does not work because type value? is not a string
-        var myBool = true
+        var myBool = false
         //Bool.random()
         if myBool{
             print("\(name) accepts") // For debugging purposes

@@ -34,9 +34,6 @@ struct PlayerView: View{
                     MessageView()
                 }
             }
-            if includeMsg {
-                MessageView()
-            }
             else{
                 CardView(content: "", arrow: "", cardState: false)
             }

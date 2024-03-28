@@ -24,7 +24,7 @@ struct CardView: View {
             }
             let shape = RoundedRectangle(cornerRadius: 20)
             if cardState == true {
-                if isFaceUp == true {      // Some card state 1 is face up, 2 is face down and 3 is the placeholder
+                if isFaceUp == true {
                     shape.fill().foregroundColor(.white)
                     shape.stroke(lineWidth:4)
                     
