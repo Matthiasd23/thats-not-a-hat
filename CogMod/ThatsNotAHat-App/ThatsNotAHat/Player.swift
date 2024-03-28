@@ -48,17 +48,21 @@ struct Player {
         }
     }
     
+
     mutating func passCard() -> (Int, Card<String>){
         // Choosing what to say, could be called passCard or smth
         // just using a placeholder right now
         let receiver = determineReceiver(direction: cardOne.rightArrow)
         let passed_card = cardOne
         // cardTwo should never be nil in this case, otherwise a default (wrong) card will be shown
+        cardOne = Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardOne = cardTwo ?? Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardTwo = nil
+        print(cardOne)
         return (receiver, passed_card)
     }
     
+    // Seems not to work properly
     mutating func addCard(new_card: Card<String>) {
         cardTwo = new_card
     }
@@ -78,9 +82,8 @@ struct Player {
         // We have 2 Options here, we can make a retrival based on content, and check if the player_id matches
         // or make a retrival based on player_id and check if content matches
         
-        //let retrieved_content = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
-        //retrieved_content?.slotValue(slot: "content") == claim  does not work because type value? is not a string
-        var myBool = false
+        let retrieved_content = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
+        var myBool = "\(retrieved_content)" == claim
         //Bool.random()
         if myBool{
             print("\(name) accepts") // For debugging purposes

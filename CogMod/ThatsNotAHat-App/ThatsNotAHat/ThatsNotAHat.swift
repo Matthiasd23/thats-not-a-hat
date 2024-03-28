@@ -66,7 +66,6 @@ struct ThatsNotAHat<CardContent>{
     
     mutating func flipCards(){
         // at the start of the game flip the cards face down
-        players[0].cardOne.isFaceUp = true
         for i in 0..<3 {
             players[i].cardOne.isFaceUp = true
             if players[i].cardTwo != nil {
@@ -84,12 +83,13 @@ struct ThatsNotAHat<CardContent>{
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
+        players[senderID].isTurn = false
         let (receiver_id, passed_card) = players[senderID].passCard() //sender.passCard()
         
         // ------------------------------------------ \\
         
         // addCard to receiver (player in this case)
-        players[receiver_id].addCard(new_card: passed_card)
+        players[receiver_id].cardTwo = passed_card
         // reinforce things, the sender (bot) reinforces and bystander
         for bot in players.dropFirst() {
             bot.addToDM(card: passed_card, player_id: players[receiver_id].ID())
@@ -97,16 +97,17 @@ struct ThatsNotAHat<CardContent>{
         
         // After accepting the player becomes the sender
         senderID = players[0].id
+        players[senderID].isTurn = true
     }
     
     mutating func playerDeclines() { // ADD timer for the models (with a max so it cant be exploited)
         print("Declining...")
+        players[senderID].isTurn = false
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
         let (receiver_id, passed_card) = players[senderID].passCard()
         
-        // Introduce new card with cardContentFactory (this should be moved to model (maybe create a separate struct/file)
         // either way a new card is introduced, the only difference is who gets the card
         let new_card = deck.getNewCard()
         // ------------------------------------------ \\
@@ -118,7 +119,9 @@ struct ThatsNotAHat<CardContent>{
             checkForLoser()
             
             // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
-            players[receiver_id].addCard(new_card: new_card)
+            players[receiver_id].cardTwo = new_card
+            
+            
             // Do model things - reinforcing
             for bot in players.dropFirst() {
                 bot.addToDM(card: new_card, player_id: players[receiver_id].ID())
@@ -126,22 +129,22 @@ struct ThatsNotAHat<CardContent>{
             
             // RECEIVER BECOMES SENDER
             senderID = receiver_id
+            players[senderID].isTurn = true
         }
         else
         {
             // receiver is correct
             players[senderID].addToScore()
             checkForLoser()
-            players[senderID].addCard(new_card: new_card)
+            players[senderID].cardTwo = new_card
             // Update Bots
             for bot in players.dropFirst() {
                 bot.addToDM(card: new_card, player_id: players[senderID].ID())
-        }
+            }
             
             // SENDER STAYS SENDER
+            players[senderID].isTurn = true
         }
-        
-        players[senderID].isTurn = true
     }
     
     // we need now the control options for the model.
@@ -205,15 +208,20 @@ struct ThatsNotAHat<CardContent>{
                 
             }
             players[senderID].isTurn = true
-        }                            
-        func botGuess(id:Int){
-            // Retrieves the chunk with the highest activations, used to change the message of the bots
-            let chunk = players[id].retrieveChunk(card: players[id].cardOne, player_id: Double(id))
-            if chunk != nil {
-                players[id].message = chunk!.slotValue(slot: "content")
-            }
-            
-            
+        }
+    }
+    
+    
+    mutating func botGuess(id:Int) -> String{
+        // Retrieves the chunk with the highest activations, used to change the message of the bots
+        let chunk = players[id].retrieveChunk(card: players[id].cardOne, player_id: Double(id))
+        if chunk != nil {
+            // TODO: Fix retrieval requests for slotvalues being Value and not string
+            // temporary fix?
+            let guessString = "\(chunk!.slotValue(slot: "content"))"
+            return guessString
+        } else {
+            return "No Chunk Retrieved"
         }
     }
 }

@@ -20,10 +20,11 @@ class ThatsNotAHatGame: ObservableObject {
     // MARK: Intent
     
     func startGame() {
+        print(Optional("") == "")
         // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
         model.flipCards()
-        print(model.players[0].cardOne)
     }
+    
     
     func updateMessage(claim: String, id: Int){
         model.updatePlayerMessage(claim: claim, id:id)
@@ -54,8 +55,8 @@ class ThatsNotAHatGame: ObservableObject {
         let passDirection = players[turnID].cardOne.rightArrow
         let recieverID = players[turnID].determineReceiver(direction: passDirection)
         // update message of sender
-        let guess = model.botGuess(turnID)
-        model.updatePlayerMessage(claim: <#T##String#>, id: <#T##Int#>)
+        let guess = model.botGuess(id:turnID)
+        model.updatePlayerMessage(claim: guess, id: turnID)
         
         // if the player is the reciever
         if recieverID == 0 {
