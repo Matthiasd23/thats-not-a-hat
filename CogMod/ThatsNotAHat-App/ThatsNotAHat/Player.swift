@@ -21,6 +21,7 @@ struct Player {
     // TODO: My idea is to use this variable to update the view to show the accept/decline button it is always supposed to be false for the bots and only true if the player has to make a decision.
     var decision = false
     
+    
     init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false) {
         self.id = id
         self.name = name
@@ -55,10 +56,10 @@ struct Player {
         let receiver = determineReceiver(direction: cardOne.rightArrow)
         let passed_card = cardOne
         // cardTwo should never be nil in this case, otherwise a default (wrong) card will be shown
+        
         cardOne = Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardOne = cardTwo ?? Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardTwo = nil
-        print(cardOne)
         return (receiver, passed_card)
     }
     
@@ -75,7 +76,7 @@ struct Player {
         score += 1
     }
     
-    func decisionCard(passed_card: Card<String>, player_id: Double, claim: String) -> Bool {
+    mutating func decisionCard(passed_card: Card<String>, player_id: Double, claim: String) -> Bool {
         // Claim is what the sender claims the card to be, because we need to check the claim vs what the bot thinks, not what actually on the card
         // It gets a card and has to decide wether the person said the right thing or not
         // Retrieve activation of Chunk: id: sender.id, arrow: known
@@ -85,8 +86,10 @@ struct Player {
         let retrieved_content = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
         var myBool = "\(retrieved_content)" == claim
         //Bool.random()
+        myBool = true // just want the game to continue for now
         if myBool{
             print("\(name) accepts") // For debugging purposes
+            acceptCard(passed_card: passed_card, player_id: player_id, claim: claim)
             return true
             // cannot call the acceptCard or declineCard because sef is immutable
         }else{
@@ -98,16 +101,16 @@ struct Player {
     }
     
     // Never called by player
-    func addToDM(card: Card<String>, player_id: Double) {
-        model?.dm.addToDM(createChunk(card: card, player_id: player_id))
+    func addToDM(card: Card<String>, player_id: Double, claim: String) {
+        model?.dm.addToDM(createChunk(card: card, player_id: player_id, claim: claim))
         model!.time += 1.0 // Adding things into DM takes a little bit of time. We can also adjust this to make to model worse.
     }
-    
-    mutating func acceptCard(passed_card: Card<String>, player_id: Double){          // Accepting the card
+    // Since we use retrieve the 'next' card first, we should either return this card in the function, or make an additional variable card_to_pass in the player, which is set to nil afterwards
+    mutating func acceptCard(passed_card: Card<String>, player_id: Double, claim: String) {          // Accepting the card
         // retrieve new card before reinforcing new chunk
         let card_to_pass = retrieveChunk(card: cardOne, player_id: ID())
         // Receiver reinforces chunk
-        addToDM(card: passed_card, player_id: player_id)
+        addToDM(card: passed_card, player_id: player_id, claim: claim)
         
         // return a message that w
         if card_to_pass == nil {
@@ -132,20 +135,21 @@ struct Player {
         
     }
     
-    private func createChunk(card: Card<String>, player_id: Double, recall: Bool = false) -> Chunk {
+    private func createChunk(card: Card<String>, player_id: Double, claim: String, recall: Bool = false) -> Chunk {
         // if recall is true, the goal is to recall whether the player actually has the card that is said - leave the content empty
-        let chunk = model!.generateNewChunk(string: card.content)
+        let chunk = model!.generateNewChunk(string: claim)
         if recall == false {
-            chunk.setSlot(slot: "content", value: card.content)
+            chunk.setSlot(slot: "content", value: claim)
         }
         chunk.setSlot(slot: "playerID", value: player_id)
         chunk.setSlot(slot: "direction", value: card.directionValue())
         return chunk
     }
     
+    
     func retrieveChunk(card: Card<String>, player_id: Double) -> Chunk? {
         // recall card
-        let (latency, optionalChunk) = model!.dm.retrieve(chunk: createChunk(card: card, player_id: player_id, recall: true))
+        let (latency, optionalChunk) = model!.dm.retrieve(chunk: createChunk(card: card, player_id: player_id, claim: card.content, recall: true))
         // add latency to the model
         model!.time += latency
         return optionalChunk

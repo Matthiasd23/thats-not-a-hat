@@ -10,11 +10,11 @@ import SwiftUI
 
 struct CardView: View {
     
-    @State var content: String          // Emoji that is presented on the card
+    var content: String          // Emoji that is presented on the card
     @State var isFaceUp: Bool = false   // Wether it is facing up or down, needed when checking the card
-    @State var arrow: String            // The arrow as an emoji pointing in a direction (maybe bool is better)
-    @State var cardState: Bool = true // This i thought for having an acutal card there, or just a placeholder.
-    @State var isSelected: Bool = false
+    var arrow: String            // The arrow as an emoji pointing in a direction (maybe bool is better)
+    var cardState: Bool = true // This i thought for having an acutal card there, or just a placeholder.
+    var isSelected: Bool = false
     
     var body: some View {
         ZStack{
@@ -39,7 +39,9 @@ struct CardView: View {
             }
             
         }.padding(.horizontal)
-        .onTapGesture(perform: {isFaceUp = !isFaceUp}) //This should move the card to the next player according to logic, not flip over the card
+            .onTapGesture(perform: {if 
+                isFaceUp = !isFaceUp
+            }) //This should move the card to the next player according to logic, not flip over the card
         .aspectRatio(2/1, contentMode: .fit)
     }
 }

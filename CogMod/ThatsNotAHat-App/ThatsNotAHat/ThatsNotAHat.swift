@@ -34,9 +34,9 @@ struct ThatsNotAHat<CardContent>{
         // dropFirst returns an array without the first element
         for bot in players.dropFirst() {
             for player in players {
-                bot.addToDM(card: player.cardOne, player_id: player.ID())
+                bot.addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
                 if player.cardTwo != nil {
-                    bot.addToDM(card: player.cardTwo!, player_id: player.ID())
+                    bot.addToDM(card: player.cardTwo!, player_id: player.ID(), claim: player.cardTwo!.content)
                 }
             }
         }
@@ -92,7 +92,8 @@ struct ThatsNotAHat<CardContent>{
         players[receiver_id].cardTwo = passed_card
         // reinforce things, the sender (bot) reinforces and bystander
         for bot in players.dropFirst() {
-            bot.addToDM(card: passed_card, player_id: players[receiver_id].ID())
+            bot.addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
+            // TODO: Make sure this is the message saved before the player accepts the card
         }
         
         // After accepting the player becomes the sender
@@ -124,7 +125,7 @@ struct ThatsNotAHat<CardContent>{
             
             // Do model things - reinforcing
             for bot in players.dropFirst() {
-                bot.addToDM(card: new_card, player_id: players[receiver_id].ID())
+                bot.addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
             }
             
             // RECEIVER BECOMES SENDER
@@ -139,7 +140,7 @@ struct ThatsNotAHat<CardContent>{
             players[senderID].cardTwo = new_card
             // Update Bots
             for bot in players.dropFirst() {
-                bot.addToDM(card: new_card, player_id: players[senderID].ID())
+                bot.addToDM(card: new_card, player_id: players[senderID].ID(), claim: message)
             }
             
             // SENDER STAYS SENDER
@@ -151,23 +152,23 @@ struct ThatsNotAHat<CardContent>{
     mutating func botDecision() {
         // either player or the other model passed the card, and one model is the reciever.
         players[senderID].isTurn = false // players turn ends as soon as he passes the card
-        let (reciever_id, passed_card) = players[senderID].passCard()
+        let (receiver_id, passed_card) = players[senderID].passCard()
         
         
-        // model makes a retrival and then checks wether its the same
-        let model_decision = players[reciever_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: players[reciever_id].message)
+        // model makes a retrieval and then checks wether its the same
+        let model_decision = players[receiver_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: players[receiver_id].message)
         
         // currently it randomly Accepts(True) or Declines(False)
-        if model_decision{
+        if model_decision {
             // update its other card, switch cards in possesion and update second bot
-            players[reciever_id].addCard(new_card: passed_card)
+            players[receiver_id].addCard(new_card: passed_card)
             // reinforce things, both bots update
             for bot in players.dropFirst() {
-                bot.addToDM(card: passed_card, player_id: players[reciever_id].ID())
+                bot.addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
             }
             
             // After accepting the player becomes the sender
-            senderID = players[reciever_id].id
+            senderID = players[receiver_id].id
             players[senderID].isTurn = true
             // The other ones have to be set to false at those points aswell.
             
@@ -180,18 +181,18 @@ struct ThatsNotAHat<CardContent>{
             if checkMessageWithCard(card: passed_card,id: senderID){
                 
                 // sender correct
-                players[reciever_id].addToScore()
+                players[receiver_id].addToScore()
                 checkForLoser()
                 
                 // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
-                players[reciever_id].cardTwo = new_card
+                players[receiver_id].cardTwo = new_card
                 // Do model things - reinforcing
                 for bot in players.dropFirst() {
-                    bot.addToDM(card: new_card, player_id: players[reciever_id].ID())
+                    bot.addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
                 }
                 
                 // RECEIVER BECOMES SENDER
-                senderID = reciever_id
+                senderID = receiver_id
             }
             else
             {
@@ -201,7 +202,7 @@ struct ThatsNotAHat<CardContent>{
                 players[senderID].addCard(new_card: new_card)
                 // Update Bots
                 for bot in players.dropFirst() {
-                    bot.addToDM(card: new_card, player_id: players[senderID].ID())
+                    bot.addToDM(card: new_card, player_id: players[senderID].ID(), claim: message)
                     
                     // TODO: Maybe here we get to a problem if we do not change sender that the game stops playing, but I am not sure.
                 }
@@ -223,5 +224,9 @@ struct ThatsNotAHat<CardContent>{
         } else {
             return "No Chunk Retrieved"
         }
+    }
+    
+    mutating func updateClaimMessage(claim: String) {
+        message = claim
     }
 }

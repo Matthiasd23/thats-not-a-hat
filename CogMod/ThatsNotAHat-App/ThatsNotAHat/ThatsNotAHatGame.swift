@@ -15,6 +15,7 @@ class ThatsNotAHatGame: ObservableObject {
     var players: Array<Player> {return model.players}
     var message: String {return model.message}
     var card_options: Array<String> { return model.deck.cards_outofplay }
+    var game_started: Bool = false
     
     
     // MARK: Intent
@@ -23,11 +24,13 @@ class ThatsNotAHatGame: ObservableObject {
         print(Optional("") == "")
         // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
         model.flipCards()
+        game_started = true // Use this variable to disable the onTapGestures on the cards
     }
     
     
     func updateMessage(claim: String, id: Int){
         model.updatePlayerMessage(claim: claim, id:id)
+        model.updateClaimMessage(claim: claim)
     }
     
     func playerAccepts() {

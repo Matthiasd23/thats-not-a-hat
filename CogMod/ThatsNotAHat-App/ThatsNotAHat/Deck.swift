@@ -38,6 +38,6 @@ struct Deck {
     }
     
     mutating func getNewCard() -> Card<String> {
-        return Card(rightArrow: directionFactory(), content: cardContentFactory())
+        return Card(isFaceUp: true, rightArrow: directionFactory(), content: cardContentFactory())
     }
 }
