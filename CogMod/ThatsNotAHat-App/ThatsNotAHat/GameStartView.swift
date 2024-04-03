@@ -106,7 +106,6 @@ struct GameStartView: View {
                     Spacer()
                     Button(action: { // Decline Button
                         viewModel.playerDeclines()
-                        self.showGuessOptions = true
                     },
                         label: {Text("Decline")})
                         .padding(.horizontal)

@@ -21,7 +21,6 @@ class ThatsNotAHatGame: ObservableObject {
     // MARK: Intent
     
     func startGame() {
-        print(Optional("") == "")
         // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
         model.flipCards()
         game_started = true // Use this variable to disable the onTapGestures on the cards
@@ -42,7 +41,7 @@ class ThatsNotAHatGame: ObservableObject {
     func playerDeclines() {
         print("playerDeclines in viewModel")
         model.playerDeclines()
-        model.togglePlayerDecision(id: 0)
+
     }
     
     func passingCard() {

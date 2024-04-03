@@ -83,10 +83,12 @@ struct Player {
         // We have 2 Options here, we can make a retrival based on content, and check if the player_id matches
         // or make a retrival based on player_id and check if content matches
         
-        let retrieved_content = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
-        var myBool = "\(retrieved_content)" == claim
-        //Bool.random()
-        myBool = true // just want the game to continue for now
+        let retrieved_chunk = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
+        let retrieved_content = retrieved_chunk?.slotValue(slot: "content")
+        
+        print("Retrieved Content: \(retrieved_content), Claim:\(claim)")
+        var myBool = "\(retrieved_content)" == "Optional(\(claim))"
+        //myBool = true // just want the game to continue for now
         if myBool{
             print("\(name) accepts") // For debugging purposes
             acceptCard(passed_card: passed_card, player_id: player_id, claim: claim)
@@ -126,14 +128,6 @@ struct Player {
         return "I don't know..."
     }
             
-    func declineCard(passed_card: Card<String>, player_id: Double) {        // Declining the card
-        // Receiver says no
-        // Appoint a 'loser'
-        // Introduce new card, assign it to the loser
-        // Everyone reinforces
-        
-        
-    }
     
     private func createChunk(card: Card<String>, player_id: Double, claim: String, recall: Bool = false) -> Chunk {
         // if recall is true, the goal is to recall whether the player actually has the card that is said - leave the content empty
@@ -154,6 +148,5 @@ struct Player {
         model!.time += latency
         return optionalChunk
     }
-    
     
 }

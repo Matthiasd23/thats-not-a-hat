@@ -67,7 +67,7 @@ struct ThatsNotAHat<CardContent>{
     mutating func flipCards(){
         // at the start of the game flip the cards face down
         for i in 0..<3 {
-            players[i].cardOne.isFaceUp = true
+            players[i].cardOne.isFaceUp.toggle()
             if players[i].cardTwo != nil {
                 players[i].cardTwo?.isFaceUp = true
             }
@@ -79,7 +79,6 @@ struct ThatsNotAHat<CardContent>{
     }
     // THIS FUNCTION IS (FOR NOW) ONLY CALLED BY THE PLAYER THROUGH VIEWMODEL, IF WE WANT TO GENERALIZE IT, IT SHOULD BE CHANGED
     mutating func playerAccepts() {
-        print("Accepting...")
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
         // player is receiver
@@ -102,7 +101,6 @@ struct ThatsNotAHat<CardContent>{
     }
     
     mutating func playerDeclines() { // ADD timer for the models (with a max so it cant be exploited)
-        print("Declining...")
         players[senderID].isTurn = false
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
@@ -124,6 +122,7 @@ struct ThatsNotAHat<CardContent>{
             
             
             // Do model things - reinforcing
+            // Currently only the new card gets reinforced
             for bot in players.dropFirst() {
                 bot.addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
             }
@@ -153,10 +152,10 @@ struct ThatsNotAHat<CardContent>{
         // either player or the other model passed the card, and one model is the reciever.
         players[senderID].isTurn = false // players turn ends as soon as he passes the card
         let (receiver_id, passed_card) = players[senderID].passCard()
-        
+        print("This is the sender ID Claim ",players[senderID].message)
         
         // model makes a retrieval and then checks wether its the same
-        let model_decision = players[receiver_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: players[receiver_id].message)
+        let model_decision = players[receiver_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: players[senderID].message)
         
         // currently it randomly Accepts(True) or Declines(False)
         if model_decision {
@@ -177,7 +176,6 @@ struct ThatsNotAHat<CardContent>{
         }else{
             // check who is correct, remove card, introduce new card, update both bots.
             let new_card = deck.getNewCard()
-            print(passed_card.content, players[senderID].message)
             if checkMessageWithCard(card: passed_card,id: senderID){
                 
                 // sender correct
@@ -229,4 +227,5 @@ struct ThatsNotAHat<CardContent>{
     mutating func updateClaimMessage(claim: String) {
         message = claim
     }
+    
 }
