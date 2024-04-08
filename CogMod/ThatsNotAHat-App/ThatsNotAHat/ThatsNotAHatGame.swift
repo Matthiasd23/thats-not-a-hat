@@ -14,7 +14,7 @@ class ThatsNotAHatGame: ObservableObject {
     
     var players: Array<Player> {return model.players}
     var message: String {return model.message}
-    var card_options: Array<String> { return model.makeOptions() }
+    var card_options: Array<String> { return model.options }
     var game_started: Bool = false
     
     
@@ -33,13 +33,11 @@ class ThatsNotAHatGame: ObservableObject {
     }
     
     func playerAccepts() {
-        print("playerAccepts in viewModel")
         model.playerAccepts()
         model.togglePlayerDecision(id: 0)
     }
     
     func playerDeclines() {
-        print("playerDeclines in viewModel")
         model.playerDeclines()
 
     }

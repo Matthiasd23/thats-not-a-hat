@@ -84,6 +84,7 @@ struct Player {
         // or make a retrival based on player_id and check if content matches
         
         let retrieved_chunk = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
+        print(retrieved_chunk)
         let retrieved_content = retrieved_chunk?.slotValue(slot: "content")
         
         print("Retrieved Content: \(retrieved_content), Claim:\(claim)")

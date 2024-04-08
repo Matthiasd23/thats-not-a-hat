@@ -17,6 +17,7 @@ struct ThatsNotAHat<CardContent>{
     // private var passed_card: Card<String>?
     private(set) var message: String = "No message"
     internal var deck = Deck()
+    private(set) var options: Array<String> = []
     
     init() {
         // Creating bot one, the model is on the Player
@@ -42,7 +43,7 @@ struct ThatsNotAHat<CardContent>{
         }
         // Player always starts as the sender
         players[senderID].isTurn = true
-        print(deck.cards_inplay)
+        options = makeOptions()
     }
     
     
@@ -67,19 +68,21 @@ struct ThatsNotAHat<CardContent>{
     }
     
     mutating func flipCards(){
+        print("flipping cards is called..")
         // at the start of the game flip the cards face down
         for i in 0..<3 {
-            players[i].cardOne.isFaceUp.toggle()
+            players[i].cardOne.isFaceUp = false
             if players[i].cardTwo != nil {
-                players[i].cardTwo?.isFaceUp = true
+                players[i].cardTwo?.isFaceUp = false
             }
         }
     }
+    
     // Used to change the bool of player decision so we can use it for changing the view
     mutating func togglePlayerDecision(id:Int){
         players[id].decision.toggle()
     }
-    // THIS FUNCTION IS (FOR NOW) ONLY CALLED BY THE PLAYER THROUGH VIEWMODEL, IF WE WANT TO GENERALIZE IT, IT SHOULD BE CHANGED
+    
     mutating func playerAccepts() {
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
@@ -230,12 +233,11 @@ struct ThatsNotAHat<CardContent>{
         message = claim
     }
     
-    func makeOptions() -> [String] {
+    mutating func makeOptions() -> [String] {
         var options = deck.cards_inplay
         if let random = deck.cards_outofplay.randomElement() {
             options.append(random)
         }
-        print(options)
         return options
     }
     

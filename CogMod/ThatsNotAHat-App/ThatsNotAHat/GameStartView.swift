@@ -35,10 +35,12 @@ struct GameStartView: View {
     
             // ready button to start the game after examining your cards
             if(viewModel.determineTurn()==0) {
-                Button("Ready!") {
-                    viewModel.startGame()
-                    self.showGuessOptions = true
-                }
+//                if !self.showGuessOptions {
+                    Button("Ready!") {
+                        viewModel.startGame()
+                        self.showGuessOptions = true
+                    }
+//                }
             }
             
             if(showGuessOptions == true) {
@@ -57,9 +59,9 @@ struct GameStartView: View {
                         Button(action: {guessItem = viewModel.card_options[3]} , label: {Text(viewModel.card_options[3])}).padding(.horizontal)
                     }
                     Spacer()
-                    
-                    MessageView()
-                    
+//                    
+//                    MessageView()
+//                    
                     // Shows the current selected guess, confirm can be pressed to validate the guess.
                     Button(guessItem) {
                         
@@ -81,6 +83,7 @@ struct GameStartView: View {
                     
                 }
             }
+            // Maybe move this up
             if(viewModel.players[1].isTurn == true || viewModel.players[2].isTurn == true) {
                 // Would be nice as a UI experience to make it so that you have to swipe the card in the direction of the arrow.
                 
@@ -88,8 +91,9 @@ struct GameStartView: View {
                 // check memory to see if card given is correct
                 // update saved card with the new card gathered from previous person's turn. Also, announce the card that is passed on.
                 
-                Button("Bot's Turn, Bot\((viewModel.players[viewModel.determineTurn()].id)) has a \(viewModel.players[viewModel.determineTurn()].message)") {
+                Button("Bot's Turn, Bot \((viewModel.players[viewModel.determineTurn()].id)) has a  \(viewModel.players[viewModel.determineTurn()].message)") {
                     //self.showGuessOptions = true // temporary solution, need to implement all the bots things
+                    viewModel.startGame() // flipping the cards over again
                     viewModel.botPlay()
                 }
                 

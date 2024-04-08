@@ -11,7 +11,7 @@ import SwiftUI
 struct CardView: View {
     
     var content: String          // Emoji that is presented on the card
-    @State var isFaceUp: Bool = false   // Wether it is facing up or down, needed when checking the card
+    var isFaceUp: Bool   // Wether it is facing up or down, needed when checking the card
     var arrow: String            // The arrow as an emoji pointing in a direction (maybe bool is better)
     var cardState: Bool = true // This i thought for having an acutal card there, or just a placeholder.
     var isSelected: Bool = false
@@ -39,9 +39,9 @@ struct CardView: View {
             }
             
         }.padding(.horizontal)
-            .onTapGesture(perform: {
-                isFaceUp = !isFaceUp
-            }) //This should move the card to the next player according to logic, not flip over the card
+//            .onTapGesture(perform: {
+//                isFaceUp = !isFaceUp
+//            })
         .aspectRatio(2/1, contentMode: .fit)
     }
 }
