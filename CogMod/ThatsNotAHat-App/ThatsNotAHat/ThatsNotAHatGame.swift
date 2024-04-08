@@ -14,7 +14,7 @@ class ThatsNotAHatGame: ObservableObject {
     
     var players: Array<Player> {return model.players}
     var message: String {return model.message}
-    var card_options: Array<String> { return model.deck.cards_outofplay }
+    var card_options: Array<String> { return model.makeOptions() }
     var game_started: Bool = false
     
     

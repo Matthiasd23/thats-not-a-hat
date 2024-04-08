@@ -10,6 +10,7 @@ import Foundation
 struct Deck {
     
     var cards_outofplay: Array<String> = ["💊", "⚔️"] // just added those 2 so we start with an array of 5 out of play cards for presentation.
+    var cards_inplay: Array<String> = []
     
     // we probably need to move this to the model
     private var emojis = ["🐶", "🐱", "🐷", "🐔", "🐥", "🦄", "🐝", "🦧", "🐊", "🐳",
@@ -34,6 +35,13 @@ struct Deck {
     }
     
     private mutating func store(emoji: String) {
+        cards_inplay.append(emoji)
+    }
+    
+    mutating func remove_from_deck(emoji: String) {
+        if let index = cards_inplay.firstIndex(of: emoji){
+            cards_inplay.remove(at: index)
+        }
         cards_outofplay.append(emoji)
     }
     

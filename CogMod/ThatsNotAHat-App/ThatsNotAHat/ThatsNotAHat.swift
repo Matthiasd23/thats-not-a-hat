@@ -55,8 +55,9 @@ struct ThatsNotAHat<CardContent>{
         return
     }
     
-    // Checks whether the player passed the right card
-    func checkMessageWithCard(card: Card<String>, id: Int) -> Bool {
+    // Checks whether the player passed the right card, and removes it from the 'deck
+    mutating func checkMessageWithCard(card: Card<String>, id: Int) -> Bool {
+        deck.remove_from_deck(emoji: card.content)
         return players[id].message == card.content
     }
     
@@ -176,7 +177,7 @@ struct ThatsNotAHat<CardContent>{
         }else{
             // check who is correct, remove card, introduce new card, update both bots.
             let new_card = deck.getNewCard()
-            if checkMessageWithCard(card: passed_card,id: senderID){
+            if checkMessageWithCard(card: passed_card, id: senderID){
                 
                 // sender correct
                 players[receiver_id].addToScore()
@@ -226,6 +227,14 @@ struct ThatsNotAHat<CardContent>{
     
     mutating func updateClaimMessage(claim: String) {
         message = claim
+    }
+    
+    func makeOptions() -> [String] {
+        var options = deck.cards_inplay
+        if let random = deck.cards_outofplay.randomElement() {
+            options.append(random)
+        }
+        return options
     }
     
 }
