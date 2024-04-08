@@ -43,7 +43,6 @@ class ThatsNotAHatGame: ObservableObject {
     }
     
     func passingCard() {
-        print("Passing a card from player to bot, or bot to bot")
         // This should be passing the card on to the next player(from player to bot or bot to bot), but it only works if we print the players from inside the botDecision function and not here \
         model.botDecision()
     }
@@ -64,7 +63,6 @@ class ThatsNotAHatGame: ObservableObject {
             // In this case we need to update the viewmodel so that the player can accept or decline
         }else{ //Bot recieves
             model.botDecision()
-            print(recieverID)
         }
     }
     

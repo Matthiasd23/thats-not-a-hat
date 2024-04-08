@@ -84,7 +84,6 @@ struct Player {
         // or make a retrival based on player_id and check if content matches
         
         let retrieved_chunk = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
-        print(retrieved_chunk)
         let retrieved_content = retrieved_chunk?.slotValue(slot: "content")
         
         print("Retrieved Content: \(retrieved_content), Claim:\(claim)")
@@ -148,6 +147,27 @@ struct Player {
         // add latency to the model
         model!.time += latency
         return optionalChunk
+    }
+    
+    func updateMemory(botID: Double) {
+        // Retrieve the card the bot has, and add it to declerative memory
+        // Due to Type problems a lot of forced type casting is done again because no better option was found
+        let old_card = retrieveChunk(card: self.cardOne, player_id: botID)
+        if old_card == nil {
+            return
+        }
+        let dir = directionToBool(direction: "\(old_card!.slotValue(slot: "direction")!)")
+        let temp_card = Card(rightArrow: dir , content: "\(old_card!.slotValue(slot: "content"))")
+        // Add it to declerative memory
+        print(temp_card)
+        self.addToDM(card: temp_card, player_id: botID, claim: temp_card.content)
+    }
+    
+    func directionToBool(direction:String) -> Bool {
+        if direction == "right"{ // Convert the string into a boolean
+            return true
+        }
+        return false
     }
     
 }

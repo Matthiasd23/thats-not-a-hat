@@ -73,7 +73,7 @@ struct GameStartView: View {
                         
                     Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
                         viewModel.updateMessage(claim: guessItem, id: 0)
-                        print(viewModel.players[0])
+                        //print(viewModel.players[0])
                         viewModel.passingCard()
                         self.showGuessOptions = false
 
