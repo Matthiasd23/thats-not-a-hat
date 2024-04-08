@@ -42,6 +42,7 @@ struct ThatsNotAHat<CardContent>{
         }
         // Player always starts as the sender
         players[senderID].isTurn = true
+        print(deck.cards_inplay)
     }
     
     
@@ -234,6 +235,7 @@ struct ThatsNotAHat<CardContent>{
         if let random = deck.cards_outofplay.randomElement() {
             options.append(random)
         }
+        print(options)
         return options
     }
     

@@ -48,13 +48,13 @@ struct GameStartView: View {
                     HStack{
                         Button(action: {guessItem = viewModel.card_options[1]} , label:   {Text(viewModel.card_options[1])}).padding(.horizontal) // Make the actions
                         Spacer()
+                        Button(action: {guessItem = viewModel.card_options[4]} , label: {Text(viewModel.card_options[4])}).padding(.horizontal)
+                        Spacer()
+                        Button(action: {guessItem = viewModel.card_options[0]} , label: {Text(viewModel.card_options[0])}).padding(.horizontal)
+                        Spacer()
                         Button(action: {guessItem = viewModel.card_options[2]} , label: {Text(viewModel.card_options[2])}).padding(.horizontal)
                         Spacer()
                         Button(action: {guessItem = viewModel.card_options[3]} , label: {Text(viewModel.card_options[3])}).padding(.horizontal)
-                        Spacer()
-                        Button(action: {guessItem = viewModel.card_options[4]} , label: {Text(viewModel.card_options[4])}).padding(.horizontal)
-                        Spacer()
-                        Button(action: {guessItem = viewModel.card_options[5]} , label: {Text(viewModel.card_options[5])}).padding(.horizontal)
                     }
                     Spacer()
                     
