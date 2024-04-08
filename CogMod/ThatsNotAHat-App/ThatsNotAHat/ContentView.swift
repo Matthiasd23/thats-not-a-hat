@@ -10,7 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showInfo = false
-    @ObservedObject var viewModel: ThatsNotAHatGame
     
     var body: some View {
         NavigationView{
@@ -40,7 +39,7 @@ struct ContentView: View {
                 }
                 .padding()
                 //Play Now Button: currently brings you to GameStartView. It should
-                NavigationLink(destination:GameStartView(viewModel: ThatsNotAHatGame())) {
+                NavigationLink(destination:GameStartView()) {
                     Text("Play Now")
                 }
                 .padding()
@@ -48,7 +47,7 @@ struct ContentView: View {
                     showInfo.toggle()
                 }
                 if showInfo {
-                    Text("Project Created by Matthias, Tim and Rover for the course Cognitive Modelling: Complex Behaviour. Game explanation: ")
+                    Text("Project Created by Matthias, Tim and Rover for the course Cognitive Modelling: Complex Behaviour. Game explanation: Remember all cards, and who has them. Every time you receive a card, you have to either accept it if you think it is correct, or decline if you don't. Then it is your turn to pass a card. If someone reaches a score of 3, the game is over.")
                         .multilineTextAlignment(.center)
                         .font(.caption)
                 }
@@ -61,6 +60,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: ThatsNotAHatGame())
+        ContentView()
     }
 }

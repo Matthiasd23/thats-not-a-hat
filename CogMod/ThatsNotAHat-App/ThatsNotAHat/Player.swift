@@ -16,7 +16,7 @@ struct Player {
     var cardOne: Card<String>   // Type could be different (we use CardContent, which is a 'dont care, could be anything', but for now we use string
     var cardTwo: Card<String>? // Use a 'special card in the model' that represents the card that is passed around
     var isTurn: Bool
-    var model: Model?
+    var model = Model()
     var message: String = ""
     // TODO: My idea is to use this variable to update the view to show the accept/decline button it is always supposed to be false for the bots and only true if the player has to make a decision.
     var decision = false
@@ -29,9 +29,6 @@ struct Player {
         self.cardOne = cardOne
         self.cardTwo = cardTwo
         self.isTurn = isTurn
-        if id != 0 {
-            self.model = Model()
-        }
     }
     
     // directions:
@@ -51,15 +48,16 @@ struct Player {
     
 
     mutating func passCard() -> (Int, Card<String>){
+        
         // Choosing what to say, could be called passCard or smth
         // just using a placeholder right now
         let receiver = determineReceiver(direction: cardOne.rightArrow)
         let passed_card = cardOne
         // cardTwo should never be nil in this case, otherwise a default (wrong) card will be shown
         
-        cardOne = Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardOne = cardTwo ?? Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardTwo = nil
+        
         return (receiver, passed_card)
     }
     
@@ -105,8 +103,8 @@ struct Player {
     
     // Never called by player
     func addToDM(card: Card<String>, player_id: Double, claim: String) {
-        model?.dm.addToDM(createChunk(card: card, player_id: player_id, claim: claim))
-        model!.time += 1.0 // Adding things into DM takes a little bit of time. We can also adjust this to make to model worse.
+        model.dm.addToDM(createChunk(card: card, player_id: player_id, claim: claim))
+        model.time += 1.0 // Adding things into DM takes a little bit of time. We can also adjust this to make to model worse.
     }
     // Since we use retrieve the 'next' card first, we should either return this card in the function, or make an additional variable card_to_pass in the player, which is set to nil afterwards
     mutating func acceptCard(passed_card: Card<String>, player_id: Double, claim: String) {          // Accepting the card
@@ -132,7 +130,7 @@ struct Player {
     
     private func createChunk(card: Card<String>, player_id: Double, claim: String, recall: Bool = false) -> Chunk {
         // if recall is true, the goal is to recall whether the player actually has the card that is said - leave the content empty
-        let chunk = model!.generateNewChunk(string: claim)
+        let chunk = model.generateNewChunk(string: claim)
         if recall == false {
             chunk.setSlot(slot: "content", value: claim)
         }
@@ -144,9 +142,9 @@ struct Player {
     
     func retrieveChunk(card: Card<String>, player_id: Double) -> Chunk? {
         // recall card
-        let (latency, optionalChunk) = model!.dm.retrieve(chunk: createChunk(card: card, player_id: player_id, claim: card.content, recall: true))
+        let (latency, optionalChunk) = model.dm.retrieve(chunk: createChunk(card: card, player_id: player_id, claim: card.content, recall: true))
         // add latency to the model
-        model!.time += latency
+        model.time += latency
         return optionalChunk
     }
     
