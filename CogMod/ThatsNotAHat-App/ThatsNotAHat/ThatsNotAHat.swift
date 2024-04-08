@@ -16,10 +16,13 @@ struct ThatsNotAHat<CardContent>{
     private(set) var senderID: Int = 0
     // private var passed_card: Card<String>?
     private(set) var message: String = "No message"
-    internal var deck = Deck()
+    internal var deck: Deck
     private(set) var options: Array<String> = []
+    var loserFound: Bool = false
     
     init() {
+        deck = Deck()
+        
         // Creating bot one, the model is on the Player
         let bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard())
         // Creating bot two, the model is on the Player
@@ -51,13 +54,16 @@ struct ThatsNotAHat<CardContent>{
     
     
     // Checks if one player has reached 3 cards (loses)
-    func checkForLoser() {
+    mutating func checkForLoser() {
         let loser = players.max(by: { $0.score < $1.score })
         // below checks if the loser 'exists', if no loser it says 0
-        if loser?.score ?? 0 >= 3 {
-            // End game, probably best to end a game over screen with who lost
+        if loser?.score ?? 0 >= 10 {
+            loserFound = true
         }
-        return
+    }
+    
+    func getLoser() -> Int {
+        return players.max(by: { $0.score < $1.score })!.id
     }
     
     // Checks whether the player passed the right card, and removes it from the 'deck
@@ -128,6 +134,7 @@ struct ThatsNotAHat<CardContent>{
             
             // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
             players[receiver_id].cardTwo = new_card
+            print("NEW CARD RECEIVED: \(new_card)")
             
             
             // Do model things - reinforcing
@@ -156,6 +163,7 @@ struct ThatsNotAHat<CardContent>{
             // SENDER STAYS SENDER
             players[senderID].isTurn = true
         }
+        options = makeOptions()
     }
     
     // we need now the control options for the model.
@@ -171,6 +179,7 @@ struct ThatsNotAHat<CardContent>{
         if model_decision {
             // update its other card, switch cards in possesion and update second bot
             players[receiver_id].addCard(new_card: passed_card)
+            
             // reinforce things, both bots update
             for bot in players.dropFirst() {
                 bot.updateMemory(botID: Double(receiver_id))
@@ -181,8 +190,6 @@ struct ThatsNotAHat<CardContent>{
             senderID = players[receiver_id].id
             players[senderID].isTurn = true
             // The other ones have to be set to false at those points aswell.
-            
-            
             
         }else{
             // check who is correct, remove card, introduce new card, update both bots.
@@ -219,6 +226,7 @@ struct ThatsNotAHat<CardContent>{
                 }
                 
             }
+            options = makeOptions()
             players[senderID].isTurn = true
         }
     }
@@ -230,7 +238,7 @@ struct ThatsNotAHat<CardContent>{
         if chunk != nil {
             // TODO: Fix retrieval requests for slotvalues being Value and not string
             // temporary fix?
-            let guessString = "\(chunk!.slotValue(slot: "content"))"
+            let guessString = "\(chunk!.slotValue(slot: "content")!)"
             return guessString
         } else {
             return "No Chunk Retrieved"
@@ -246,10 +254,38 @@ struct ThatsNotAHat<CardContent>{
         if let random = deck.cards_outofplay.randomElement() {
             options.append(random)
         }
+        //print("Options: \(options)")
         return options
     }
     
-
-    
-    
+    mutating func reset() {
+        deck = Deck()
+        
+        // Creating bot one, the model is on the Player
+        let bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard(), isTurn: false)
+        // Creating bot two, the model is on the Player
+        let bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: deck.getNewCard(), isTurn: false)
+        var player = Player(id: 0, name: "Player", score: 0, cardOne: deck.getNewCard(), isTurn: false)
+        
+        let new_card = deck.getNewCard()
+        // add the fourth to the player (player always starts)
+        player.addCard(new_card: new_card)
+        
+        players = [player, bot1, bot2]
+        
+        // dropFirst returns an array without the first element
+        for bot in players.dropFirst() {
+            for player in players {
+                bot.addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
+                if player.cardTwo != nil {
+                    bot.addToDM(card: player.cardTwo!, player_id: player.ID(), claim: player.cardTwo!.content)
+                }
+            }
+        }
+        senderID = 0
+        // Player always starts as the sender
+        players[senderID].isTurn = true
+        options = makeOptions()
+        loserFound = false
+    }
 }

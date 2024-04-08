@@ -15,8 +15,22 @@ class ThatsNotAHatGame: ObservableObject {
     var players: Array<Player> {return model.players}
     var message: String {return model.message}
     var card_options: Array<String> { return model.options }
+    var loserFound: Bool { return model.loserFound }
     var game_started: Bool = false
     
+    func getLoser() -> String {
+        if loserFound {
+            let loser = model.getLoser()
+            if loser == 0 {
+                return "It is you, you is the loser."
+            }
+            else{
+                return "Bot \(loser)"
+            }
+        }else{
+            return "Something went wrong..."
+        }
+    }
     
     // MARK: Intent
     
@@ -25,7 +39,6 @@ class ThatsNotAHatGame: ObservableObject {
         model.flipCards()
         game_started = true // Use this variable to disable the onTapGestures on the cards
     }
-    
     
     func updateMessage(claim: String, id: Int){
         model.updatePlayerMessage(claim: claim, id:id)
@@ -39,7 +52,6 @@ class ThatsNotAHatGame: ObservableObject {
     
     func playerDeclines() {
         model.playerDeclines()
-
     }
     
     func passingCard() {
@@ -56,6 +68,7 @@ class ThatsNotAHatGame: ObservableObject {
         // update message of sender
         let guess = model.botGuess(id:turnID)
         model.updatePlayerMessage(claim: guess, id: turnID)
+        print("Model Message:",model.message)
         
         // if the player is the reciever
         if recieverID == 0 {
@@ -67,6 +80,9 @@ class ThatsNotAHatGame: ObservableObject {
     }
     
     func determineTurn () -> Int {
+        if model.loserFound {
+            // Return to contentView with a message
+        }
         // Loop through players and return id of player where isTun == true
         for player in players {
             if player.isTurn == true {
@@ -74,6 +90,10 @@ class ThatsNotAHatGame: ObservableObject {
             }
         }
         return 99 // this case should not happen
+    }
+    
+    func reset() {
+        model.reset()
     }
     
 }
