@@ -20,15 +20,18 @@ struct Player {
     var message: String = ""
     // TODO: My idea is to use this variable to update the view to show the accept/decline button it is always supposed to be false for the bots and only true if the player has to make a decision.
     var decision = false
+    var currentTime = Date()
+    var maxTimeElapsed: Double
     
     
-    init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false) {
+    init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false, maxTimeElapsed: Double = 10.0) {
         self.id = id
         self.name = name
         self.score = score
         self.cardOne = cardOne
         self.cardTwo = cardTwo
         self.isTurn = isTurn
+        self.maxTimeElapsed = maxTimeElapsed
     }
     
     // directions:
@@ -83,21 +86,22 @@ struct Player {
         
         let retrieved_chunk = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
         let retrieved_content = retrieved_chunk?.slotValue(slot: "content")
-        
-        print("Retrieved Content: \(retrieved_content!), Claim:\(claim)")
-        var myBool = "\(retrieved_content!)" == "\(claim)" // I changed it now to force unpack with ! so no optional needed
-        //myBool = true // just want the game to continue for now
-        if myBool{
-            print("\(name) accepts") // For debugging purposes
-            acceptCard(passed_card: passed_card, player_id: player_id, claim: claim)
-            return true
-            // cannot call the acceptCard or declineCard because sef is immutable
-        }else{
-            print("\(name) declines")
-            return false
+        if retrieved_chunk != nil {
+            print("Retrieved Content: \(retrieved_content!), Claim:\(claim)")
+            let myBool = "\(retrieved_content!)" == "\(claim)" // I changed it now to force unpack with ! so no optional needed
+            //myBool = true // just want the game to continue for now
+            if myBool{
+                print("\(name) accepts") // For debugging purposes
+                acceptCard(passed_card: passed_card, player_id: player_id, claim: claim)
+                return true
+                // cannot call the acceptCard or declineCard because sef is immutable
+            }else{
+                print("\(name) declines")
+                return false
+            }
         }
-        // highest activation
-        
+        // 80% of the time it should return false (if he doesnt know, rather defect than accept)
+        return arc4random_uniform(100) < 20
     }
     
     // Never called by player
@@ -105,6 +109,7 @@ struct Player {
         model.dm.addToDM(createChunk(card: card, player_id: player_id, claim: claim))
         model.time += 1.0 // Adding things into DM takes a little bit of time. We can also adjust this to make to model worse.
     }
+    
     // Since we use retrieve the 'next' card first, we should either return this card in the function, or make an additional variable card_to_pass in the player, which is set to nil afterwards
     mutating func acceptCard(passed_card: Card<String>, player_id: Double, claim: String) {          // Accepting the card
         // retrieve new card before reinforcing new chunk
@@ -112,11 +117,11 @@ struct Player {
         // Receiver reinforces chunk
         addToDM(card: passed_card, player_id: player_id, claim: claim)
         
-        // return a message that w
+        // return a message that
         if card_to_pass == nil {
             self.message = dealWithUncertainty()
         } else {
-            //self.message = "I have a " + card_to_pass?.slotValue(slot: "content")
+            self.message = "I have a \(String(describing: card_to_pass!.slotValue(slot: "content")))"
         }
     }
     
@@ -147,8 +152,8 @@ struct Player {
         return optionalChunk
     }
     
-    func updateMemory(botID: Double) {
-        // Retrieve the card the bot has, and add it to declerative memory
+    func updateMemory(botID: Double, strength: Int = 1) {
+        // Retrieve the card the bot has, and add it to declarative memory
         // Due to Type problems a lot of forced type casting is done again because no better option was found
         let old_card = retrieveChunk(card: self.cardOne, player_id: botID)
         if old_card == nil {
@@ -156,9 +161,12 @@ struct Player {
         }
         let dir = directionToBool(direction: "\(old_card!.slotValue(slot: "direction")!)")
         let temp_card = Card(rightArrow: dir , content: "\(old_card!.slotValue(slot: "content")!)")
-        // Add it to declerative memory
-        print("Temporary Card:",self.id, temp_card.content)
-        self.addToDM(card: temp_card, player_id: botID, claim: temp_card.content)
+        // Add it to declarative memory
+        print("Temporary Card: Bot",self.id, temp_card.content)
+        for _ in 1..<strength+1 {
+            print("Adding..")
+            self.addToDM(card: temp_card, player_id: botID, claim: temp_card.content)
+        }
     }
     
     func directionToBool(direction:String) -> Bool {
@@ -166,6 +174,19 @@ struct Player {
             return true
         }
         return false
+    }
+    
+    func updateTime() {
+        print(elapsedTime())
+        model.time += elapsedTime()
+    }
+    
+    mutating func startTimer() {
+        currentTime = Date()
+    }
+    
+    private func elapsedTime() -> Double {
+        return min(Double(Date().timeIntervalSince(currentTime)), maxTimeElapsed)
     }
     
 }

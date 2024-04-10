@@ -107,19 +107,21 @@ struct GameStartView: View {
                 }
                 
                 if(viewModel.players[0].decision) {
-                    HStack{ // Accept button
-                        Button(action: {
-                            viewModel.playerAccepts()
-                            self.showGuessOptions = true
-                        },
-                               label: {Text("Accept")})
-                        .padding(.horizontal)
-                        Spacer()
-                        Button(action: { // Decline Button
-                            viewModel.playerDeclines()
-                        },
-                               label: {Text("Decline")})
-                        .padding(.horizontal)
+                    if !((viewModel.players[0].cardTwo?.isFaceUp) != nil) {
+                        HStack{ // Accept button
+                            Button(action: {
+                                viewModel.playerAccepts()
+                                self.showGuessOptions = true
+                            },
+                                   label: {Text("Accept")})
+                            .padding(.horizontal)
+                            Spacer()
+                            Button(action: { // Decline Button
+                                viewModel.playerDeclines()
+                            },
+                                   label: {Text("Decline")})
+                            .padding(.horizontal)
+                        }
                     }
                 }
             }

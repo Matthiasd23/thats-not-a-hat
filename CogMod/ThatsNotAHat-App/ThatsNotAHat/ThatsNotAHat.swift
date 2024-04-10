@@ -36,13 +36,13 @@ struct ThatsNotAHat<CardContent>{
         players = [player, bot1, bot2]
         
         // dropFirst returns an array without the first element
-        for bot in players.dropFirst() {
+        for index in 1..<players.count {
             for player in players {
-                bot.addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
+                players[index].addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
                 // strengthn the first card so they dont make a mistake immediately
-                bot.addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
+                players[index].addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
                 if player.cardTwo != nil {
-                    bot.addToDM(card: player.cardTwo!, player_id: player.ID(), claim: player.cardTwo!.content)
+                    players[index].addToDM(card: player.cardTwo!, player_id: player.ID(), claim: player.cardTwo!.content)
                     
                 }
             }
@@ -92,6 +92,10 @@ struct ThatsNotAHat<CardContent>{
         players[id].decision.toggle()
     }
     
+    mutating func turnOffDecision(){
+        players[0].decision = false
+    }
+    
     mutating func playerAccepts() {
         // ------------------------------------------ \\ double code
         // Either bot 1 or bot 2 passed the card (sender)
@@ -104,15 +108,16 @@ struct ThatsNotAHat<CardContent>{
         // addCard to receiver (player in this case)
         players[receiver_id].cardTwo = passed_card
         // reinforce things, the sender (bot) reinforces and bystander
-        for bot in players.dropFirst() {
-            bot.updateMemory(botID: Double(receiver_id)) // This should update the first card of the bot
-            bot.addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
+        for index in 1..<players.count {
+            players[index].updateMemory(botID: Double(receiver_id), strength: 5) // This should update the first card of the bot
+            players[index].addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
             // TODO: Make sure this is the message saved before the player accepts the card
         }
         
         // After accepting the player becomes the sender
         senderID = players[0].id
         players[senderID].isTurn = true
+        
     }
     
     mutating func playerDeclines() { // ADD timer for the models (with a max so it cant be exploited)
@@ -136,12 +141,11 @@ struct ThatsNotAHat<CardContent>{
             players[receiver_id].cardTwo = new_card
             print("NEW CARD RECEIVED: \(new_card)")
             
-            
             // Do model things - reinforcing
             // Currently only the new card gets reinforced
-            for bot in players.dropFirst() {
-                bot.updateMemory(botID: Double(receiver_id))
-                bot.addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
+            for index in 1..<players.count {
+                players[index].updateMemory(botID: Double(receiver_id), strength: 5)
+                players[index].addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
             }
             
             // RECEIVER BECOMES SENDER
@@ -155,9 +159,9 @@ struct ThatsNotAHat<CardContent>{
             checkForLoser()
             players[senderID].cardTwo = new_card
             // Update Bots
-            for bot in players.dropFirst() {
-                bot.updateMemory(botID: Double(senderID))
-                bot.addToDM(card: new_card, player_id: players[senderID].ID(), claim: message)
+            for index in 1..<players.count {
+                players[index].updateMemory(botID: Double(senderID), strength: 5)
+                players[index].addToDM(card: new_card, player_id: players[senderID].ID(), claim: message)
             }
             
             // SENDER STAYS SENDER
@@ -181,15 +185,17 @@ struct ThatsNotAHat<CardContent>{
             players[receiver_id].addCard(new_card: passed_card)
             
             // reinforce things, both bots update
-            for bot in players.dropFirst() {
-                bot.updateMemory(botID: Double(receiver_id))
-                bot.addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
+            for index in 1..<players.count {
+                players[index].updateMemory(botID: Double(receiver_id), strength: 5)
+                players[index].addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
             }
             
             // After accepting the player becomes the sender
             senderID = players[receiver_id].id
             players[senderID].isTurn = true
             // The other ones have to be set to false at those points aswell.
+            
+            message = players[senderID].message
             
         }else{
             // check who is correct, remove card, introduce new card, update both bots.
@@ -203,9 +209,9 @@ struct ThatsNotAHat<CardContent>{
                 // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
                 players[receiver_id].cardTwo = new_card
                 // Do model things - reinforcing
-                for bot in players.dropFirst() {
-                    bot.updateMemory(botID: Double(receiver_id))
-                    bot.addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
+                for index in 1..<players.count {
+                    players[index].updateMemory(botID: Double(receiver_id), strength: 5)
+                    players[index].addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
                 }
                 
                 // RECEIVER BECOMES SENDER
@@ -218,9 +224,9 @@ struct ThatsNotAHat<CardContent>{
                 checkForLoser()
                 players[senderID].addCard(new_card: new_card)
                 // Update Bots
-                for bot in players.dropFirst() {
-                    bot.updateMemory(botID: Double(senderID))
-                    bot.addToDM(card: new_card, player_id: players[senderID].ID(), claim: message)
+                for index in 1..<players.count {
+                    players[index].updateMemory(botID: Double(senderID), strength: 5)
+                    players[index].addToDM(card: new_card, player_id: players[senderID].ID(), claim: message)
                     
                     // TODO: Maybe here we get to a problem if we do not change sender that the game stops playing, but I am not sure.
                 }
@@ -245,6 +251,18 @@ struct ThatsNotAHat<CardContent>{
         }
     }
     
+    mutating func startTimers() {
+        for index in 1..<players.count {
+            players[index].startTimer()
+        }
+    }
+    
+    mutating func updateModelTime() {
+        for index in 1..<players.count {
+            players[index].updateTime()
+        }
+    }
+    
     mutating func updateClaimMessage(claim: String) {
         message = claim
     }
@@ -259,6 +277,7 @@ struct ThatsNotAHat<CardContent>{
     }
     
     mutating func reset() {
+        // Initiating new deck
         deck = Deck()
         
         // Creating bot one, the model is on the Player
@@ -274,11 +293,11 @@ struct ThatsNotAHat<CardContent>{
         players = [player, bot1, bot2]
         
         // dropFirst returns an array without the first element
-        for bot in players.dropFirst() {
+        for index in 1..<players.count {
             for player in players {
-                bot.addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
+                players[index].addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
                 if player.cardTwo != nil {
-                    bot.addToDM(card: player.cardTwo!, player_id: player.ID(), claim: player.cardTwo!.content)
+                    players[index].addToDM(card: player.cardTwo!, player_id: player.ID(), claim: player.cardTwo!.content)
                 }
             }
         }

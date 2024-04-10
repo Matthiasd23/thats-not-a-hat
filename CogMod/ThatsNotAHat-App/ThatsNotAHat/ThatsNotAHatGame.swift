@@ -38,6 +38,7 @@ class ThatsNotAHatGame: ObservableObject {
         // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
         model.flipCards()
         game_started = true // Use this variable to disable the onTapGestures on the cards
+        model.startTimers()
     }
     
     func updateMessage(claim: String, id: Int){
@@ -46,35 +47,45 @@ class ThatsNotAHatGame: ObservableObject {
     }
     
     func playerAccepts() {
+        model.togglePlayerDecision(id: 0)
+        model.updateModelTime()
         model.playerAccepts()
         model.togglePlayerDecision(id: 0)
+        model.startTimers()
     }
     
     func playerDeclines() {
+        model.togglePlayerDecision(id: 0)
+        model.updateModelTime()
         model.playerDeclines()
+        model.startTimers()
     }
     
     func passingCard() {
         // This should be passing the card on to the next player(from player to bot or bot to bot), but it only works if we print the players from inside the botDecision function and not here \
+        model.updateModelTime()
         model.botDecision()
+        model.startTimers()
     }
     
     func botPlay(){
         // So this should be executed when it is not the players turn currently bound to pressing the bots turn button.
         // The bot either passes to the player or a bot, depending on this it needs to call a different function
+        model.turnOffDecision()
         let turnID = determineTurn()
         let passDirection = players[turnID].cardOne.rightArrow
-        let recieverID = players[turnID].determineReceiver(direction: passDirection)
+        let receiverID = players[turnID].determineReceiver(direction: passDirection)
         // update message of sender
         let guess = model.botGuess(id:turnID)
         model.updatePlayerMessage(claim: guess, id: turnID)
         print("Model Message:",model.message)
         
-        // if the player is the reciever
-        if recieverID == 0 {
-            model.togglePlayerDecision(id: recieverID)
+        // if the player is the receiver
+        if receiverID == 0 {
+            model.togglePlayerDecision(id: receiverID)
             // In this case we need to update the viewmodel so that the player can accept or decline
-        }else{ //Bot recieves
+        }else{ //Bot receives
+            model.turnOffDecision()
             model.botDecision()
         }
     }
