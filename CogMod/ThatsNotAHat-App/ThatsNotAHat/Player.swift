@@ -87,7 +87,7 @@ struct Player {
         let retrieved_chunk = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
         let retrieved_content = retrieved_chunk?.slotValue(slot: "content")
         if retrieved_chunk != nil {
-            print("Retrieved Content: \(retrieved_content!), Claim:\(claim)")
+            print("Retrieved Content: \(retrieved_content!), Claim:\(claim), Actual Content \(passed_card.content)")
             let myBool = "\(retrieved_content!)" == "\(claim)" // I changed it now to force unpack with ! so no optional needed
             //myBool = true // just want the game to continue for now
             if myBool{
@@ -121,7 +121,7 @@ struct Player {
         if card_to_pass == nil {
             self.message = dealWithUncertainty()
         } else {
-            self.message = "I have a \(String(describing: card_to_pass!.slotValue(slot: "content")))"
+            self.message = "\(String(describing: card_to_pass!.slotValue(slot: "content")))" // I have a
         }
     }
     
@@ -162,7 +162,7 @@ struct Player {
         let dir = directionToBool(direction: "\(old_card!.slotValue(slot: "direction")!)")
         let temp_card = Card(rightArrow: dir , content: "\(old_card!.slotValue(slot: "content")!)")
         // Add it to declarative memory
-        print("Temporary Card: Bot",self.id, temp_card.content)
+        print("Temporary Card: Bot",self.id, old_card, botID)
         for _ in 1..<strength+1 {
             print("Adding..")
             self.addToDM(card: temp_card, player_id: botID, claim: temp_card.content)
@@ -178,7 +178,12 @@ struct Player {
     
     func updateTime() {
         print(elapsedTime())
-        model.time += elapsedTime()
+        if elapsedTime() > 3{
+            model.time += 3
+        } else {
+            model.time += elapsedTime()
+        }
+        
     }
     
     mutating func startTimer() {

@@ -37,8 +37,12 @@ class ThatsNotAHatGame: ObservableObject {
     func startGame() {
         // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
         model.flipCards()
-        game_started = true // Use this variable to disable the onTapGestures on the cards
+        //game_started = true // Use this variable to disable the onTapGestures on the cards
         model.startTimers()
+    }
+    
+    func flipCards(){
+        model.flipCards()
     }
     
     func updateMessage(claim: String, id: Int){
@@ -62,7 +66,6 @@ class ThatsNotAHatGame: ObservableObject {
     }
     
     func passingCard() {
-        // This should be passing the card on to the next player(from player to bot or bot to bot), but it only works if we print the players from inside the botDecision function and not here \
         model.updateModelTime()
         model.botDecision()
         model.startTimers()
@@ -77,7 +80,8 @@ class ThatsNotAHatGame: ObservableObject {
         let receiverID = players[turnID].determineReceiver(direction: passDirection)
         // update message of sender
         let guess = model.botGuess(id:turnID)
-        model.updatePlayerMessage(claim: guess, id: turnID)
+        updateMessage(claim: guess, id: turnID)
+        //model.updatePlayerMessage(claim: guess, id: turnID)
         print("Model Message:",model.message)
         
         // if the player is the receiver
@@ -105,6 +109,10 @@ class ThatsNotAHatGame: ObservableObject {
     
     func reset() {
         model.reset()
+    }
+    
+    func getMessage() -> String {
+        return players[determineTurn()].message
     }
     
 }

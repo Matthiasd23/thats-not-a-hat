@@ -81,7 +81,6 @@ struct GameStartView: View {
                         
                         Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
                             viewModel.updateMessage(claim: guessItem, id: 0)
-                            print(viewModel.players[0])
                             viewModel.passingCard()
                             self.showGuessOptions = false
                             
@@ -98,9 +97,10 @@ struct GameStartView: View {
                     // check memory to see if card given is correct
                     // update saved card with the new card gathered from previous person's turn. Also, announce the card that is passed on.
                     
-                    Button("Bot's Turn, Bot \((viewModel.players[viewModel.determineTurn()].id)) has a  \(viewModel.players[viewModel.determineTurn()].message)") {
+                    Button("Bot's Turn, Bot \((viewModel.players[viewModel.determineTurn()].id)) has a  \(viewModel.getMessage())") {
+                        
                         //self.showGuessOptions = true // temporary solution, need to implement all the bots things
-                        viewModel.startGame() // flipping the cards over again
+                        viewModel.flipCards() // flipping the cards over again
                         viewModel.botPlay()
                     }
                     
