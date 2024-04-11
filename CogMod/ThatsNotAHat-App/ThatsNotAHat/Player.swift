@@ -117,7 +117,7 @@ struct Player {
         return arc4random_uniform(100) < 20
     }
     
-    // Never called by player
+    // Never called by player, adding a chunk to declarative memory
     func addToDM(card: Card<String>, player_id: Double, claim: String) {
         model.dm.addToDM(createChunk(card: card, player_id: player_id, claim: claim))
         model.time += 1.0 // Adding things into DM takes a little bit of time.
@@ -138,14 +138,19 @@ struct Player {
 //        }
 //    }
     
+    
+    
     func dealWithUncertainty() -> String {
         // I guess here we can implement multiple strategies, but i would suggest that if we dont retrieve any card, we just randomly say one for now.
-        
         return "I don't know..."
     }
             
-    
+    // create a new chunk either to add to DM or used for a retrieval request
     private func createChunk(card: Card<String>, player_id: Double, claim: String, recall: Bool = false) -> Chunk {
+        // card: card that should be added to DM
+        // player_id: the player to which the card belongs
+        // claim: Content of the card / claim what someone said is on the card
+        // recall: Boolean wether this function call is used as retrival request or not basically
         // if recall is true, the goal is to recall whether the player actually has the card that is said - leave the content empty
         let chunk = model.generateNewChunk(string: claim)
         if recall == false {
@@ -156,18 +161,21 @@ struct Player {
         return chunk
     }
     
-    
+    // retrieve Chunk from DM
     func retrieveChunk(card: Card<String>, player_id: Double) -> Chunk? {
-        // recall card
+        // card: Card to retrieve
+        // player_id: position from where the cards should be retrieved
         let (latency, optionalChunk) = model.dm.retrieve(chunk: createChunk(card: card, player_id: player_id, claim: card.content, recall: true))
         // add latency to the model
         model.time += latency
         return optionalChunk
     }
     
+    
+    // Retrieve the card the person at ID has, and add it to declarative memory
     func updateMemory(botID: Double, strength: Int = 1) {
-        // Retrieve the card the bot has, and add it to declarative memory
-        // Due to Type problems a lot of forced type casting is done again because no better option was found
+        // botID: position which persons card should be retrieved and reinforced
+        // strength: How often the retrived chunk schould be addd to DM, in other terms how strongly the chunk should be reinforced
         let old_card = retrieveChunk(card: self.cardOne, player_id: botID)
         if old_card == nil {
             return
@@ -182,6 +190,7 @@ struct Player {
         }
     }
     
+    //function to get a Boolean from a direction string (left -> false, right -> true)
     func directionToBool(direction:String) -> Bool {
         if direction == "right"{ // Convert the string into a boolean
             return true
@@ -189,10 +198,12 @@ struct Player {
         return false
     }
     
+    // updates the time of the models
     func updateTime() {
         print(elapsedTime())
         model.time += elapsedTime()
     }
+    
     
     mutating func startTimer() {
         currentTime = Date()

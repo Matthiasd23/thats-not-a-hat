@@ -33,31 +33,33 @@ class ThatsNotAHatGame: ObservableObject {
     
     // MARK: Intent
     
+    
+    // This is called at the beginning of the game to start the timers and turn the cards face down
+    // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
     func startGame() {
-        // This is called at the beginning of the game to start the timers and turn the cards face down
-        // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
         model.flipCards()
         model.startTimers()
     }
     
+    //function to turn the cards face down
     func flipCards(){
-        //function to turn the cards face down
         model.flipCards()
     }
     
+    // updates both the message of the player and the model
     func updateMessage(claim: String, id: Int){
         model.updatePlayerMessage(claim: claim, id:id)
         model.updateClaimMessage(claim: claim)
     }
     
+    // called when the player presses the accept button
     func playerAccepts() {
         model.togglePlayerDecision(id: 0)
         model.updateModelTime()
         model.playerAccepts()
-        model.togglePlayerDecision(id: 0)
         model.startTimers()
     }
-    
+    // called when the player presses the decline button
     func playerDeclines() {
         model.togglePlayerDecision(id: 0)
         model.updateModelTime()
@@ -65,12 +67,13 @@ class ThatsNotAHatGame: ObservableObject {
         model.startTimers()
     }
     
+    // passes the card
     func passingCard() {
         model.updateModelTime()
         model.botDecision()
         model.startTimers()
     }
-    
+    // This function is called when it is the bots turn. So either the bot passes to another bot or to the player
     func botPlay(){
         // So this should be executed when it is not the players turn currently bound to pressing the bots turn button.
         // The bot either passes to the player or a bot, depending on this it needs to call a different function
@@ -81,19 +84,20 @@ class ThatsNotAHatGame: ObservableObject {
         // update message of sender
         let guess = model.botGuess(id:turnID)
         updateMessage(claim: guess, id: turnID)
-        //model.updatePlayerMessage(claim: guess, id: turnID)
-        print("Model Message:",model.message)
+        print("Model Message:", model.message)
         
         // if the player is the receiver
         if receiverID == 0 {
-            model.togglePlayerDecision(id: receiverID)
             // In this case we need to update the viewmodel so that the player can accept or decline
-        }else{ //Bot receives
+            model.togglePlayerDecision(id: receiverID)
+        }else{
+            //Bot receives
             model.turnOffDecision()
             model.botDecision()
         }
     }
     
+    // Function to determine whose turn it is
     func determineTurn () -> Int {
         if model.loserFound {
             // Return to contentView with a message

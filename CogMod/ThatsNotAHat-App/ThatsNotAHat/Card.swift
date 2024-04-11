@@ -7,7 +7,10 @@
 
 import Foundation
 
-struct Card<CardContent> {               // Not sure if we need more variables with the card,
+struct Card<CardContent> {
+    // isFaceup: wether the card is face up or not
+    // rightArrow: Wether the arrow points to the right or left
+    // content: emoji on the card
     var isFaceUp: Bool = true // to inspect at the beginning it should be face up
     var rightArrow: Bool           // right pointed card or left this should be decided when generating the card.
     var content: CardContent
