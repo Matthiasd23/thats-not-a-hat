@@ -20,18 +20,20 @@ struct PlayerView: View{
     
     var player : Player
     var includeMsg: Bool = true
+    var sayMessage: String = "__"
     var body: some View{
         VStack{
             HStack {
                 Text(player.name) // Maybe make it so a player can enter its name?
-                Text("-score: " + String(player.score))
+                Text("-Score: " + String(player.score))
             }
             CardView(content: player.cardOne.content, isFaceUp: player.cardOne.isFaceUp, arrow: getArrow(rightArrow: player.cardOne.rightArrow, isBot: (player.id != 0)), isSelected: player.isTurn)
             if player.isTurn {
                 // Add the second card
                 CardView(content: player.cardTwo!.content, isFaceUp: player.cardTwo!.isFaceUp, arrow: getArrow(rightArrow: player.cardTwo!.rightArrow, isBot: (player.id != 0)), cardState: true)
                 if includeMsg {
-                    MessageView()
+                    //MessageView()
+                    Text("Thats a " + sayMessage)
                 }
             }
             else{

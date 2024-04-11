@@ -31,9 +31,9 @@ struct GameStartView: View {
         }else{
             VStack {
                 HStack{
-                    PlayerView(player: viewModel.players[1], includeMsg: false) // bot 1
+                    PlayerView(player: viewModel.players[1], includeMsg: viewModel.players[1].isTurn, sayMessage: (viewModel.getMessage()))// bot 1. When it is the bot's turn, show the message of their guess.
                     Spacer()
-                    PlayerView(player: viewModel.players[2], includeMsg: false) // bot 2
+                    PlayerView(player: viewModel.players[2], includeMsg: viewModel.players[2].isTurn, sayMessage: (viewModel.getMessage())) // bot 2
                     
                 }
                 CardStackView(idle: true) // middle card stack
@@ -97,12 +97,17 @@ struct GameStartView: View {
                     // check memory to see if card given is correct
                     // update saved card with the new card gathered from previous person's turn. Also, announce the card that is passed on.
                     
-                    Button("Bot's Turn, Bot \((viewModel.players[viewModel.determineTurn()].id)) has a  \(viewModel.getMessage())") {
-                        
+                    Button("Bot's Turn, Click to Continue") {
                         //self.showGuessOptions = true // temporary solution, need to implement all the bots things
                         viewModel.flipCards() // flipping the cards over again
                         viewModel.botPlay()
                     }
+                    
+                    //Button("Bot's Turn, Bot \(viewModel.players[viewModel.determineTurn()].id) has a  \(viewModel.getMessage())") {
+                        //self.showGuessOptions = true // temporary solution, need to implement all the bots things
+                    //    viewModel.flipCards() // flipping the cards over again
+                    //    viewModel.botPlay()
+                    //}
                     
                 }
                 
