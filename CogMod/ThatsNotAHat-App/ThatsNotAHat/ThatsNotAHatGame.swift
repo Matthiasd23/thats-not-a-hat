@@ -16,13 +16,12 @@ class ThatsNotAHatGame: ObservableObject {
     var message: String {return model.message}
     var card_options: Array<String> { return model.options }
     var loserFound: Bool { return model.loserFound }
-    var game_started: Bool = false
     
     func getLoser() -> String {
         if loserFound {
             let loser = model.getLoser()
             if loser == 0 {
-                return "It is you, you is the loser."
+                return "It is you, you are the loser."
             }
             else{
                 return "Bot \(loser)"
@@ -35,13 +34,14 @@ class ThatsNotAHatGame: ObservableObject {
     // MARK: Intent
     
     func startGame() {
+        // This is called at the beginning of the game to start the timers and turn the cards face down
         // Should flip over all the cards and then give the player the option to start choosing what card he wants to send
         model.flipCards()
-        //game_started = true // Use this variable to disable the onTapGestures on the cards
         model.startTimers()
     }
     
     func flipCards(){
+        //function to turn the cards face down
         model.flipCards()
     }
     
@@ -114,5 +114,6 @@ class ThatsNotAHatGame: ObservableObject {
     func getMessage() -> String {
         return players[determineTurn()].message
     }
+
     
 }

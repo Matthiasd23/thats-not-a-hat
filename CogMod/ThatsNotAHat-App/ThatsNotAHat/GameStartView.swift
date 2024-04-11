@@ -107,7 +107,7 @@ struct GameStartView: View {
                 }
                 
                 if(viewModel.players[0].decision) {
-                    if !((viewModel.players[0].cardTwo?.isFaceUp) != nil) {
+//                    if !((viewModel.players[0].cardTwo?.isFaceUp) != nil) {
                         HStack{ // Accept button
                             Button(action: {
                                 viewModel.playerAccepts()
@@ -122,7 +122,7 @@ struct GameStartView: View {
                                    label: {Text("Decline")})
                             .padding(.horizontal)
                         }
-                    }
+                   //}
                 }
             }
             .background(Color("lightPink"))

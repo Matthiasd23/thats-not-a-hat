@@ -9,25 +9,29 @@ import Foundation
 
 
 struct ThatsNotAHat<CardContent>{
-    
+    // players: is an array of all the players in the game
+    // senderID: is the integer ID of the player
+    // message: String containing the last message used by a player
+    // deck: The deck of cards
+    // options: the option, from where randomly selected items are shown to the player to choose from for passing the card
+    // loserFound: a boolean if someone has lost the game. Used to end the game
     private(set) var players: Array<Player>
-    // DONE: I think sender should be the id, so we can use the actual player variables and those then change instead of an extra one
-    // private(set) var sender: Player = Player(id: 99, name: "placeholder", score: 0, cardOne: Card(rightArrow: false, content: "nothing"))
     private(set) var senderID: Int = 0
-    // private var passed_card: Card<String>?
     private(set) var message: String = "No message"
     internal var deck: Deck
     private(set) var options: Array<String> = []
     var loserFound: Bool = false
     
     init() {
+        // initializing the players, deck and dealing the first cards to the players. Also starts adding the cards to decleratve memory
         deck = Deck()
-        
-        // Creating bot one, the model is on the Player
-        let bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard())
-        // Creating bot two, the model is on the Player
-        let bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: deck.getNewCard())
+        // Creating the player
         var player = Player(id: 0, name: "Player", score: 0, cardOne: deck.getNewCard())
+        // Creating bot one, the model is in the Player
+        let bot1 = Player(id: 1, name: "Bot 1", score: 0, cardOne: deck.getNewCard())
+        // Creating bot two, the model is in the Player
+        let bot2 = Player(id: 2, name: "Bot 2", score: 0, cardOne: deck.getNewCard())
+
         
         let new_card = deck.getNewCard()
         // add the fourth to the player (player always starts)
@@ -35,12 +39,13 @@ struct ThatsNotAHat<CardContent>{
         
         players = [player, bot1, bot2]
         
-        // dropFirst returns an array without the first element
+        // Loop through the bots and add the cards to their declarative memory.
         for index in 1..<players.count {
             for player in players {
                 players[index].addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
                 // strengthn the first card so they dont make a mistake immediately
-                players[index].addToDM(card: player.cardOne, player_id: player.ID(), claim: player.cardOne.content)
+                players[index].updateMemory(botID: Double(index), strength: 2)
+                // This is true for the player, so the bots add the second card also to declarative memory
                 if player.cardTwo != nil {
                     players[index].addToDM(card: player.cardTwo!, player_id: player.ID(), claim: player.cardTwo!.content)
                     
@@ -57,12 +62,13 @@ struct ThatsNotAHat<CardContent>{
     mutating func checkForLoser() {
         let loser = players.max(by: { $0.score < $1.score })
         // below checks if the loser 'exists', if no loser it says 0
-        if loser?.score ?? 0 >= 10 {
+        if loser?.score ?? 0 >= 3 {
             loserFound = true
         }
     }
     
     func getLoser() -> Int {
+        // Returns the ID of the losing player
         return players.max(by: { $0.score < $1.score })!.id
     }
     
@@ -72,10 +78,12 @@ struct ThatsNotAHat<CardContent>{
         return players[id].message == card.content
     }
     
+    // Updates the message of the player that this is called for.
     mutating func updatePlayerMessage(claim: String, id: Int){
         players[id].message = claim
     }
     
+    // Turns all the cards face down.
     mutating func flipCards(){
         print("flipping cards is called..")
         // at the start of the game flip the cards face down
@@ -91,19 +99,18 @@ struct ThatsNotAHat<CardContent>{
     mutating func togglePlayerDecision(id:Int){
         players[id].decision.toggle()
     }
-    
+    // Turns the decision bool in the player to 0
     mutating func turnOffDecision(){
         players[0].decision = false
     }
     
+    // This function is called when the player accepts a card:
+    // Player is the reciever, it adds the card into the players second slot and updates the declerative memory of the bots
+    // Also updates the isTurn variable accordingly along with the senderID
     mutating func playerAccepts() {
-        // ------------------------------------------ \\ double code
-        // Either bot 1 or bot 2 passed the card (sender)
-        // player is receiver
         players[senderID].isTurn = false
-        let (receiver_id, passed_card) = players[senderID].passCard() //sender.passCard()
-        
-        // ------------------------------------------ \\
+        // Find the receiver and what card is to be passed
+        let (receiver_id, passed_card) = players[senderID].passCard()
         
         // addCard to receiver (player in this case)
         players[receiver_id].cardTwo = passed_card
@@ -111,7 +118,6 @@ struct ThatsNotAHat<CardContent>{
         for index in 1..<players.count {
             players[index].updateMemory(botID: Double(receiver_id), strength: 3) // This should update the first card of the bot
             players[index].addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
-            // TODO: Make sure this is the message saved before the player accepts the card
         }
         
         // After accepting the player becomes the sender
@@ -120,31 +126,33 @@ struct ThatsNotAHat<CardContent>{
         
     }
     
-    mutating func playerDeclines() { // ADD timer for the models (with a max so it cant be exploited)
+    // This function is called when the player declines a card:
+    // Player is receiver, one of the bots is the sender
+    // determines who was correct and updates the gamestate accordingly
+    mutating func playerDeclines() {
         players[senderID].isTurn = false
-        // ------------------------------------------ \\ double code
-        // Either bot 1 or bot 2 passed the card (sender)
-        // player is receiver
+        // determines the receiver id (0 in this case) and what card is passed
         let (receiver_id, passed_card) = players[senderID].passCard()
         
-        // either way a new card is introduced, the only difference is who gets the card
+        // a new card is introduced regardless of who is correct, just changes who receives this new card
         let new_card = deck.getNewCard()
         // ------------------------------------------ \\
-        // Card must be shown
+        // We check if the claim of the sender and the content of the card is the same
+        // if this is True the sender is correct, if it is false the receiver is correct
         if checkMessageWithCard(card: passed_card, id: senderID)
         {
-            // sender correct
+            // sender correct, so reciever gets +1 to score
             players[receiver_id].addToScore()
             checkForLoser()
             
-            // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
+            // Add the new card, face up until player presses the button.
             players[receiver_id].addCard(new_card: new_card)
             print("NEW CARD RECEIVED: \(new_card)")
             
-            // Do model things - reinforcing
-            // Currently only the new card gets reinforced
+
+            // First update what the bots think the person has that gets the new card, and then add new card to their declarative memory
             for index in 1..<players.count {
-                players[index].updateMemory(botID: Double(receiver_id), strength: 3)
+                players[index].updateMemory(botID: Double(receiver_id), strength: 2)
                 players[index].addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: message)
             }
             
@@ -158,60 +166,68 @@ struct ThatsNotAHat<CardContent>{
             players[senderID].addToScore()
             checkForLoser()
             players[senderID].addCard(new_card: new_card)
-            // Update Bots
+            
+            // First update what the bots think the person has that gets the new card, and then add new card to their declarative memory
             for index in 1..<players.count {
                 players[index].addToDM(card: players[index].cardOne, player_id: players[index].ID(), claim: players[index].cardOne.content)
-                players[index].updateMemory(botID: Double(senderID), strength: 3)
+                players[index].updateMemory(botID: Double(senderID), strength: 2)
                 players[index].addToDM(card: new_card, player_id: players[senderID].ID(), claim: message)
             }
             
             // SENDER STAYS SENDER
             players[senderID].isTurn = true
         }
+        // update the options the player can choose from
         options = makeOptions()
     }
     
-    // we need now the control options for the model.
+    
+    
+    // This function handles the decision making of the bots.
+    // Player or bot passes a card to a bot, bot has to decide whether to accept or decling
     mutating func botDecision() {
-        // either player or the other model passed the card, and one model is the reciever.
-        players[senderID].isTurn = false // players turn ends as soon as he passes the card
+        // players turn ends as soon as he passes the card
+        players[senderID].isTurn = false
+        
+        //determine who receives the card, and what card is passed
         let (receiver_id, passed_card) = players[senderID].passCard()
         print("This is the sender ID Claim ",players[senderID].message)
         
-        // model makes a retrieval and then checks wether its the same
+        // bot makes the decision based on what it thinks the person has as card.one and compares that with the claim of the sender
+        // returns True if it agrees = accept, False if it does not agree = decline
         let model_decision = players[receiver_id].decisionCard(passed_card: passed_card, player_id: players[senderID].ID(), claim: players[senderID].message)
-        
         if model_decision {
-            // update its other card, switch cards in possesion and update second bot
+            // Accept:
+            // Adding the new card to the receiver
             players[receiver_id].addCard(new_card: passed_card)
             
-            // reinforce things, both bots update
+            // both bots update the first card the receiver has and then add the new card to DM
             for index in 1..<players.count {
-                players[index].updateMemory(botID: Double(receiver_id), strength: 3)
+                players[index].updateMemory(botID: Double(receiver_id), strength: 2)
                 players[index].addToDM(card: passed_card, player_id: players[receiver_id].ID(), claim: message)
             }
             
-            // After accepting the player becomes the sender
+            // After accepting the receiver becomes the sender
             senderID = players[receiver_id].id
             players[senderID].isTurn = true
-            // The other ones have to be set to false at those points aswell.
-            
+            // Update the message of the model based ont the senders message
             message = players[senderID].message
             
         }else{
-            // check who is correct, remove card, introduce new card, update both bots.
+            // model_decision = False, so bot declines
+            // new card gets introduced, checked who made a mistake, score added and card given to that player
             let new_card = deck.getNewCard()
             if checkMessageWithCard(card: passed_card, id: senderID){
                 
-                // sender correct
+                // sender correct, receiver made the mistake
                 players[receiver_id].addToScore()
                 checkForLoser()
                 
-                // ADD NEW CARD, SHOULD BE VISIBLE FIRST (before the player presses a button (ready))
+                // Add the new card to the player who made the mistake
                 players[receiver_id].cardTwo = new_card
-                // Do model things - reinforcing
+                // both bots update the first card the receiver has and then add the new card to DM
                 for index in 1..<players.count {
-                    players[index].updateMemory(botID: Double(receiver_id), strength: 3)
+                    players[index].updateMemory(botID: Double(receiver_id), strength: 2)
                     players[index].addToDM(card: new_card, player_id: players[receiver_id].ID(), claim: new_card.content)
                 }
                 
@@ -226,24 +242,28 @@ struct ThatsNotAHat<CardContent>{
                 players[senderID].addCard(new_card: new_card)
                 // Update Bots
                 for index in 1..<players.count {
+                    // Here we add the actual card to the DM again, because the sender retrieved the wrong card which means the card with the highest activation is wrong
+                    // so updateMemory would further increase the strength of that card. This is still not working 100% maybe more reinforcement is needed
                     players[index].addToDM(card: players[index].cardOne, player_id: players[index].ID(), claim: players[index].cardOne.content)
-                    players[index].updateMemory(botID: Double(senderID), strength: 3)
+                    players[index].addToDM(card: players[index].cardOne, player_id: players[index].ID(), claim: players[index].cardOne.content)
+                    players[index].updateMemory(botID: Double(senderID), strength: 2)
                     players[index].addToDM(card: new_card, player_id: players[senderID].ID(), claim: new_card.content)
                 }
                 
             }
+            // Update the card options shown to the player and update the sender
             options = makeOptions()
             players[senderID].isTurn = true
         }
     }
     
-    
+    // This function is called when the bots have to pass on their cards.
+    // Returns the content of the card they think they are passing, or "No Chunk Retrieved"
     mutating func botGuess(id:Int) -> String{
         // Retrieves the chunk with the highest activations, used to change the message of the bots
         let chunk = players[id].retrieveChunk(card: players[id].cardOne, player_id: Double(id))
         if chunk != nil {
-            // TODO: Fix retrieval requests for slotvalues being Value and not string
-            // temporary fix?
+            // Forcing the chunk into a string and also force the unpacking. Done because we could not find another way to compare a Value? with a String
             let guessString = "\(chunk!.slotValue(slot: "content")!)"
             return guessString
         } else {
@@ -251,22 +271,25 @@ struct ThatsNotAHat<CardContent>{
         }
     }
     
+    // Start the timer to measure how long the player took to decide
     mutating func startTimers() {
         for index in 1..<players.count {
             players[index].startTimer()
         }
     }
-    
+    // update the model according time passed
     mutating func updateModelTime() {
         for index in 1..<players.count {
             players[index].updateTime()
         }
     }
     
+    // Updating the message
     mutating func updateClaimMessage(claim: String) {
         message = claim
     }
     
+    // Updating the cards that are shown to the player based on cards that have been seen and the ones that are in play
     mutating func makeOptions() -> [String] {
         var options = deck.cards_inplay
         if let random = deck.cards_outofplay.randomElement() {
@@ -276,6 +299,7 @@ struct ThatsNotAHat<CardContent>{
         return options
     }
     
+    // reset the game to start again
     mutating func reset() {
         // Initiating new deck
         deck = Deck()

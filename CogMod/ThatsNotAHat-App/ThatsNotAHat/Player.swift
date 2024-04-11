@@ -7,7 +7,20 @@
 
 import Foundation
 
-// This struct is probably needed for the logic - not sure how important the link to the view would be
+// This is the player struct, that holds the information about the player and the two bots.
+// Stored information:
+// ID: ID of the player [0,1,2]
+// Name: Name given to the player. Idea was to later incorporate that the player can choose their name
+// Score: Keeps track of the mistakes made by a player/bot
+// cardOne: Card in the first slot (longer held card)
+// cardTwo: always nil except isTurn = True
+// isTurn: Boolean that tracks whos turn it is
+// model: only bots have this, and it initializes an ACT-R model
+// message: String containing the claim of what card is being passed
+// decision: Boolean tracking whether the human player has to accept or decline a passed card. Used for the View to show correct buttons
+// currentTime: tracking the current time
+// maxTimeElapsed: Maximum time that gets added to the model if player takes longer
+
 struct Player {
     var id: Int
     var name: String
@@ -24,7 +37,7 @@ struct Player {
     var maxTimeElapsed: Double
     
     
-    init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false, maxTimeElapsed: Double = 10.0) {
+    init(id: Int, name: String, score: Int, cardOne: Card<String>, cardTwo: Card<String>? = nil, isTurn: Bool = false, maxTimeElapsed: Double = 6.0) {
         self.id = id
         self.name = name
         self.score = score
@@ -39,7 +52,8 @@ struct Player {
     // from players[1] to the left: players[2]      to the right: players[0]
     // from players[2] to the left: players[0]      to the right: players[1]
     
-    func determineReceiver(direction: Bool) -> Int { // made this public because the viewmodel needs a way to see who the card gets passed to
+    // function that returns the ID of the receiver
+    func determineReceiver(direction: Bool) -> Int {
         // direction (Bool): true = right, false = left
         // this function returns the index corresponding to the receiver in players[index]
         if direction {
@@ -49,46 +63,45 @@ struct Player {
         }
     }
     
-
+    // Function that passes the cardOne of a player to the correct person
     mutating func passCard() -> (Int, Card<String>){
-        
-        // Choosing what to say, could be called passCard or smth
-        // just using a placeholder right now
         let receiver = determineReceiver(direction: cardOne.rightArrow)
         let passed_card = cardOne
         // cardTwo should never be nil in this case, otherwise a default (wrong) card will be shown
-        
         cardOne = cardTwo ?? Card(isFaceUp: true, rightArrow: true, content: "Something went wrong")
         cardTwo = nil
-        
         return (receiver, passed_card)
     }
     
-    // Seems not to work properly
+    // adding a card to the cardTwo slot
     mutating func addCard(new_card: Card<String>) {
         cardTwo = new_card
     }
     
+    // returns the id
     func ID() -> Double {
         return Double(id)
     }
     
+    // adds one to the score
     mutating func addToScore() {
         score += 1
     }
     
     mutating func decisionCard(passed_card: Card<String>, player_id: Double, claim: String) -> Bool {
-        // Claim is what the sender claims the card to be, because we need to check the claim vs what the bot thinks, not what actually on the card
-        // It gets a card and has to decide wether the person said the right thing or not
-        // Retrieve activation of Chunk: id: sender.id, arrow: known
-        // We have 2 Options here, we can make a retrival based on content, and check if the player_id matches
-        // or make a retrival based on player_id and check if content matches
-        
-        let retrieved_chunk = retrieveChunk(card: passed_card, player_id: player_id) // card needs to be passed but is not used in the retrieval request
+        // passed_card: the actual card that is being passed
+        // player_id: person who passed the card
+        // claim: What the sender thought is on the card
+        // This function checks if what the sender said is on the card and what the reciever thinks is on the card match or not
+        // the receiver makes a retrieval request based on the sender ID and the Arrow on the card
+
+        // card needs to be passed as an argument but is not used in the retrieval request!
+        let retrieved_chunk = retrieveChunk(card: passed_card, player_id: player_id)
         let retrieved_content = retrieved_chunk?.slotValue(slot: "content")
         if retrieved_chunk != nil {
             print("Retrieved Content: \(retrieved_content!), Claim:\(claim), Actual Content \(passed_card.content)")
-            let myBool = "\(retrieved_content!)" == "\(claim)" // I changed it now to force unpack with ! so no optional needed
+            // Forcing retrieved content into a strin
+            let myBool = "\(retrieved_content!)" == "\(claim)"
             //myBool = true // just want the game to continue for now
             if myBool{
                 print("\(name) accepts") // For debugging purposes
@@ -178,12 +191,7 @@ struct Player {
     
     func updateTime() {
         print(elapsedTime())
-        if elapsedTime() > 3{
-            model.time += 3
-        } else {
-            model.time += elapsedTime()
-        }
-        
+        model.time += elapsedTime()
     }
     
     mutating func startTimer() {
