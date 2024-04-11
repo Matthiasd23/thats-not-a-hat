@@ -100,14 +100,14 @@ struct Player {
         let retrieved_content = retrieved_chunk?.slotValue(slot: "content")
         if retrieved_chunk != nil {
             print("Retrieved Content: \(retrieved_content!), Claim:\(claim), Actual Content \(passed_card.content)")
-            // Forcing retrieved content into a strin
+            // Forcing retrieved content into a string
             let myBool = "\(retrieved_content!)" == "\(claim)"
-            //myBool = true // just want the game to continue for now
+            
             if myBool{
-                print("\(name) accepts") // For debugging purposes
-                acceptCard(passed_card: passed_card, player_id: player_id, claim: claim)
+                print("\(name) accepts")
+                // acceptCard(passed_card: passed_card, player_id: player_id, claim: claim)
                 return true
-                // cannot call the acceptCard or declineCard because sef is immutable
+
             }else{
                 print("\(name) declines")
                 return false
@@ -120,23 +120,23 @@ struct Player {
     // Never called by player
     func addToDM(card: Card<String>, player_id: Double, claim: String) {
         model.dm.addToDM(createChunk(card: card, player_id: player_id, claim: claim))
-        model.time += 1.0 // Adding things into DM takes a little bit of time. We can also adjust this to make to model worse.
+        model.time += 1.0 // Adding things into DM takes a little bit of time.
     }
     
     // Since we use retrieve the 'next' card first, we should either return this card in the function, or make an additional variable card_to_pass in the player, which is set to nil afterwards
-    mutating func acceptCard(passed_card: Card<String>, player_id: Double, claim: String) {          // Accepting the card
+//    mutating func acceptCard(passed_card: Card<String>, player_id: Double, claim: String) {          // Accepting the card
         // retrieve new card before reinforcing new chunk
-        let card_to_pass = retrieveChunk(card: cardOne, player_id: ID())
+//        let card_to_pass = retrieveChunk(card: cardOne, player_id: ID())
         // Receiver reinforces chunk
-        addToDM(card: passed_card, player_id: player_id, claim: claim)
+//        addToDM(card: passed_card, player_id: player_id, claim: claim)
         
         // return a message that
-        if card_to_pass == nil {
-            self.message = dealWithUncertainty()
-        } else {
-            self.message = "\(String(describing: card_to_pass!.slotValue(slot: "content")))" // I have a
-        }
-    }
+//        if card_to_pass == nil {
+//            self.message = dealWithUncertainty()
+//        } else {
+//            self.message = "\(String(describing: card_to_pass!.slotValue(slot: "content")))" // I have a
+//        }
+//    }
     
     func dealWithUncertainty() -> String {
         // I guess here we can implement multiple strategies, but i would suggest that if we dont retrieve any card, we just randomly say one for now.
