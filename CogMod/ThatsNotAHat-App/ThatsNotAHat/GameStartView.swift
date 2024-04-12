@@ -11,16 +11,15 @@ import SwiftUI
 // Game Start View
 // First View that is shown after clicking "Play Now". Should give 1 card to the 2 bots and the player. Then gives another card to the player, to start the game.
 struct GameStartView: View {
-    
+     
     @ObservedObject var viewModel = ThatsNotAHatGame()
-//    private let viewModel: ThatsNotAHatGame : This might be a fix for the data being carried over - the code above creates a new class, instead we would have to pass one viewModel class around
+//private let viewModel: ThatsNotAHatGame : This might be a fix for the data being carried over - the code above creates a new class, instead we would have to pass one viewModel class around
     @State private var showGuessOptions = false
     
     // here the possible guesses should be added, right now it's hardcoded with random emojis. A function should be made for these to be determined. One that's the actual card and the rest previous cards or random cards.
     @State private var guessItem = ""
 
     var body: some View {
-        
         if viewModel.loserFound {
             VStack {
                 Text("The Loser: \(viewModel.getLoser())")
@@ -31,14 +30,14 @@ struct GameStartView: View {
         }else{
             VStack {
                 HStack{
-                    // following if-else statment controls when the bots say their card out loud (shows under the bot's cards)
+                    // following if-else statment controls when the bots say their card out loud (shows under the bot's cards). Only occurs when it is the main player's turn to accept or decline the card.
                     if(viewModel.players[0].decision) {
                         PlayerView(player: viewModel.players[1], includeMsg: viewModel.players[1].isTurn, sayMessage: (viewModel.getMessage()))// bot 1
                         Spacer()
                         PlayerView(player: viewModel.players[2], includeMsg: viewModel.players[2].isTurn, sayMessage: (viewModel.getMessage())) // bot 2
                     }
                     else {
-                        PlayerView(player: viewModel.players[1], includeMsg: false)// bot 1. When it is the bot's turn, show the message of their guess.
+                        PlayerView(player: viewModel.players[1], includeMsg: false)// bot 1
                         Spacer()
                         PlayerView(player: viewModel.players[2], includeMsg: false) // bot 2
                     }
@@ -109,15 +108,11 @@ struct GameStartView: View {
                 }
                 // Maybe move this up
                 if(viewModel.players[1].isTurn == true || viewModel.players[2].isTurn == true) {
-                    // Would be nice as a UI experience to make it so that you have to swipe the card in the direction of the arrow.
-                    
                     // retrieve their card first, save it as variable
                     // check memory to see if card given is correct
                     // update saved card with the new card gathered from previous person's turn. Also, announce the card that is passed on.
                     if (viewModel.players[0].decision != true) {
                         Button("Bot's Turn, Click to Continue") {
-                            //self.showGuessOptions = true // temporary solution, need to implement all the bots things
-                            
                             viewModel.flipCards() // flipping the cards over again
                             viewModel.botPlay()
                         }
@@ -128,8 +123,6 @@ struct GameStartView: View {
                     }
                     else {
                         Button("Bot is passing a card to you") {
-                            //self.showGuessOptions = true // temporary solution, need to implement all the bots things
-                            
                             viewModel.flipCards() // flipping the cards over again
                             viewModel.botPlay()
                         }
@@ -138,13 +131,6 @@ struct GameStartView: View {
                         .foregroundColor(.black)
                         .clipShape(Capsule())
                     }
-                    
-                    //Button("Bot's Turn, Bot \(viewModel.players[viewModel.determineTurn()].id) has a  \(viewModel.getMessage())") {
-                        //self.showGuessOptions = true // temporary solution, need to implement all the bots things
-                    //    viewModel.flipCards() // flipping the cards over again
-                    //    viewModel.botPlay()
-                    //}
-                    
                 }
                 
                 if(viewModel.players[0].decision) {
