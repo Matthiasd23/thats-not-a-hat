@@ -17,9 +17,7 @@
 		238954A72BA1A404000DB771 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954A62BA1A404000DB771 /* PlayerView.swift */; };
 		238954A92BA1A41D000DB771 /* ThatsNotAHatGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954A82BA1A41D000DB771 /* ThatsNotAHatGame.swift */; };
 		238954AB2BA1A443000DB771 /* CardStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954AA2BA1A443000DB771 /* CardStackView.swift */; };
-		238954AD2BA1A45B000DB771 /* PlayerChoosesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954AC2BA1A45B000DB771 /* PlayerChoosesView.swift */; };
 		238954AF2BA1A4F7000DB771 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954AE2BA1A4F7000DB771 /* Card.swift */; };
-		238954B32BA1B5FD000DB771 /* IdleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954B22BA1B5FD000DB771 /* IdleView.swift */; };
 		23E2820D2BA9AF9C008F30C8 /* GameStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E2820C2BA9AF9C008F30C8 /* GameStartView.swift */; };
 		23FA8C902BA4397200A1D0E8 /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C8F2BA4397200A1D0E8 /* Deck.swift */; };
 		23FA8C952BA43E4600A1D0E8 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23FA8C942BA43E4600A1D0E8 /* Model.swift */; };
@@ -51,9 +49,7 @@
 		238954A62BA1A404000DB771 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		238954A82BA1A41D000DB771 /* ThatsNotAHatGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThatsNotAHatGame.swift; sourceTree = "<group>"; };
 		238954AA2BA1A443000DB771 /* CardStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStackView.swift; sourceTree = "<group>"; };
-		238954AC2BA1A45B000DB771 /* PlayerChoosesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerChoosesView.swift; sourceTree = "<group>"; };
 		238954AE2BA1A4F7000DB771 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		238954B22BA1B5FD000DB771 /* IdleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleView.swift; sourceTree = "<group>"; };
 		23E2820C2BA9AF9C008F30C8 /* GameStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStartView.swift; sourceTree = "<group>"; };
 		23FA8C8F2BA4397200A1D0E8 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
 		23FA8C942BA43E4600A1D0E8 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -110,8 +106,6 @@
 				238954A62BA1A404000DB771 /* PlayerView.swift */,
 				238954AA2BA1A443000DB771 /* CardStackView.swift */,
 				23E2820C2BA9AF9C008F30C8 /* GameStartView.swift */,
-				238954AC2BA1A45B000DB771 /* PlayerChoosesView.swift */,
-				238954B22BA1B5FD000DB771 /* IdleView.swift */,
 				238954A82BA1A41D000DB771 /* ThatsNotAHatGame.swift */,
 				238954A42BA1A3D7000DB771 /* ThatsNotAHat.swift */,
 				238954AE2BA1A4F7000DB771 /* Card.swift */,
@@ -227,7 +221,6 @@
 				23FA8C952BA43E4600A1D0E8 /* Model.swift in Sources */,
 				23FA8C902BA4397200A1D0E8 /* Deck.swift in Sources */,
 				23FA8CA72BA43F2300A1D0E8 /* SlotAction.swift in Sources */,
-				238954AD2BA1A45B000DB771 /* PlayerChoosesView.swift in Sources */,
 				238954A72BA1A404000DB771 /* PlayerView.swift in Sources */,
 				238954AB2BA1A443000DB771 /* CardStackView.swift in Sources */,
 				23884D562B86078E00178E40 /* ContentView.swift in Sources */,
@@ -240,7 +233,6 @@
 				238954A92BA1A41D000DB771 /* ThatsNotAHatGame.swift in Sources */,
 				238954A52BA1A3D7000DB771 /* ThatsNotAHat.swift in Sources */,
 				23FA8CAF2BA43F7000A1D0E8 /* Tokenizer.swift in Sources */,
-				238954B32BA1B5FD000DB771 /* IdleView.swift in Sources */,
 				238954A12BA1A34B000DB771 /* CardView.swift in Sources */,
 				23FA8C9D2BA43EC300A1D0E8 /* Declarative.swift in Sources */,
 				23884D542B86078E00178E40 /* ThatsNotAHatApp.swift in Sources */,
