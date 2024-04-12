@@ -20,7 +20,7 @@ struct CardView: View {
         ZStack{
             if isSelected {
                 RoundedRectangle(cornerRadius:20)
-                    .stroke(Color.green, lineWidth: 7)
+                    .stroke(Color.white, lineWidth: 15)
             }
             let shape = RoundedRectangle(cornerRadius: 20)
             if cardState == true {

@@ -18,9 +18,9 @@ struct GameStartView: View {
     
     // here the possible guesses should be added, right now it's hardcoded with random emojis. A function should be made for these to be determined. One that's the actual card and the rest previous cards or random cards.
     @State private var guessItem = ""
-    
 
     var body: some View {
+        
         if viewModel.loserFound {
             VStack {
                 Text("The Loser: \(viewModel.getLoser())")
@@ -51,11 +51,19 @@ struct GameStartView: View {
                 // ready button to start the game after examining your cards
                 if(viewModel.determineTurn()==0) {
                     //                if !self.showGuessOptions {
-                    Button("Ready!") {
-                        viewModel.startGame()
-                        self.showGuessOptions = true
+                    if (self.showGuessOptions == false) {
+                        
+                        
+                        Button("Ready") {
+                            viewModel.startGame()
+                            self.showGuessOptions = true
+                        }
+                        .padding()
+                        .background(Color("ThatsNotAHatPink"))
+                        .foregroundColor(.black)
+                        .clipShape(Capsule())
+                        
                     }
-                    //                }
                 }
                 
                 if(showGuessOptions == true) {
@@ -94,6 +102,9 @@ struct GameStartView: View {
                             self.guessItem = ""
                         }
                         .padding()
+                        .background(Color("ThatsNotAHatPink"))
+                        .foregroundColor(.black)
+                        .clipShape(Capsule())
                     }
                 }
                 // Maybe move this up
@@ -103,11 +114,29 @@ struct GameStartView: View {
                     // retrieve their card first, save it as variable
                     // check memory to see if card given is correct
                     // update saved card with the new card gathered from previous person's turn. Also, announce the card that is passed on.
-                    
-                    Button("Bot's Turn, Click to Continue") {
-                        //self.showGuessOptions = true // temporary solution, need to implement all the bots things
-                        viewModel.flipCards() // flipping the cards over again
-                        viewModel.botPlay()
+                    if (viewModel.players[0].decision != true) {
+                        Button("Bot's Turn, Click to Continue") {
+                            //self.showGuessOptions = true // temporary solution, need to implement all the bots things
+                            
+                            viewModel.flipCards() // flipping the cards over again
+                            viewModel.botPlay()
+                        }
+                        .padding()
+                        .background(Color("ThatsNotAHatPink"))
+                        .foregroundColor(.black)
+                        .clipShape(Capsule())
+                    }
+                    else {
+                        Button("Bot is passing a card to you") {
+                            //self.showGuessOptions = true // temporary solution, need to implement all the bots things
+                            
+                            viewModel.flipCards() // flipping the cards over again
+                            viewModel.botPlay()
+                        }
+                        .padding()
+                        .background(Color("ThatsNotAHatPink"))
+                        .foregroundColor(.black)
+                        .clipShape(Capsule())
                     }
                     
                     //Button("Bot's Turn, Bot \(viewModel.players[viewModel.determineTurn()].id) has a  \(viewModel.getMessage())") {
@@ -126,13 +155,19 @@ struct GameStartView: View {
                                 self.showGuessOptions = true
                             },
                                    label: {Text("Accept")})
-                            .padding(.horizontal)
+                            .padding()
+                            .background(Color("ThatsNotAHatPink"))
+                            .foregroundColor(.black)
+                            .clipShape(Capsule())
                             Spacer()
                             Button(action: { // Decline Button
                                 viewModel.playerDeclines()
                             },
                                    label: {Text("Decline")})
-                            .padding(.horizontal)
+                            .padding()
+                            .background(Color("ThatsNotAHatPink"))
+                            .foregroundColor(.black)
+                            .clipShape(Capsule())
                         }
                    //}
                 }

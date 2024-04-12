@@ -13,7 +13,6 @@
 		23884D5B2B86079900178E40 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23884D5A2B86079900178E40 /* Preview Assets.xcassets */; };
 		2389549F2BA1A298000DB771 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2389549E2BA1A298000DB771 /* Player.swift */; };
 		238954A12BA1A34B000DB771 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954A02BA1A34B000DB771 /* CardView.swift */; };
-		238954A32BA1A3A5000DB771 /* PassCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954A22BA1A3A5000DB771 /* PassCardView.swift */; };
 		238954A52BA1A3D7000DB771 /* ThatsNotAHat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954A42BA1A3D7000DB771 /* ThatsNotAHat.swift */; };
 		238954A72BA1A404000DB771 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954A62BA1A404000DB771 /* PlayerView.swift */; };
 		238954A92BA1A41D000DB771 /* ThatsNotAHatGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238954A82BA1A41D000DB771 /* ThatsNotAHatGame.swift */; };
@@ -48,7 +47,6 @@
 		23884D5A2B86079900178E40 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2389549E2BA1A298000DB771 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Player.swift; path = ThatsNotAHat/Player.swift; sourceTree = SOURCE_ROOT; };
 		238954A02BA1A34B000DB771 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		238954A22BA1A3A5000DB771 /* PassCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassCardView.swift; sourceTree = "<group>"; };
 		238954A42BA1A3D7000DB771 /* ThatsNotAHat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThatsNotAHat.swift; sourceTree = "<group>"; };
 		238954A62BA1A404000DB771 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		238954A82BA1A41D000DB771 /* ThatsNotAHatGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThatsNotAHatGame.swift; sourceTree = "<group>"; };
@@ -112,7 +110,6 @@
 				238954A62BA1A404000DB771 /* PlayerView.swift */,
 				238954AA2BA1A443000DB771 /* CardStackView.swift */,
 				23E2820C2BA9AF9C008F30C8 /* GameStartView.swift */,
-				238954A22BA1A3A5000DB771 /* PassCardView.swift */,
 				238954AC2BA1A45B000DB771 /* PlayerChoosesView.swift */,
 				238954B22BA1B5FD000DB771 /* IdleView.swift */,
 				238954A82BA1A41D000DB771 /* ThatsNotAHatGame.swift */,
@@ -242,7 +239,6 @@
 				23FA8CAD2BA43F6100A1D0E8 /* Temporal.swift in Sources */,
 				238954A92BA1A41D000DB771 /* ThatsNotAHatGame.swift in Sources */,
 				238954A52BA1A3D7000DB771 /* ThatsNotAHat.swift in Sources */,
-				238954A32BA1A3A5000DB771 /* PassCardView.swift in Sources */,
 				23FA8CAF2BA43F7000A1D0E8 /* Tokenizer.swift in Sources */,
 				238954B32BA1B5FD000DB771 /* IdleView.swift in Sources */,
 				238954A12BA1A34B000DB771 /* CardView.swift in Sources */,

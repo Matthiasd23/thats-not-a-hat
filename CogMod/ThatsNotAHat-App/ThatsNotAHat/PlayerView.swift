@@ -32,7 +32,7 @@ struct PlayerView: View{
                 // Add the second card
                 CardView(content: player.cardTwo!.content, isFaceUp: player.cardTwo!.isFaceUp, arrow: getArrow(rightArrow: player.cardTwo!.rightArrow, isBot: (player.id != 0)), cardState: true)
                 if includeMsg {
-                    Text("Thats a " + sayMessage)
+                    Text("Thats a " + sayMessage + "!")
                 }
             }
             else{
