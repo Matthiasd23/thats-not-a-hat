@@ -62,7 +62,7 @@ struct ThatsNotAHat<CardContent>{
     mutating func checkForLoser() {
         let loser = players.max(by: { $0.score < $1.score })
         // below checks if the loser 'exists', if no loser it says 0
-        if loser?.score ?? 0 >= 3 {
+        if loser?.score ?? 0 >= 5 {
             loserFound = true
         }
     }

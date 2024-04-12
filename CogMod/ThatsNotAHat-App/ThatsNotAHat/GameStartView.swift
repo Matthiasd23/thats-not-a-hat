@@ -19,7 +19,7 @@ struct GameStartView: View {
     // here the possible guesses should be added, right now it's hardcoded with random emojis. A function should be made for these to be determined. One that's the actual card and the rest previous cards or random cards.
     @State private var guessItem = ""
     
-    
+
     var body: some View {
         if viewModel.loserFound {
             VStack {
@@ -31,10 +31,17 @@ struct GameStartView: View {
         }else{
             VStack {
                 HStack{
-                    PlayerView(player: viewModel.players[1], includeMsg: viewModel.players[1].isTurn, sayMessage: (viewModel.getMessage()))// bot 1. When it is the bot's turn, show the message of their guess.
-                    Spacer()
-                    PlayerView(player: viewModel.players[2], includeMsg: viewModel.players[2].isTurn, sayMessage: (viewModel.getMessage())) // bot 2
-                    
+                    // following if-else statment controls when the bots say their card out loud (shows under the bot's cards)
+                    if(viewModel.players[0].decision) {
+                        PlayerView(player: viewModel.players[1], includeMsg: viewModel.players[1].isTurn, sayMessage: (viewModel.getMessage()))// bot 1
+                        Spacer()
+                        PlayerView(player: viewModel.players[2], includeMsg: viewModel.players[2].isTurn, sayMessage: (viewModel.getMessage())) // bot 2
+                    }
+                    else {
+                        PlayerView(player: viewModel.players[1], includeMsg: false)// bot 1. When it is the bot's turn, show the message of their guess.
+                        Spacer()
+                        PlayerView(player: viewModel.players[2], includeMsg: false) // bot 2
+                    }
                 }
                 CardStackView(idle: true) // middle card stack
                 
@@ -79,7 +86,7 @@ struct GameStartView: View {
                         .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
                         .background(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=View@*/Color.white/*@END_MENU_TOKEN@*/)
                         
-                        Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or
+                        Button("Confirm") { // Pressing this should pass the card and trigger the bot to start deciding if he accepts or declines
                             viewModel.updateMessage(claim: guessItem, id: 0)
                             viewModel.passingCard()
                             self.showGuessOptions = false
